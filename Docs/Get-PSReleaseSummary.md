@@ -16,8 +16,9 @@ Get-PSReleaseSummary
 ```
 
 ## DESCRIPTION
-This command will query the PowerShell GitHub repository for the latest release information.
+This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command.
 
+The output is a text report.
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------

@@ -10,7 +10,9 @@ The module currently has 3 commands:
 
 - [Get-PSReleaseSummary](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseSummary.md)
 - [Get-PSReleaseAsset](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseAsset.md)
-- [Save-PSRelease](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Save-PSRelease.md)
+- [Save-PSReleaseAsset](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Save-PSReleaseAsset.md)
+
+> Note: I renamed the save command to use the same noun as `Get-PSReleaseAsset` for consistency after I took the screen shots.
 
 All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217034" target="_blank">Invoke-RestMethod</a> or <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217035" target="_blank">Invoke-WebRequest</a>, allow you to programmatically interact with GitHub.
 
@@ -34,14 +36,20 @@ You can select multiple names. If you select only Windows names then there is a 
 
 <a href="http://jdhitsolutions.com/blog/wp-content/uploads/2017/01/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://jdhitsolutions.com/blog/wp-content/uploads/2017/01/image_thumb-4.png" alt="image" width="644" height="54" border="0" /></a>
 
-I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details before downloading. Since you have those objects, why not be able to pipe them to the save command? The command has Filename, Size and URL parameters which accept pipeline input by property name so that you can pipe like this to `Save-PSRelease`:
+I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details before downloading. Since you have those objects, why not be able to pipe them to the save command? The command has Filename, Size and URL parameters which accept pipeline input by property name so that you can pipe like this to `Save-PSReleaseAsset`:
 
 <a href="http://jdhitsolutions.com/blog/wp-content/uploads/2017/01/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://jdhitsolutions.com/blog/wp-content/uploads/2017/01/image_thumb-5.png" alt="image" width="644" height="251" border="0" /></a>
 
 By the way, I'm using the file size to test if the file downloaded completely. I know there are hashes in the release page but I didn't feel like trying to parse them out and I can't find them anywhere else. Using the file size seems to work just fine.
 
+## PowerShell Gallery
+This module has been published to the PowerShell Gallery. You should be able to run these commands to find and install it.
+
+    Find-Module PSReleaseTools
+    Install-Module PSReleaseTools
+    
 ## Roadmap
-Eventually I will publish this to the PowerShell Gallery. I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue.
+I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue.
 
 ****************************************************************
 DO NOT USE IN A PRODUCTION ENVIRONMENT UNTIL YOU HAVE TESTED 

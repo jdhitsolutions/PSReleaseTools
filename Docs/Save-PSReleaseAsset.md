@@ -4,7 +4,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Save-PSRelease
+# Save-PSReleaseAsset
 
 ## SYNOPSIS
 Download the latest PowerShell v6 alpha releases
@@ -13,17 +13,17 @@ Download the latest PowerShell v6 alpha releases
 
 ### All (Default)
 ```
-Save-PSRelease [[-Path] <String>] [-All] [-Passthru] [-WhatIf] [-Confirm]
+Save-PSReleaseAsset [[-Path] <String>] [-All] [-Passthru] [-WhatIf] [-Confirm]
 ```
 
 ### Name
 ```
-Save-PSRelease [[-Path] <String>] -Name <String[]> [-Passthru] [-WhatIf] [-Confirm]
+Save-PSReleaseAsset [[-Path] <String>] -Name <String[]> [-Passthru] [-WhatIf] [-Confirm]
 ```
 
 ### File
 ```
-Save-PSRelease [[-Path] <String>] -Filename <String> -Size <String> -URL <String> [-Passthru] [-WhatIf]
+Save-PSReleaseAsset [[-Path] <String>] -Filename <String> -Size <String> -URL <String> [-Passthru] [-WhatIf]
  [-Confirm]
 ```
 
@@ -38,22 +38,22 @@ Note that this will not work if you specify a combination of Windows and non-Win
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> Save-PSRelease F:\PS6 -all
+PS C:\> Save-PSReleaseAsset F:\PS6 -all
 ```
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-PS C:\> Save-PSRelease -path F:\PS6 -name Win10 -format msi
+PS C:\> Save-PSReleaseAsset -path F:\PS6 -name Win10 -format msi
 ```
 
 ### -------------------------- EXAMPLE 3 --------------------------
 ```
-PS C:\> Save-PSRelease -path F:\PS6 -name Ubuntu14,Ubuntu16,CentOS
+PS C:\> Save-PSReleaseAsset -path F:\PS6 -name Ubuntu14,Ubuntu16,CentOS
 ```
 
 ### -------------------------- EXAMPLE 4 --------------------------
 ```
-PS C:\> Get-PSReleaseAsset -Family Ubuntu | Save-PSRelease -path D:\Temp
+PS C:\> Get-PSReleaseAsset -Family Ubuntu | Save-PSReleaseAsset -path D:\Temp
 ```
 
 Get the Ubuntu assets and save them to D:\Temp

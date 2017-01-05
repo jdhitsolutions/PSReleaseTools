@@ -18,7 +18,7 @@ Get-PSReleaseAsset [[-Family] <String[]>]
 ## DESCRIPTION
 Use this command to get details about the different PowerShell release assets. The default is to get all assets but you can limit results to a particular family like Windows or Ubuntu.
 
-This command will not download the file but allow you to look at the details. You can pipe these results to Save-PSRelease to download.
+This command will not download the file but allow you to look at the details. You can pipe these results to Save-PSReleaseAsset to download.
 
 ## EXAMPLES
 
@@ -39,7 +39,7 @@ DownloadCount : 2362
 ```
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-PS C:\> Get-PSReleaseAsset -Family Windows | Where format -eq 'zip' | Save-PSRelease -path F:\PS6 -whatif
+PS C:\> Get-PSReleaseAsset -Family Windows | Where format -eq 'zip' | Save-PSReleaseAsset -path F:\PS6 -whatif
 
 What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/downloa
 d/v6.0.0-alpha.14/powershell-6.0.0-alpha.14-win10-x64.zip" on target "F:\PS6\powershell-6.0.0-alpha.14-w
@@ -88,4 +88,4 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 
 ## RELATED LINKS
-[Save-PSRelease]()
+[Save-PSReleaseAsset]()

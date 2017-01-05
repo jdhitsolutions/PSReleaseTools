@@ -50,7 +50,7 @@ End {
 
 }
 
-Function Save-PSRelease {
+Function Save-PSReleaseAsset {
 
 [cmdletbinding(DefaultParameterSetName="All",SupportsShouldProcess)]
 Param(

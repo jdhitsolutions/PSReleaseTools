@@ -12,20 +12,20 @@ Describe PSReleaseTools {
     }
 
     It "Has a README.md file" {
-        get-item -Path $modroot\README.md | Should Be $True
+        Get-Item -Path $modroot\README.md | Should Be $True
     }
     Context Manifest {
         
     It "Has a manifest" {
-        get-item -Path $modroot\PSReleaseTools.psd1 | Should Be $True
+        Get-Item -Path $modroot\PSReleaseTools.psd1 | Should Be $True
     }
 
     It "Has a license URI" {
-        (Get-module psreleasetools).PrivateData["PSData"]["LicenseUri"] | Should be $True
+        (Get-Module psreleasetools).PrivateData["PSData"]["LicenseUri"] | Should be $True
     }
 
     It "Has a project URI" {
-        (Get-module psreleasetools).PrivateData["PSData"]["ProjectUri"] | Should be $True
+        (Get-Module psreleasetools).PrivateData["PSData"]["ProjectUri"] | Should be $True
     }
     
     } #context
@@ -74,8 +74,8 @@ Describe Get-PSReleaseSummary {
     }
 }
 
-Describe Save-PSRelease {
-    It "Has no tests defined" {
+Describe Save-PSReleaseAsset {
+    It "Has no tests defined at this time." {
      $true | should be $True
     }
 }

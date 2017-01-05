@@ -1,5 +1,11 @@
 #Changelog for PSReleaseTools
 
+v0.3.0
+Renamed Save-PSRelease to Save-PSReleaseAsset for consistency (Issue #1)
+Updated documentation
+Updated manifest
+Published to PSGallery
+
 v0.2.0
 Added external documentation
 
