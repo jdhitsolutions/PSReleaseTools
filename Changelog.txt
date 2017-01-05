@@ -1,5 +1,8 @@
 #Changelog for PSReleaseTools
 
+v0.2.0
+Added external documentation
+
 v0.1.0
 Initial module release
 updated license copyright
