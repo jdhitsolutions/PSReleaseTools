@@ -1,4 +1,4 @@
-#requires -version 5.0
+#requires -version 5.0.0.0
 
 #region Main
 

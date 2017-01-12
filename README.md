@@ -48,6 +48,8 @@ This module has been published to the PowerShell Gallery. You should be able to 
 
     Find-Module PSReleaseTools
     Install-Module PSReleaseTools
+
+If you are on an alpha build of PowerShell v6 and get an error about semantic version, you may need to manually update to the current release and then install this module.
     
 ## Roadmap
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue.
