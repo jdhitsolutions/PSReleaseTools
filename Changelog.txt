@@ -1,5 +1,8 @@
 #Changelog for PSReleaseTools
 
+v0.4.0.2
+fixed semantic versioning in the manifest
+
 v0.4.0.1
 Changed to semantic versioning
 
