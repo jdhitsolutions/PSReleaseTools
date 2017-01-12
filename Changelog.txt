@@ -1,5 +1,8 @@
 #Changelog for PSReleaseTools
 
+v0.4.0.1
+Changed to semantic versioning
+
 v0.4.0
 updated author name in manifest
 Added Get-PSReleaseCurrent
