@@ -6,11 +6,12 @@ This PowerShell module provides a set of commands for working with the latest re
 Initial testing has indicated that this module should work cross-platform. If you are running one of the alpha builds of PowerShell v6, even on Linux, you should be able to use this module to download new versions.
 
 ## Notes
-The module currently has 3 commands:
+The module currently has 4 commands:
 
-- [Get-PSReleaseSummary](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseSummary.md)
-- [Get-PSReleaseAsset](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseAsset.md)
-- [Save-PSReleaseAsset](https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Save-PSReleaseAsset.md)
+- [Get-PSReleaseSummary](.\docs\Get-PSReleaseSummary.md)
+- [Get-PSReleaseCurrent](.\docs\Get-PSReleaseCurrent.md)
+- [Get-PSReleaseAsset](.\docs\Get-PSReleaseAsset.md)
+- [Save-PSReleaseAsset](.docs\Save-PSReleaseAsset.md)
 
 > Note: I renamed the save command to use the same noun as `Get-PSReleaseAsset` for consistency after I took the screen shots.
 
@@ -58,4 +59,4 @@ NOT UNDERSTAND WHAT THIS CODE DOES OR HOW IT WORKS, DO NOT USE
 OUTSIDE OF A SECURE, TEST SETTING.      
 ****************************************************************
 
-*Last updated 5 January 2017*
+*Last updated 12 January 2017*
