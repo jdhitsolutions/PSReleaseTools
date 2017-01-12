@@ -2,6 +2,46 @@
 
 #region Main
 
+Function Get-PSReleaseCurrent {
+[cmdletbinding()]
+Param()
+
+Begin {
+    Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
+    
+    $uri = "https://api.github.com/repos/powershell/powershell/releases/latest"
+
+} #begin
+
+Process {
+    Write-Verbose "[PROCESS] Getting current release information from $uri"
+    $data = Invoke-Restmethod -uri $uri -Method Get
+
+    #get the local version from the GitCommitID on v6 platforms
+    #or PSVersion table for everything else
+    if ($PSVersionTable.ContainsKey("GitCommitID")) {
+        $local = $PSVersionTable.GitCommitID
+    }
+    else {
+        $Local = $PSVersionTable.PSVersion
+    }
+
+    if ($data.tag_name) {
+    [pscustomobject]@{
+        Name = $data.name
+        Version = $data.tag_name
+        Released = $($data.published_at -as [datetime])
+        LocalVersion = $local
+      }
+   } 
+} #process
+
+End {
+    Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+} #end
+
+} 
+ 
 Function Get-PSReleaseSummary {
 
 [cmdletbinding()]

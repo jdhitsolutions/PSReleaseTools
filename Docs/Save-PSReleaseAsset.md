@@ -13,26 +13,24 @@ Download the latest PowerShell v6 alpha releases
 
 ### All (Default)
 ```
-Save-PSReleaseAsset [[-Path] <String>] [-All] [-Passthru] [-WhatIf] [-Confirm]
+Save-PSReleaseAsset [[-Path] <String>] [-All] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Name
 ```
-Save-PSReleaseAsset [[-Path] <String>] -Name <String[]> [-Passthru] [-WhatIf] [-Confirm]
+Save-PSReleaseAsset [[-Path] <String>] -Name <String[]> [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### File
 ```
 Save-PSReleaseAsset [[-Path] <String>] -Filename <String> -Size <String> -URL <String> [-Passthru] [-WhatIf]
- [-Confirm]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This command will download the latest PowerShell v6 alpha releases from the GitHub repository.
-You can download everything or limit the download to specific platforms.
+This command will download the latest PowerShell v6 alpha releases from the GitHub repository. You can download everything or limit the download to specific platforms.
 
-If you select Windows files you can use the -Format dynamic parameter to download only MSI or ZIP files.
-Note that this will not work if you specify a combination of Windows and non-Windows platforms.
+If you select Windows files you can use the -Format dynamic parameter to download only MSI or ZIP files. Note that this will not work if you specify a combination of Windows and non-Windows platforms.
 
 ## EXAMPLES
 
@@ -153,8 +151,6 @@ Accept wildcard characters: False
 ```
 
 ### -Passthru
-
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -198,10 +194,15 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
+
 ### system.string
 
 ## OUTPUTS
+
 ### system.io.fileinfo
 
 ## NOTES
@@ -209,5 +210,7 @@ Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [Invoke-WebRequest]()
+
 [Get-PSReleaseAsset]()

@@ -12,13 +12,14 @@ Get information on latest PowerShell v6 alpha release
 ## SYNTAX
 
 ```
-Get-PSReleaseSummary
+Get-PSReleaseSummary [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command.
 
 The output is a text report.
+
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
@@ -95,10 +96,15 @@ PowerShell_6.0.0.14-alpha.14-win81-x64.msi           12/14/2016 8:48:23 PM     4
 
 ## PARAMETERS
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
+
 ### None
 
 ## OUTPUTS
+
 ### system.string
 
 ## NOTES
@@ -106,4 +112,7 @@ Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+[Get-PSReleaseCurrent]()
+
 [Invoke-Restmethod]()
+

@@ -1,5 +1,10 @@
 #Changelog for PSReleaseTools
 
+v0.4.0
+updated author name in manifest
+Added Get-PSReleaseCurrent
+Updated help
+
 v0.3.0
 Renamed Save-PSRelease to Save-PSReleaseAsset for consistency (Issue #1)
 Updated documentation
