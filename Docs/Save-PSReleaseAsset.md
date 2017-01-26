@@ -23,7 +23,7 @@ Save-PSReleaseAsset [[-Path] <String>] -Name <String[]> [-Passthru] [-WhatIf] [-
 
 ### File
 ```
-Save-PSReleaseAsset [[-Path] <String>] -Filename <String> -Size <String> -URL <String> [-Passthru] [-WhatIf]
+Save-PSReleaseAsset [[-Path] <String>] -Filename <String> -Hash <String> -URL <String> [-Passthru] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -119,9 +119,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Size
-The target size for the download release.
-If the actual download does not match this value you will get a warning.
+### -Hash
+The SHA256 file hash. If the actual download does not match this value you will get a warning.
 
 ```yaml
 Type: String

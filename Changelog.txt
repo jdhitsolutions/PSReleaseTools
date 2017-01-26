@@ -1,5 +1,12 @@
 #Changelog for PSReleaseTools
 
+v0.5.0.0
+modified download to pull file hashes from summary
+and compare them to downloaded files. This is BREAKING CHANGE.
+Updated Get-PSReleaseAsset to include the SHA256 hash
+Updated help
+updated README
+
 v0.4.0.2
 fixed semantic versioning in the manifest
 

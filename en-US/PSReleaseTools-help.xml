@@ -101,6 +101,65 @@ in81-x64.zip".</dev:code>
 </command:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Get-PSReleaseCurrent</command:name>
+<command:verb>Get</command:verb>
+<command:noun>PSReleaseCurrent</command:noun>
+<maml:description><maml:para>Get the current PowerShell v6 release
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>This command will query the GitHub repository for the latest release and write an object to the pipeline. 
+</maml:para>
+<maml:para>If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Get-PSReleaseCurrent</maml:name>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters></command:parameters>
+<command:inputTypes><command:inputType><dev:type><maml:name>None</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:inputType>
+</command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>System.Object</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Get-PSReleaseCurrent
+Name                                  Version         Released              LocalVersion 
+----                                  -------         --------              ------------ 
+v6.0.0-alpha.14 release of PowerShell v6.0.0-alpha.14 12/15/2016 2:51:53 PM 5.0.10586.117</dev:code>
+<dev:remarks><maml:para>This gets the current release from a Windows platform.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Get-PSReleaseCurrent
+Name                                  Version         Released              LocalVersion 
+----                                  -------         --------              ------------ 
+v6.0.0-alpha.14 release of PowerShell v6.0.0-alpha.14 12/15/2016 2:51:53 PM v6.0.0-alpha.9</dev:code>
+<dev:remarks><maml:para>This gets the current release from an ubuntu platform.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Get-PSReleaseSummary</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
 <command:details><command:name>Get-PSReleaseSummary</command:name>
 <command:verb>Get</command:verb>
 <command:noun>PSReleaseSummary</command:noun>
@@ -209,7 +268,10 @@ PowerShell_6.0.0.14-alpha.14-win81-x64.msi           12/14/2016 8:48:23 PM     4
 </dev:remarks>
 </command:example>
 </command:examples>
-<command:relatedLinks><maml:navigationLink><maml:linkText>Invoke-Restmethod</maml:linkText>
+<command:relatedLinks><maml:navigationLink><maml:linkText>Get-PSReleaseCurrent</maml:linkText>
+<maml:uri></maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>Invoke-Restmethod</maml:linkText>
 <maml:uri></maml:uri>
 </maml:navigationLink>
 </command:relatedLinks>
@@ -333,8 +395,8 @@ PowerShell_6.0.0.14-alpha.14-win81-x64.msi           12/14/2016 8:48:23 PM     4
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Size</maml:name>
-<maml:Description><maml:para>The target size for the download release. If the actual download does not match this value you will get a warning.
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Hash</maml:name>
+<maml:Description><maml:para>The SHA256 file hash. If the actual download does not match this value you will get a warning.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -413,8 +475,8 @@ PowerShell_6.0.0.14-alpha.14-win81-x64.msi           12/14/2016 8:48:23 PM     4
 <maml:uri /></dev:type>
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
-<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Size</maml:name>
-<maml:Description><maml:para>The target size for the download release. If the actual download does not match this value you will get a warning.
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none"><maml:name>Hash</maml:name>
+<maml:Description><maml:para>The SHA256 file hash. If the actual download does not match this value you will get a warning.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>

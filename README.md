@@ -41,7 +41,7 @@ I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details b
 
 <a href="http://jdhitsolutions.com/blog/wp-content/uploads/2017/01/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="http://jdhitsolutions.com/blog/wp-content/uploads/2017/01/image_thumb-5.png" alt="image" width="644" height="251" border="0" /></a>
 
-By the way, I'm using the file size to test if the file downloaded completely. I know there are hashes in the release page but I didn't feel like trying to parse them out and I can't find them anywhere else. Using the file size seems to work just fine.
+The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them. 
 
 ## PowerShell Gallery
 This module has been published to the PowerShell Gallery. You should be able to run these commands to find and install it.
@@ -61,4 +61,4 @@ NOT UNDERSTAND WHAT THIS CODE DOES OR HOW IT WORKS, DO NOT USE
 OUTSIDE OF A SECURE, TEST SETTING.      
 ****************************************************************
 
-*Last updated 12 January 2017*
+*Last updated 26 January 2017*

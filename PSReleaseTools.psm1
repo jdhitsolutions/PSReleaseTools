@@ -113,7 +113,7 @@ else {
 [Parameter(ParameterSetName="File",Mandatory,ValueFromPipelineByPropertyName)]
 [string]$Filename,
 [Parameter(ParameterSetName="File",Mandatory,ValueFromPipelineByPropertyName)]
-[string]$Size,
+[string]$Hash,
 [Parameter(ParameterSetName="File",Mandatory,ValueFromPipelineByPropertyName)]
 [string]$URL,
 [switch]$Passthru
@@ -129,26 +129,28 @@ Begin {
     Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
     #display PSBoundparameters formatted nicely for Verbose output  
     [string]$pb = ($PSBoundParameters | Format-Table -AutoSize | Out-String).TrimEnd()
-    Write-Verbose "[BEGIN  ] PSBoundparameters: `n$($pb.split("`n").Foreach({"$("`t"*2)$_"}) | Out-String) `n" 
+    Write-Verbose "[BEGIN  ] PSBoundparameters: `n$($pb.split("`n").Foreach({"$("`t"*2)$_"}) | 
+    Out-String) `n" 
     
     $uri = "https://api.github.com/repos/powershell/powershell/releases/latest"
 
     #define an internal function to download the file
     Function DL {
     [cmdletbinding(SupportsShouldProcess)]
-    Param([string]$Source,[string]$Destination,[int32]$Size,[switch]$Passthru)
+    Param([string]$Source,[string]$Destination,[string]$hash,[switch]$Passthru)
 
         Write-Verbose "[DL] $Source to $Destination"
         
         if ($pscmdlet.ShouldProcess($Destination,"Downloading $source")) {
             Invoke-Webrequest -Uri $source -UseBasicParsing -DisableKeepAlive -OutFile $Destination
-            $f = get-item -Path $Destination
-            if ($f.Length -ne $size) {
-                Write-Warning "$Destination may be incomplete"
+            Write-Verbose "[DL] Comparing file hash to $hash"
+            $f = Get-FileHash -Path $Destination -Algorithm SHA256
+            if ($f.hash -ne $hash) {
+                Write-Warning "Hash mismatch. $Destination may be incomplete"
             }
 
             if ($passthru) {
-                $f
+                get-item $Destination
             }
         } #should process
     } #DL
@@ -168,13 +170,21 @@ Process {
     }
 
     if ($data.assets) {
+
+    #parse out file names and hashes
+    [regex]$rx="(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
+    $r = $rx.Matches($data.body)
+    $r | foreach -Begin {$h=@{}} -process {
+     $h.add($_.groups["file"].value.trim(),$_.groups["hash"].value.trim())
+     }
+     
       Switch ($PSCmdlet.ParameterSetName) {
       "All" {
         Write-Verbose "[PROCESS] Downloading all releases to $Path"
         foreach ($asset in $data.assets) {
             Write-Verbose "[PROCESS] ...$($Asset.name)"
             $target = Join-Path -Path $path -ChildPath $asset.Name
-            DL -source $asset.browser_download_url -Destination $Target -Size $asset.size -passthru:$passthru
+            DL -source $asset.browser_download_url -Destination $Target -hash $h.item($asset.name) -passthru:$passthru
         } 
       }
       "Name" {
@@ -182,14 +192,14 @@ Process {
         Foreach ($item in $name) {
 
             Switch ($item) {
-            "Win7-x86"  { $assets = $data.assets.where({$_.name -match 'Win7-x86'})}
-            "Win7-x64" { $assets = $data.assets.where({$_.name -match 'Win7-x64'}) }
-            "Win81" { $assets = $data.assets.where({$_.name -match 'Win81'})}
-            "Win10" { $assets = $data.assets.where({$_.name -match 'Win10'}) }
-            "MacOS" { $assets = $data.assets.where({$_.name -match 'pkg'}) }
-            "Ubuntu14" { $assets = $data.assets.where({$_.name -match 'ubuntu.*14'})  }
-            "Ubuntu16" { $assets = $data.assets.where({$_.name -match 'ubuntu.*16'}) }
-            "CentOS" { $assets = $data.assets.where({$_.name -match 'centos'}) }
+                "Win7-x86"  { $assets = $data.assets.where({$_.name -match 'Win7-x86'})}
+                "Win7-x64" { $assets = $data.assets.where({$_.name -match 'Win7-x64'}) }
+                "Win81" { $assets = $data.assets.where({$_.name -match 'Win81'})}
+                "Win10" { $assets = $data.assets.where({$_.name -match 'Win10'}) }
+                "MacOS" { $assets = $data.assets.where({$_.name -match 'pkg'}) }
+                "Ubuntu14" { $assets = $data.assets.where({$_.name -match 'ubuntu.*14'})  }
+                "Ubuntu16" { $assets = $data.assets.where({$_.name -match 'ubuntu.*16'}) }
+                "CentOS" { $assets = $data.assets.where({$_.name -match 'centos'}) }
             } #Switch
 
             
@@ -202,14 +212,14 @@ Process {
             foreach ($asset in $Assets) {
                 Write-Verbose "[PROCESS] ...$($asset.name)"
                 $target = Join-Path -Path $path -ChildPath $asset.Name
-                DL -source $asset.browser_download_url -Destination $Target -Size $asset.size -passthru:$passthru
+                DL -source $asset.browser_download_url -Destination $Target -hash $h.item($asset.name) -passthru:$passthru
             } #foreach asset
         } #foreach name
       }
       "File" {
                 Write-Verbose "[PROCESS] ...$($filename)"
                 $target = Join-Path -Path $path -ChildPath $fileName
-                DL -source $url -Destination $Target -Size $size -passthru:$passthru
+                DL -source $url -Destination $Target -hash $h.item($filename) -passthru:$passthru
              }
       } #switch parameter set name
     } else {
@@ -242,6 +252,13 @@ Process {
     Try {
         $data = Invoke-Restmethod -uri $uri -Method Get -ErrorAction Stop
         
+        #parse out file names and hashes
+        [regex]$rx="(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
+        $r = $rx.Matches($data.body)
+        $r | foreach -Begin {$h=@{}} -process {
+            $h.add($_.groups["file"].value.trim(),$_.groups["hash"].value.trim())
+        }
+
         Write-Verbose "[PROCESS] Found $($data.assets.count) downloads"
         $assets = $data.assets | Select @{Name="FileName";Expression={$_.Name}},
         @{Name="Family";Expression={
@@ -255,7 +272,7 @@ Process {
         @{Name="Format";Expression={
           $_.name.split(".")[-1]
         }},
-        Size,
+        @{Name="Hash";Expression = {$h.item($_.name)}},
         @{Name="Created";Expression={$_.Created_at -as [datetime]}},
         @{Name="Updated";Expression={$_.Updated_at -as [datetime]}},
         @{Name="URL";Expression={$_.browser_download_Url}},
@@ -267,7 +284,7 @@ Process {
         else {
             $assets
         }
-    } #Trye
+    } #Try
     catch {
         Throw $_
     }
