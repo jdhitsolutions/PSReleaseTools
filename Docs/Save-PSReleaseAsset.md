@@ -7,7 +7,7 @@ schema: 2.0.0
 # Save-PSReleaseAsset
 
 ## SYNOPSIS
-Download the latest PowerShell v6 alpha releases
+Download the latest PowerShell v6 beta releases
 
 ## SYNTAX
 
@@ -96,7 +96,7 @@ Select one or more platforms.
 Type: String[]
 Parameter Sets: Name
 Aliases: 
-
+Accepted Values: AppImage,CentOS,MacOS,Suse,Ubuntu14,Ubuntu16,Win10,Win7-x64,Win7-x86,Win81
 Required: True
 Position: Named
 Default value: None

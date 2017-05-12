@@ -298,6 +298,7 @@ Process {
         @{Name="Format";Expression={
           $_.name.split(".")[-1]
         }},
+        @{Name="SizeMB";Expression = {$h.size -as [int32]}},
         @{Name="Hash";Expression = {$h.item($_.name)}},
         @{Name="Created";Expression={$_.Created_at -as [datetime]}},
         @{Name="Updated";Expression={$_.Updated_at -as [datetime]}},
