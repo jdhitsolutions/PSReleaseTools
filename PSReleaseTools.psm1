@@ -1,4 +1,4 @@
-#requires -version 5.0.0.0
+#requires -version 5.0
 
 #region Main
 
@@ -107,7 +107,7 @@ else {
 [Parameter(ParameterSetName="All")]
 [switch]$All,
 [Parameter(ParameterSetName="Name",Mandatory)]
-[ValidateSet("Win7-x86","Win7-x64","Win81","Win10","MacOS","Ubuntu14","Ubuntu16","CentOS")]
+[ValidateSet("Win7-x86","Win7-x64","Win81","Win10","MacOS","Ubuntu14","Ubuntu16","CentOS","Suse","AppImage")]
 [ValidateNotNullorEmpty()]
 [string[]]$Name,
 [Parameter(ParameterSetName="File",Mandatory,ValueFromPipelineByPropertyName)]
@@ -118,11 +118,33 @@ else {
 [string]$URL,
 [switch]$Passthru
 )
-DynamicParam {    if ($Name -match 'Win') {        #define a parameter attribute object        $attributes = New-Object System.Management.Automation.ParameterAttribute        $attributes.ValueFromPipelineByPropertyName= $True        $attributes.HelpMessage = "Select a download format"        $attributes.ParameterSetName = "Name"        $attributes.DontShow = $False        $validate = [System.Management.Automation.ValidateSetAttribute]::New("zip","msi")                #define a collection for attributes        $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
-        $attributeCollection.Add($attributes)        $attributeCollection.Add($validate)        #define the dynamic param        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("Format", [string], $attributeCollection)                #create array of dynamic parameters        $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+DynamicParam {
+    if ($Name -match 'Win') {
+        #define a parameter attribute object
+        $attributes = New-Object System.Management.Automation.ParameterAttribute
+        $attributes.ValueFromPipelineByPropertyName= $True
+        $attributes.HelpMessage = "Select a download format"
+        $attributes.ParameterSetName = "Name"
+        $attributes.DontShow = $False
+
+        $validate = [System.Management.Automation.ValidateSetAttribute]::New("zip","msi")
+        
+        #define a collection for attributes
+        $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+        $attributeCollection.Add($attributes)
+        $attributeCollection.Add($validate)
+
+        #define the dynamic param
+        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("Format", [string], $attributeCollection)
+        
+        #create array of dynamic parameters
+        $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
         $paramDictionary.Add("Format", $dynParam1)
         #use the array
-        return $paramDictionary         } #if  } #dynamic parameter
+        return $paramDictionary     
+
+    } #if
+  } #dynamic parameter
 
 
 Begin {
@@ -200,6 +222,8 @@ Process {
                 "Ubuntu14" { $assets = $data.assets.where({$_.name -match 'ubuntu.*14'})  }
                 "Ubuntu16" { $assets = $data.assets.where({$_.name -match 'ubuntu.*16'}) }
                 "CentOS" { $assets = $data.assets.where({$_.name -match 'centos'}) }
+                "Suse"  { $assets = $data.assets.where({$_.name -match 'suse'}) }
+                "AppImage" { $assets = $data.assets.where({$_.name -match 'appimage'}) }
             } #Switch
 
             
@@ -236,7 +260,7 @@ End {
 Function Get-PSReleaseAsset {
 [cmdletbinding()]
 Param(
-[ValidateSet("Windows","Ubuntu","MacOS","CentOS")]
+[ValidateSet("Windows","Ubuntu","MacOS","CentOS","Suse","AppImage")]
 [string[]]$Family
 )
 
@@ -255,7 +279,7 @@ Process {
         #parse out file names and hashes
         [regex]$rx="(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
         $r = $rx.Matches($data.body)
-        $r | foreach -Begin {$h=@{}} -process {
+        $r | foreach-object -Begin {$h=@{}} -process {
             $h.add($_.groups["file"].value.trim(),$_.groups["hash"].value.trim())
         }
 
@@ -267,6 +291,8 @@ Process {
           "Ubuntu" {"Ubuntu"}
           "pkg" {"MacOS"}
           "centos" {"CentOS"}
+          "suse" {"Suse"}
+          "appimage" {"AppImage"}
          }
         }},
         @{Name="Format";Expression={
@@ -281,6 +307,7 @@ Process {
         if ($Family) {
             $assets.where({$_.family -match $($family -join "|")})
         }
+        
         else {
             $assets
         }

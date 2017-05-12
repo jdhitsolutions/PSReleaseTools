@@ -1,5 +1,10 @@
 #Changelog for PSReleaseTools
 
+v0.5.1.0
+added asset support for SUSE and AppImage
+minor changes to help documentation
+updated Pester tests
+
 v0.5.0.0
 modified download to pull file hashes from summary
 and compare them to downloaded files. This is BREAKING CHANGE.

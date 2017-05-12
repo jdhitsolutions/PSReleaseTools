@@ -1,23 +1,25 @@
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $modRoot = Split-Path -Parent $here | Convert-Path
 
+Write-Host "Importing module from $script:modroot" -ForegroundColor magenta
 Import-Module $modRoot -Force
-
 
 InModuleScope PSReleaseTools {
 
+$modPath = get-module psreleasetools | select path | split-path
 Describe PSReleaseTools {
     It "Has exported commands" {
-        Get-Command -Module PSReleaseTools | Should Be $true
+        {Get-Command -Module PSReleaseTools} | Should Be $true
     }
 
     It "Has a README.md file" {
-        Get-Item -Path $modroot\README.md | Should Be $True
+        $f = Get-Item -Path $(Join-path -path $modpath -childpath README.md)
+        $f.name | Should Be "readme.md"
     }
     Context Manifest {
         
     It "Has a manifest" {
-        Get-Item -Path $modroot\PSReleaseTools.psd1 | Should Be $True
+        Get-Item -Path $modpath\PSReleaseTools.psd1 | Should Be $True
     }
 
     It "Has a license URI" {
@@ -41,7 +43,7 @@ Describe Get-PSReleaseAsset {
 
     $FamilyValues = (Get-Command Get-PSReleaseAsset).Parameters["Family"].Attributes.ValidValues
     It "Has a validation set for Family" {
-        $FamilyValues.count | Should Be 4
+        $FamilyValues.count | Should Be 6
     }
 
     It "Should fail with a bad Family value" {
@@ -53,15 +55,15 @@ Describe Get-PSReleaseAsset {
     }    
 
     It "Result should have a Filename property" {
-        $script:dl.Filename | Should Be $True
+        ($script:dl)[0].Filename | Should Be $True
     }
 
     It "Result should have an URL property with https" {
-        $Script:dl.url | Should Match "^https"
+        ($Script:dl)[0].url | Should Match "^https"
     }
 
-    It "Result should have an [int] Size property" {
-        $script:dl.size | Should BeOfType "System.Int32"
+    It "Result should have an [int] SizeMB property" {
+        ($script:dl)[0].sizeMB | Should BeOfType "System.Int32"
     }
 }
 

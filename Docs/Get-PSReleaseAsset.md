@@ -66,7 +66,7 @@ Limit search to a particular platform.
 Type: String[]
 Parameter Sets: (All)
 Aliases: 
-Accepted values: Windows, Ubuntu, MacOS, CentOS
+Accepted values: Windows, Ubuntu, MacOS, CentOS,Suse,AppImage
 
 Required: False
 Position: 0
