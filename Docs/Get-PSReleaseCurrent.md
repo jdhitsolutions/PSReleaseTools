@@ -1,6 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
-online version: 
+Module Name: PSReleaseTools
+online version:
 schema: 2.0.0
 ---
 
@@ -8,10 +9,11 @@ schema: 2.0.0
 
 ## SYNOPSIS
 Get the current PowerShell v6 release
+
 ## SYNTAX
 
 ```
-Get-PSReleaseCurrent
+Get-PSReleaseCurrent [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,22 +26,28 @@ If you are running v6 the LocalVersion property will reflect the GitCommitID so 
 ### Example 1
 ```
 PS C:\> Get-PSReleaseCurrent
-Name                                  Version         Released              LocalVersion 
-----                                  -------         --------              ------------ 
-v6.0.0-alpha.14 release of PowerShell v6.0.0-alpha.14 12/15/2016 2:51:53 PM 5.0.10586.117
+
+Name                              Version Released             LocalVersion
+----                              ------- --------             ------------
+v6.0.0 release of PowerShell Core v6.0.0  1/10/2018 5:21:29 PM 5.1.16299.98
 ```
+
 This gets the current release from a Windows platform.
 
 ### Example 2
 ```
-PS C:\> Get-PSReleaseCurrent
-Name                                  Version         Released              LocalVersion 
-----                                  -------         --------              ------------ 
-v6.0.0-alpha.14 release of PowerShell v6.0.0-alpha.14 12/15/2016 2:51:53 PM v6.0.0-alpha.9
+PS /home/me> Get-PSReleaseCurrent
+Name                              Version Released            LocalVersion
+----                              ------- --------            ------------
+v6.0.0 release of PowerShell Core v6.0.0  1/10/18 10:21:29 PM v6.0.0
 ```
-This gets the current release from an ubuntu platform.
+
+This gets the current release from an Ubuntu platform.
 
 ## PARAMETERS
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

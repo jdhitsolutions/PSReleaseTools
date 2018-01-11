@@ -1,6 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
-online version: 
+Module Name: PSReleaseTools
+online version:
 schema: 2.0.0
 ---
 
@@ -22,40 +23,30 @@ This command will not download the file but allow you to look at the details. Yo
 
 ## EXAMPLES
 
-### -------------------------- EXAMPLE 1 --------------------------
+### EXAMPLE 1
 ```
-PS C:\> Get-PSReleaseAsset -Family MacOS
+PS C:\> Get-PSReleaseAsset -Family Rhel
 
-FileName      : powershell-6.0.0-alpha.14.pkg
-Family        : MacOS
-Format        : pkg
-size          : 40461050
-Created       : 12/14/2016 7:24:10 PM
-Updated       : 12/14/2016 7:24:17 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.0.0-alpha.14/powershell-6
-                .0.0-alpha.14.pkg
-DownloadCount : 2362
-```
-
-### -------------------------- EXAMPLE 2 --------------------------
-```
-PS C:\> Get-PSReleaseAsset -Family Windows | Where format -eq 'zip' | Save-PSReleaseAsset -path F:\PS6 -whatif
-
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/downloa
-d/v6.0.0-alpha.14/powershell-6.0.0-alpha.14-win10-x64.zip" on target "F:\PS6\powershell-6.0.0-alpha.14-w
-in10-x64.zip".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/downloa
-d/v6.0.0-alpha.14/powershell-6.0.0-alpha.14-win7-x64.zip" on target "F:\PS6\powershell-6.0.0-alpha.14-wi
-n7-x64.zip".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/downloa
-d/v6.0.0-alpha.14/powershell-6.0.0-alpha.14-win7-x86.zip" on target "F:\PS6\powershell-6.0.0-alpha.14-wi
-n7-x86.zip".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/downloa
-d/v6.0.0-alpha.14/powershell-6.0.0-alpha.14-win81-x64.zip" on target "F:\PS6\powershell-6.0.0-alpha.14-w
-in81-x64.zip".
+FileName      : powershell-6.0.0-1.rhel.7.x86_64.rpm
+Family        : Rhel
+Format        : rpm
+SizeMB        : 49
+Hash          : BA625BA77D6E75550E227BF408325BFF25CFFBA1911AC74A8DC11154AEB8314F
+Created       : 1/10/2018 1:28:40 PM
+Updated       : 1/10/2018 1:28:46 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.0.0/powershell-6.0.0-1.rhel.7.x86_64.rpm
+DownloadCount : 230
 ```
 
-Run the command without -Whatif to actually download the files and save to F:\PS6
+### EXAMPLE 2
+```
+PS C:\> Get-PSReleaseAsset -Family ubuntu | Save-PSReleaseAsset -Path D:\PS6 -whatif
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.0.0/powershell_6.0.0-1.ubuntu.14.04_amd64.deb" on target "D:\PS6\powershell_6.0.0-1.ubuntu.14.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.0.0/powershell_6.0.0-1.ubuntu.16.04_amd64.deb" on target "D:\PS6\powershell_6.0.0-1.ubuntu.16.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.0.0/powershell_6.0.0-1.ubuntu.17.04_amd64.deb" on target "D:\PS6\powershell_6.0.0-1.ubuntu.17.04_amd64.deb".
+```
+
+Run the command without -Whatif to actually download the Ubuntu related files and save to D:\PS6
 
 ## PARAMETERS
 
@@ -65,8 +56,8 @@ Limit search to a particular platform.
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases: 
-Accepted values: Windows, Ubuntu, MacOS, CentOS,Suse,AppImage
+Aliases:
+Accepted values: Rhel,Raspbian,Ubuntu,Debian,Windows,AppImage,Arm,MacOS
 
 Required: False
 Position: 0

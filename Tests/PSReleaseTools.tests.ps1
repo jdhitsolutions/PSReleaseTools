@@ -6,7 +6,7 @@ Import-Module $modRoot -Force
 
 InModuleScope PSReleaseTools {
 
-$modPath = get-module psreleasetools | select path | split-path
+$modPath = get-module psreleasetools | select-object path | split-path
 Describe PSReleaseTools {
     It "Has exported commands" {
         {Get-Command -Module PSReleaseTools} | Should Be $true
@@ -43,7 +43,7 @@ Describe Get-PSReleaseAsset {
 
     $FamilyValues = (Get-Command Get-PSReleaseAsset).Parameters["Family"].Attributes.ValidValues
     It "Has a validation set for Family" {
-        $FamilyValues.count | Should Be 6
+        $FamilyValues.count | Should Be 8
     }
 
     It "Should fail with a bad Family value" {

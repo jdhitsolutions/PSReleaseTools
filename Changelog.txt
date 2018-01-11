@@ -1,5 +1,12 @@
 #Changelog for PSReleaseTools
 
+v0.6.0
+Updated to support GA for PowerShell 6 (Issue #4)
+Changed Save-PSReleaseAsset Name parameter to Family
+Modified Family values
+Updated documentation
+Updated screen shots and README.md
+
 v0.5.1.0
 added asset support for SUSE and AppImage
 minor changes to help documentation

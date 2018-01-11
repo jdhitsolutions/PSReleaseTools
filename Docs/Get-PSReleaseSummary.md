@@ -1,13 +1,14 @@
 ---
 external help file: PSReleaseTools-help.xml
-online version: 
+Module Name: PSReleaseTools
+online version:
 schema: 2.0.0
 ---
 
 # Get-PSReleaseSummary
 
 ## SYNOPSIS
-Get information on latest PowerShell v6 alpha release
+Get information on latest PowerShell v6 release
 
 ## SYNTAX
 
@@ -22,76 +23,105 @@ The output is a text report.
 
 ## EXAMPLES
 
-### -------------------------- EXAMPLE 1 --------------------------
+### EXAMPLE 1
 ```
 PS C:\> Get-PSReleaseSummary
 
-
 -----------------------------------------------------------
-Release  : v6.0.0-alpha.14
-Published: 12/15/2016 14:51:53 
+Release  : v6.0.0
+Published: 01/10/2018 17:21:29 
 -----------------------------------------------------------
-Here are the major changes:
+### Breaking changes
 
-- Moved to .NET Core 1.1
-- Add Windows performance counter cmdlets to PowerShell Core
-- Fix try/catch to choose the more specific exception handler
-- Fix issue reloading modules that define PowerShell classes
-- Add \`ValidateNotNullOrEmpty\` to approximately 15 parameters
-- \`New-TemporaryFile\` and \`New-Guid\` rewritten in C#
-- Enable client side PSRP on non-Windows platforms
-- \`Split-Path\` now works with UNC roots
-- Implicitly convert value assigned to XML property to string
-- Updates to \`Invoke-Command\` parameters when using SSH remoting transport
-- Fix \`Invoke-WebRequest\` with non-text responses on non-Windows platforms
-- \`Write-Progress\` performance improvement from \`alpha13\` reverted because it introduced crash with a race condition
+- Remove `sc` alias which conflicts with `sc.exe` (#5827)
+- Separate group policy settings and enable policy controlled logging in PowerShell Core (#5791)
 
-These are the SHA 256 hashes:
+### Engine updates and fixes
 
-- powershell-6.0.0-alpha.14.pkg
-  - 8fd7abc4ec1a2e4a28543b90a6ee60cd437d4b366b544c39b341a05276eb8ccf
-- powershell-6.0.0_alpha.14-1.el7.centos.x86_64.rpm
-  - 88e01ff76d89b8ed16468bbc8ef8fa51ecb4bb341adb878eec139319411e2da0
-- powershell_6.0.0-alpha.14-1ubuntu1.14.04.1_amd64.deb
-  - 402c3b6b51210b7e7700260cd5ea37f75ef56b97e4102a7ba62d431cb9879483
-- powershell_6.0.0-alpha.14-1ubuntu1.16.04.1_amd64.deb
-  - b5a177fda872d5af05b029b7b1071ab37b192323170e10d853ac250e69ff95da
-- powershell-6.0.0-alpha.14-win10-x64.zip
-  - 3F5FD873B6E3062D9741B019BC645E6F20999BE66B2FDAA4374495FEBEDD0E03
-- powershell-6.0.0-alpha.14-win7-x64.zip
-  - 689E59C8A97A7F6F136104A56BE397D9456D46069AA2C1121BBDA421C14852F8
-- powershell-6.0.0-alpha.14-win7-x86.zip
-  - DCB821299D8269989D8DCEAB5A45B4E7F959257CA5E640373C0675758C734505
-- powershell-6.0.0-alpha.14-win81-x64.zip
-  - F5410AA6BAC63C53B5DE5882591F11CED2772DEA5C4AD728C9F9BFDC1A5B4142
-- PowerShell_6.0.0.14-alpha.14-win10-x64.msi
-  - 503F3AD52223699765895D3E9615FBD7988194693BCB725BE90C9EF0CD594447
-- PowerShell_6.0.0.14-alpha.14-win7-x64.msi
-  - 19A94B7533A5A2292E5E8BFFAB0143AEF31867A531447EAADCAAE714121E541A
-- PowerShell_6.0.0.14-alpha.14-win7-x86.msi
-  - 3763A0D4E5859B16495CDA68279614E70A36FF51EA82148F302A54AC0D62E116
-- PowerShell_6.0.0.14-alpha.14-win81-x64.msi
-  - 9BAF5D38719C28AE98A76683647AB9161A3A151A399781C050D43942D37C096C
+- Handle `DLLImport` failure of `libpsrpclient` in PowerShell Remoting on Unix platforms (#5622)
 
+### Test
+
+- Replace `lee.io` Tests with `WebListener` (#5709) (Thanks @markekraus!)
+- Update the docker based release package tests due to the removal of `Pester` module and other issues (#5692)
+- Replace Remaining `HttpBin.org` Tests with `WebListener` (#5665) (Thanks @markekraus!)
+
+### Build and Packaging Improvements
+
+- Update x86 and x64 `MSI` packages to not overwrite each other (#5812) (Thanks @bergmeister!)
+- Update `Restore-PSPester` to include the fix for nested describe errors (#5771)
+- Automate the generation of release change log draft (#5712)
+
+### Documentation and Help Content
+
+- Updated help Uri to point to latest help content for `Microsoft.PowerShell.Core` module (#5820)
+- Update the installation doc for `Raspberry-Pi` about supported devices (#5773)
+- Fix a typo and a Markdown linting error in the Pull Request Template (#5807) (Thanks @markekraus!)
+- Update submodule documentation for pester removal (#5786) (Thanks @bergmeister!)
+- Change `Github` to `GitHub` in `CONTRIBUTING.md` (#5697) (Thanks @stuntguy3000!)
+- Fix incorrect release date on the changelog (#5698) (Thanks @SwarfegaGit!)
+- Add instructions to deploy `win-arm` build on Windows IoT (#5682)
+
+### SHA256 Hashes of the release artifacts
+
+- powershell_6.0.0-1.debian.8_amd64.deb
+  - 4A805E7B276646ECD4CD7A33D9B701CA9893FCB3F502E9D87207E1A017CDD7AC
+- powershell_6.0.0-1.debian.9_amd64.deb
+  - 14CD9082B827E987F63D1539FA5EB448DC9F5F55B927F51D331010B7C35CFD19
+- powershell_6.0.0-1.ubuntu.14.04_amd64.deb
+  - 690DD94132C841C379A0456E89A7F494379C790E873B55FA3DB2C2E6108447D2
+- powershell_6.0.0-1.ubuntu.16.04_amd64.deb
+  - A1C4981BB8059D7052DD723BA40F1FF4AD1F8ED3CB037A7D20699FB47AAE9CEE
+- powershell_6.0.0-1.ubuntu.17.04_amd64.deb
+  - 5A316C60E1D8FB4673D1374BF641CF42D3EC8274D3B606A35AF937198C374F3F
+- powershell-6.0.0-1.rhel.7.x86_64.rpm
+  - BA625BA77D6E75550E227BF408325BFF25CFFBA1911AC74A8DC11154AEB8314F
+- powershell-6.0.0-linux-arm32.tar.gz
+  - 65831535A136FFE53077864D55D2F7E51E7DD1CB52CA38E9000032F09B244E86
+- powershell-6.0.0-linux-x64.tar.gz
+  - 2CCC89CC6C99FF607FF5D82F2DBBEC05C60E0494C75DC500CD46F2EDCC7624FE
+- powershell-6.0.0-x86_64.AppImage
+  - B1E1E435EC3BEC5BBC350F6E6B9110B4A98D56CC5DA203B234C386139B1477E5
+- PowerShell-6.0.0-win-arm32.zip
+  - 05C3BD906ECBDD87B2799F720172FA9B5AB5BCF17127DA9DF44765BA76FF310B
+- PowerShell-6.0.0-win-arm64.zip
+  - 2B308C2435270C1429146B3D309167C7B9BAF3524D3665DA9A703091171FDA2A
+- PowerShell-6.0.0-win-x64.msi
+  - A1155D0F9D697B3EBF51C03D328886F9000709C1C4688DA42FF9C234AF02A63F
+- PowerShell-6.0.0-win-x64.zip
+  - FE6C17E9829FFD0503917A1A4ACC3E75A203A80B28E2D9EFFDD7F0AB576F7D5D
+- PowerShell-6.0.0-win-x86.msi
+  - 494DF01BFF5A007F98761A5088E6E4AA6754808DEE0CBF096FFF171D1233E8FC
+- PowerShell-6.0.0-win-x86.zip
+  - 8E32785547FDD90412FA3A8FA4703D272933999F3D29CAE9FEDA19119B3A2D46
+- powershell-6.0.0-osx-x64.tar.gz
+  - B23BDB6A89238C64D7C7A125EB28554693502D6203A9E8EFA84E583F63E44B11
+- powershell-6.0.0-osx.10.12-x64.pkg
+  - 396BBB5907FD0EC0BDFBFE0BF01961B52B4F1F1CEDDC95467DD9ECD4FA5281DF
 
 -------------
 | Downloads |
 -------------
 
-Filename                                             Updated               SizeMB
---------                                             -------               ------
-powershell-6.0.0-alpha.14-win10-x64.zip              12/14/2016 8:48:15 PM     39
-powershell-6.0.0-alpha.14-win7-x64.zip               12/14/2016 8:48:09 PM     41
-powershell-6.0.0-alpha.14-win7-x86.zip               12/14/2016 8:48:12 PM     37
-powershell-6.0.0-alpha.14-win81-x64.zip              12/14/2016 8:48:16 PM     39
-powershell-6.0.0-alpha.14.pkg                        12/14/2016 7:24:17 PM     39
-powershell-6.0.0_alpha.14-1.el7.centos.x86_64.rpm    12/14/2016 9:34:43 PM     39
-powershell_6.0.0-alpha.14-1ubuntu1.14.04.1_amd64.deb 12/14/2016 9:07:21 PM     40
-powershell_6.0.0-alpha.14-1ubuntu1.16.04.1_amd64.deb 12/15/2016 3:26:20 AM     40
-PowerShell_6.0.0.14-alpha.14-win10-x64.msi           12/14/2016 8:48:21 PM     40
-PowerShell_6.0.0.14-alpha.14-win7-x64.msi            12/14/2016 8:48:26 PM     41
-PowerShell_6.0.0.14-alpha.14-win7-x86.msi            12/14/2016 8:48:25 PM     37
-PowerShell_6.0.0.14-alpha.14-win81-x64.msi           12/14/2016 8:48:23 PM     40
+Filename                                  Updated              SizeMB
+--------                                  -------              ------
+powershell-6.0.0-1.rhel.7.x86_64.rpm      1/10/2018 1:28:46 PM     49
+powershell-6.0.0-linux-arm32.tar.gz       1/10/2018 1:28:49 PM     24
+powershell-6.0.0-linux-x64.tar.gz         1/10/2018 1:28:54 PM     50
+powershell-6.0.0-osx-x64.tar.gz           1/10/2018 1:39:22 PM     48
+powershell-6.0.0-osx.10.12-x64.pkg        1/10/2018 1:39:13 PM     48
+PowerShell-6.0.0-win-arm32.zip            1/10/2018 1:28:58 PM     31
+PowerShell-6.0.0-win-arm64.zip            1/10/2018 1:29:02 PM     31
+PowerShell-6.0.0-win-x64.msi              1/10/2018 1:29:09 PM     48
+PowerShell-6.0.0-win-x64.zip              1/10/2018 1:29:19 PM     49
+PowerShell-6.0.0-win-x86.msi              1/10/2018 1:29:24 PM     44
+PowerShell-6.0.0-win-x86.zip              1/10/2018 1:29:30 PM     46
+powershell-6.0.0-x86_64.AppImage          1/10/2018 1:29:39 PM     73
+powershell_6.0.0-1.debian.8_amd64.deb     1/10/2018 1:28:10 PM     50
+powershell_6.0.0-1.debian.9_amd64.deb     1/10/2018 1:28:17 PM     50
+powershell_6.0.0-1.ubuntu.14.04_amd64.deb 1/10/2018 1:28:23 PM     50
+powershell_6.0.0-1.ubuntu.16.04_amd64.deb 1/10/2018 1:28:29 PM     50
+powershell_6.0.0-1.ubuntu.17.04_amd64.deb 1/10/2018 1:28:40 PM     50
 ```
 
 ## PARAMETERS
@@ -112,6 +142,7 @@ Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [Get-PSReleaseCurrent]()
 
 [Invoke-Restmethod]()

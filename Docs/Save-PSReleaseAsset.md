@@ -1,6 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
-online version: 
+Module Name: PSReleaseTools
+online version:
 schema: 2.0.0
 ---
 
@@ -16,15 +17,14 @@ Download the latest PowerShell v6 beta releases
 Save-PSReleaseAsset [[-Path] <String>] [-All] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Name
+### Family
 ```
-Save-PSReleaseAsset [[-Path] <String>] -Name <String[]> [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Save-PSReleaseAsset [[-Path] <String>] -Family <String[]> [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### File
+### file
 ```
-Save-PSReleaseAsset [[-Path] <String>] -Filename <String> -Hash <String> -URL <String> [-Passthru] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Save-PSReleaseAsset [[-Path] <String>] [-Asset <Object>] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,22 +34,22 @@ If you select Windows files you can use the -Format dynamic parameter to downloa
 
 ## EXAMPLES
 
-### -------------------------- EXAMPLE 1 --------------------------
+### EXAMPLE 1
 ```
-PS C:\> Save-PSReleaseAsset F:\PS6 -all
-```
-
-### -------------------------- EXAMPLE 2 --------------------------
-```
-PS C:\> Save-PSReleaseAsset -path F:\PS6 -name Win10 -format msi
+PS C:\> Save-PSReleaseAsset C:\PS6 -all
 ```
 
-### -------------------------- EXAMPLE 3 --------------------------
+### EXAMPLE 2
 ```
-PS C:\> Save-PSReleaseAsset -path F:\PS6 -name Ubuntu14,Ubuntu16,CentOS
+PS C:\> Save-PSReleaseAsset -path C:\PS6 -family Windows -format msi
 ```
-
-### -------------------------- EXAMPLE 4 --------------------------
+Download and save Windows MSI packages.
+### EXAMPLE 3
+```
+PS C:\> Save-PSReleaseAsset -path C:\PS6 -name Ubuntu,Debian
+```
+Download and save Ubuntu and Debian packages.
+### EXAMPLE 4
 ```
 PS C:\> Get-PSReleaseAsset -Family Ubuntu | Save-PSReleaseAsset -path D:\Temp
 ```
@@ -64,7 +64,7 @@ The destination folder for all downloads.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -74,13 +74,12 @@ Accept wildcard characters: False
 ```
 
 ### -All
-Download all files to the destination path.
-This is the default behavior.
+Download all files to the destination path. This is the default behavior.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: All
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -89,71 +88,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-Select one or more platforms.
-
-```yaml
-Type: String[]
-Parameter Sets: Name
-Aliases: 
-Accepted Values: AppImage,CentOS,MacOS,Suse,Ubuntu14,Ubuntu16,Win10,Win7-x64,Win7-x86,Win81
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Filename
-The local filename for the download.
-
-```yaml
-Type: String
-Parameter Sets: File
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Hash
-The SHA256 file hash. If the actual download does not match this value you will get a warning.
-
-```yaml
-Type: String
-Parameter Sets: File
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -URL
-The URL for the download release.
-
-```yaml
-Type: String
-Parameter Sets: File
-Aliases: 
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -Passthru
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -187,6 +126,37 @@ Parameter Sets: (All)
 Aliases: cf
 
 Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Asset
+An asset object piped from Get-PSReleaseAsset
+
+```yaml
+Type: Object
+Parameter Sets: file
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Family
+The platform you wish to download.
+
+```yaml
+Type: String[]
+Parameter Sets: Family
+Aliases:
+Accepted values: Rhel,Raspbian,Ubuntu,Debian,Windows,AppImage,Arm,MacOS
+
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
