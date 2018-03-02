@@ -1,5 +1,8 @@
 #Changelog for PSReleaseTools
 
+v0.6.1
+Added code to fix TLS issue with GitHub (Issue #5)
+
 v0.6.0
 Updated to support GA for PowerShell 6 (Issue #4)
 Changed Save-PSReleaseAsset Name parameter to Family

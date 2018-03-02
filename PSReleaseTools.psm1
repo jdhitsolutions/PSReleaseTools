@@ -324,4 +324,7 @@ Function Get-PSReleaseAsset {
 
 #endregion
 
+#configure TLS settings for GitHub
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
+
 Export-ModuleMember -Function 'Get-PSReleaseAsset', 'Get-PSReleaseSummary', 'Save-PSReleaseAsset', 'Get-PSReleaseCurrent'
