@@ -1,13 +1,15 @@
-# PSReleaseTools #
+# PSReleaseTools
 
 This PowerShell module provides a set of commands for working with the latest releases from the PowerShell [GitHub repository](https://github.com/PowerShell/PowerShell). The module contains commands to get summary information about the most current release as well as commands to download some or all of the release files.
 
 These commands utilize the GitHub API which is subject to rate limits. It is recommended that you save results of commands like `Get-PSReleaseAsset` to a variable. If you encounter an error message for `Invoke-Restmethod` like "Server Error" then you have likely exceeded the API limit. You will need to wait a bit and try again.
 
 ## Cross-Platform
+
 This module should work cross-platform on both Windows PowerShell and PowerShell Core.
 
 ## Notes
+
 The module currently has 4 commands:
 
 - [Get-PSReleaseSummary](.\docs\Get-PSReleaseSummary.md)
@@ -17,7 +19,7 @@ The module currently has 4 commands:
 
 All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217034" target="_blank">Invoke-RestMethod</a> or <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217035" target="_blank">Invoke-WebRequest</a>, allow you to programmatically interact with GitHub.
 
-The first command, `Get-PSReleaseSummary` queries the PowerShell repository release page and constructs a text summary.
+The first command, `Get-PSReleaseSummary` queries the PowerShell repository release page and constructs a text summary. You can also have the command write the report text as markdown.
 
 ![get-psreleasesummary.png](/images/get-psreleasesummary.png)
 
@@ -42,17 +44,21 @@ I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details b
 The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them. 
 
 ## PowerShell Gallery
+
 This module has been published to the PowerShell Gallery. You should be able to run these commands to find and install it.
-```
+
+```powershell
 Install-Module PSReleaseTools
 ```
 
 On PowerShell Core you might need to run:
-```
+
+```powershell
 Install-Module PSReleaseTools -scope currentuser
 ```
-    
+
 ## Roadmap
+
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-*Last updated 11 January 2018*
+*Last updated 22 October 2018*

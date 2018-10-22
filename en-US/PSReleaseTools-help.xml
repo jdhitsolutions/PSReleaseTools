@@ -38,6 +38,17 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Only64Bit</maml:name>
+          <maml:Description>
+            <maml:para>Only display 64bit assets.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -52,6 +63,18 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Only64Bit</maml:name>
+        <maml:Description>
+          <maml:para>Only display 64bit assets.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -125,8 +148,7 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will query the GitHub repository for the latest release and write an object to the pipeline. </maml:para>
-      <maml:para>If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update.</maml:para>
+      <maml:para>This command will query the GitHub repository for the latest release and write an object to the pipeline. If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -166,7 +188,7 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
 
 Name                              Version Released             LocalVersion
 ----                              ------- --------             ------------
-v6.0.0 release of PowerShell Core v6.0.0  1/10/2018 5:21:29 PM 5.1.16299.98</dev:code>
+v6.1.0 Release of PowerShell Core v6.1.0  9/13/2018 9:49:59 PM 6.1.0</dev:code>
         <dev:remarks>
           <maml:para>This gets the current release from a Windows platform.</maml:para>
         </dev:remarks>
@@ -174,9 +196,10 @@ v6.0.0 release of PowerShell Core v6.0.0  1/10/2018 5:21:29 PM 5.1.16299.98</dev
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS /home/me&gt; Get-PSReleaseCurrent
-Name                              Version Released            LocalVersion
-----                              ------- --------            ------------
-v6.0.0 release of PowerShell Core v6.0.0  1/10/18 10:21:29 PM v6.0.0</dev:code>
+
+Name                              Version Released           LocalVersion
+----                              ------- --------           ------------
+v6.1.0 Release of PowerShell Core v6.1.0  9/13/18 9:49:59 PM 6.1.0</dev:code>
         <dev:remarks>
           <maml:para>This gets the current release from an Ubuntu platform.</maml:para>
         </dev:remarks>
@@ -199,15 +222,39 @@ v6.0.0 release of PowerShell Core v6.0.0  1/10/18 10:21:29 PM v6.0.0</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command.</maml:para>
-      <maml:para>The output is a text report.</maml:para>
+      <maml:para>This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.</maml:para>
+      <maml:para>The default output is a text report but you have the the option to create a markdown version.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PSReleaseSummary</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsMarkdown</maml:name>
+          <maml:Description>
+            <maml:para>Create a markdown version of the report.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
-    <command:parameters />
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsMarkdown</maml:name>
+        <maml:Description>
+          <maml:para>Create a markdown version of the report.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
@@ -240,7 +287,7 @@ v6.0.0 release of PowerShell Core v6.0.0  1/10/18 10:21:29 PM v6.0.0</dev:code>
 
 -----------------------------------------------------------
 Release  : v6.0.0
-Published: 01/10/2018 17:21:29 
+Published: 01/10/2018 17:21:29
 -----------------------------------------------------------
 ### Breaking changes
 
@@ -337,6 +384,13 @@ powershell_6.0.0-1.ubuntu.17.04_amd64.deb 1/10/2018 1:28:40 PM     50</dev:code>
           <maml:para></maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS /home/jeff&gt; get-psreleasesummary -AsMarkdown | show-markdown</dev:code>
+        <dev:remarks>
+          <maml:para>Get the current release summary as markdown and use the Show-Markdown command in PowerShell Core to render the markdown in the console. Note that Show-Markdown may not render tables correctly.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -359,7 +413,7 @@ powershell_6.0.0-1.ubuntu.17.04_amd64.deb 1/10/2018 1:28:40 PM     50</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will download the latest PowerShell v6 alpha releases from the GitHub repository. You can download everything or limit the download to specific platforms.</maml:para>
+      <maml:para>This command will download the latest PowerShell Core releases from the GitHub repository. You can download everything or limit the download to specific platforms.</maml:para>
       <maml:para>If you select Windows files you can use the -Format dynamic parameter to download only MSI or ZIP files. Note that this will not work if you specify a combination of Windows and non-Windows platforms.</maml:para>
     </maml:description>
     <command:syntax>
@@ -652,7 +706,7 @@ powershell_6.0.0-1.ubuntu.17.04_amd64.deb 1/10/2018 1:28:40 PM     50</dev:code>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>system.io.fileinfo</maml:name>
+          <maml:name>System.IO.FileInfo</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
