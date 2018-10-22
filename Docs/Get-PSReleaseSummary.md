@@ -1,6 +1,6 @@
 ---
 external help file: PSReleaseTools-help.xml
-Module Name: PSReleaseTools
+Module Name: psreleasetools
 online version:
 schema: 2.0.0
 ---
@@ -8,28 +8,31 @@ schema: 2.0.0
 # Get-PSReleaseSummary
 
 ## SYNOPSIS
+
 Get information on latest PowerShell v6 release
 
 ## SYNTAX
 
-```
-Get-PSReleaseSummary [<CommonParameters>]
+```yaml
+Get-PSReleaseSummary [-AsMarkdown] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command.
 
-The output is a text report.
+This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.
+
+The default output is a text report but you have the the option to create a markdown version.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```powershell
 PS C:\> Get-PSReleaseSummary
 
 -----------------------------------------------------------
 Release  : v6.0.0
-Published: 01/10/2018 17:21:29 
+Published: 01/10/2018 17:21:29
 -----------------------------------------------------------
 ### Breaking changes
 
@@ -124,9 +127,34 @@ powershell_6.0.0-1.ubuntu.16.04_amd64.deb 1/10/2018 1:28:29 PM     50
 powershell_6.0.0-1.ubuntu.17.04_amd64.deb 1/10/2018 1:28:40 PM     50
 ```
 
+### EXAMPLE 2
+
+```powershell
+PS /home/jeff> get-psreleasesummary -AsMarkdown | show-markdown
+```
+
+Get the current release summary as markdown and use the Show-Markdown command in PowerShell Core to render the markdown in the console. Note that Show-Markdown may not render tables correctly.
+
 ## PARAMETERS
 
+### -AsMarkdown
+
+Create a markdown version of the report.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -138,12 +166,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### system.string
 
 ## NOTES
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
 [Get-PSReleaseCurrent]()
 
 [Invoke-Restmethod]()
-

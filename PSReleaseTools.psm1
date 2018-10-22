@@ -66,8 +66,10 @@ Function Get-PSReleaseCurrent {
 Function Get-PSReleaseSummary {
 
     [cmdletbinding()]
-    [OutputType([System.String])]
-    Param()
+    [OutputType([System.String[]])]
+    Param(
+        [switch]$AsMarkdown
+    )
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
@@ -82,23 +84,43 @@ Function Get-PSReleaseSummary {
         $dl = $data.assets | 
             Select-Object @{Name = "Filename"; Expression = {$_.name}},
         @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
-        @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}} | Out-String
+        @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}} 
     
-        #create a here string for the details
-        $out = @"
+        if ($AsMarkdown) {
+            #create a markdown table from download data
+            $tbl = (($DL | Convertto-CSV -notypeInformation -delimiter "|").Replace('"','') -Replace '^',"|") -replace "$","|`n"
+             
+            $out = @"
+# $($data.Name.trim())
 
+$($data.body.trim())
+
+## Downloads
+
+$($tbl[0])|---|---|---|
+$($tbl[1..$($tbl.count)])
+Published: $($data.Published_At -as [datetime]) 
+"@
+
+        }
+        else {
+
+            #create a here string for the details
+            $out = @"
+            
 -----------------------------------------------------------
-Release  : $($data.Tag_Name)
+$($data.Name)
 Published: $($data.Published_At -as [datetime]) 
 -----------------------------------------------------------
 $($data.body)
-
+            
 -------------
 | Downloads |
 -------------
-$DL
-
+$($DL | Out-String)
+        
 "@
+        }
 
         #write the string to the pipeline
         $out
@@ -114,6 +136,8 @@ $DL
 Function Save-PSReleaseAsset {
 
     [cmdletbinding(DefaultParameterSetName = "All", SupportsShouldProcess)]
+    [OutputType([System.IO.FileInfo])]
+
     Param(
         [Parameter(Position = 0, HelpMessage = "Where do you want to save the files?")]
         [ValidateScript( {
@@ -253,7 +277,8 @@ Function Get-PSReleaseAsset {
     [OutputType("PSCustomObject")]
     Param(
         [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS")]
-        [string[]]$Family
+        [string[]]$Family,
+        [switch]$Only64Bit
     )
 
     Begin {
@@ -280,7 +305,7 @@ Function Get-PSReleaseAsset {
             Write-Verbose "[PROCESS] Found $($data.assets.count) downloads"
        
             $assets = $data.assets | 
-            Select-Object @{Name = "FileName"; Expression = {$_.Name}},
+                Select-Object @{Name = "FileName"; Expression = {$_.Name}},
             @{Name = "Family"; Expression = {
                     Switch -regex ($_.name) {
                         "Win-x\d{2}" {"Windows"}
@@ -306,11 +331,17 @@ Function Get-PSReleaseAsset {
             @{Name = "DownloadCount"; Expression = {$_.download_count}} 
 
             if ($Family) {
-                $assets.where( {$_.family -match $($family -join "|")})
-            }        
-            else {
-                $assets
-            }
+                Write-Verbose "[PROCESS] Filtering by family"
+                $assets = $assets.where( {$_.family -match $($family -join "|")})
+            }     
+            if ($Only64Bit) {
+                Write-Verbose "[PROCESS] Filtering for 64bit"
+                $assets = ($assets).where( {$_.filename -match "(x|amd)64"})
+            }   
+           
+            #write the results to the pipeline
+            $assets
+           
         } #Try
         catch {
             Throw $_
@@ -327,4 +358,3 @@ Function Get-PSReleaseAsset {
 #configure TLS settings for GitHub
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
 
-Export-ModuleMember -Function 'Get-PSReleaseAsset', 'Get-PSReleaseSummary', 'Save-PSReleaseAsset', 'Get-PSReleaseCurrent'
