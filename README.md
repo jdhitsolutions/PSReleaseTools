@@ -12,10 +12,10 @@ This module should work cross-platform on both Windows PowerShell and PowerShell
 
 The module currently has 4 commands:
 
-- [Get-PSReleaseSummary](.\docs\Get-PSReleaseSummary.md)
-- [Get-PSReleaseCurrent](.\docs\Get-PSReleaseCurrent.md)
-- [Get-PSReleaseAsset](.\docs\Get-PSReleaseAsset.md)
-- [Save-PSReleaseAsset](.docs\Save-PSReleaseAsset.md)
+- [Get-PSReleaseSummary](/Docs/Get-PSReleaseSummary.md)
+- [Get-PSReleaseCurrent](/Docs/Get-PSReleaseCurrent.md)
+- [Get-PSReleaseAsset](/Docs/Get-PSReleaseAsset.md)
+- [Save-PSReleaseAsset](/Docs/Save-PSReleaseAsset.md)
 
 All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217034" target="_blank">Invoke-RestMethod</a> or <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217035" target="_blank">Invoke-WebRequest</a>, allow you to programmatically interact with GitHub.
 
