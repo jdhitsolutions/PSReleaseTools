@@ -25,19 +25,22 @@ Function DL {
 Function Get-PSReleaseCurrent {
     [cmdletbinding()]
     [OutputType("PSCustomObject")]
-    Param()
+    Param([Switch]$Pre)
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
-    
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+
         $uri = "https://api.github.com/repos/powershell/powershell/releases/latest"
 
     } #begin
 
     Process {
         Write-Verbose "[PROCESS] Getting current release information from $uri"
-        $data = Invoke-Restmethod -uri $uri -Method Get
-
+        if($Pre) {
+            $data = $(Invoke-Restmethod -uri ($uri -replace '(?i)/latest','') -Method Get)[0]
+        } else {
+            $data = Invoke-Restmethod -uri $uri -Method Get
+        }
         #get the local version from the GitCommitID on v6 platforms
         #or PSVersion table for everything else
         if ($PSVersionTable.ContainsKey("GitCommitID")) {
@@ -54,42 +57,48 @@ Function Get-PSReleaseCurrent {
                 Released     = $($data.published_at -as [datetime])
                 LocalVersion = $local
             }
-        } 
+        }
     } #process
 
     End {
         Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
 
-} 
- 
+}
+
 Function Get-PSReleaseSummary {
 
     [cmdletbinding()]
     [OutputType([System.String[]])]
     Param(
-        [switch]$AsMarkdown
+        [switch]$AsMarkdown,
+        [Switch]$Pre
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
-    
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+
         $uri = "https://api.github.com/repos/powershell/powershell/releases/latest"
 
     } #begin
 
     Process {
-        Write-Verbose "[PROCESS] Getting latest release information from $uri"
-        $data = Invoke-Restmethod -uri $uri -Method Get
-        $dl = $data.assets | 
+        if($Pre) {
+          Write-Verbose "[PROCESS] Getting latest release information from $($uri -replace '(?i)/latest','')"
+          $data = $(Invoke-Restmethod -uri ($uri -replace '(?i)/latest','') -Method Get)[0]
+        } else {
+          Write-Verbose "[PROCESS] Getting latest release information from $uri"
+          $data = Invoke-Restmethod -uri $uri -Method Get
+        }
+        $dl = $data.assets |
             Select-Object @{Name = "Filename"; Expression = {$_.name}},
         @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
-        @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}} 
-    
+        @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
+
         if ($AsMarkdown) {
             #create a markdown table from download data
             $tbl = (($DL | Convertto-CSV -notypeInformation -delimiter "|").Replace('"','') -Replace '^',"|") -replace "$","|`n"
-             
+
             $out = @"
 # $($data.Name.trim())
 
@@ -99,7 +108,7 @@ $($data.body.trim())
 
 $($tbl[0])|---|---|---|
 $($tbl[1..$($tbl.count)])
-Published: $($data.Published_At -as [datetime]) 
+Published: $($data.Published_At -as [datetime])
 "@
 
         }
@@ -107,18 +116,18 @@ Published: $($data.Published_At -as [datetime])
 
             #create a here string for the details
             $out = @"
-            
+
 -----------------------------------------------------------
 $($data.Name)
-Published: $($data.Published_At -as [datetime]) 
+Published: $($data.Published_At -as [datetime])
 -----------------------------------------------------------
 $($data.body)
-            
+
 -------------
 | Downloads |
 -------------
 $($DL | Out-String)
-        
+
 "@
         }
 
@@ -147,7 +156,7 @@ Function Save-PSReleaseAsset {
                 else {
                     Throw "Cannot validate path $_"
                 }
-            })]    
+            })]
         [string]$Path = ".",
         [Parameter(ParameterSetName = "All")]
         [switch]$All,
@@ -156,11 +165,13 @@ Function Save-PSReleaseAsset {
         [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS")]
         [ValidateNotNullorEmpty()]
         [string[]]$Family,
-        
+
         [Parameter(ParameterSetName = "file", ValueFromPipeline)]
         [object]$Asset,
 
-        [switch]$Passthru
+        [switch]$Passthru,
+
+        [Switch]$Pre
     )
     DynamicParam {
         if ($Family -match 'Windows') {
@@ -172,7 +183,7 @@ Function Save-PSReleaseAsset {
             $attributes.DontShow = $False
 
             $validate = [System.Management.Automation.ValidateSetAttribute]::New("zip", "msi")
-        
+
             #define a collection for attributes
             $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
             $attributeCollection.Add($attributes)
@@ -180,25 +191,25 @@ Function Save-PSReleaseAsset {
 
             #define the dynamic param
             $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("Format", [string], $attributeCollection)
-        
+
             #create array of dynamic parameters
             $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
             $paramDictionary.Add("Format", $dynParam1)
             #use the array
-            return $paramDictionary     
+            return $paramDictionary
 
         } #if
     } #dynamic parameter
 
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
-        #display PSBoundparameters formatted nicely for Verbose output  
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        #display PSBoundparameters formatted nicely for Verbose output
         [string]$pb = ($PSBoundParameters | Format-Table -AutoSize | Out-String).TrimEnd()
-        Write-Verbose "[BEGIN  ] PSBoundparameters: `n$($pb.split("`n").Foreach({"$("`t"*2)$_"}) | 
-    Out-String) `n" 
-    
-        $uri = "https://api.github.com/repos/powershell/powerShell/releases/latest"     
+        Write-Verbose "[BEGIN  ] PSBoundparameters: `n$($pb.split("`n").Foreach({"$("`t"*2)$_"}) |
+    Out-String) `n"
+
+        $uri = "https://api.github.com/repos/powershell/powerShell/releases/latest"
 
     } #begin
 
@@ -209,7 +220,7 @@ Function Save-PSReleaseAsset {
             Write-Verbose "[PROCESS] Getting latest releases from $uri"
             Try {
                 $data = Get-PSReleaseAsset
-                
+
             }
             Catch {
                 Write-Warning $_.exception.message
@@ -225,7 +236,7 @@ Function Save-PSReleaseAsset {
                     Write-Verbose "[PROCESS] ...$($Asset.filename) [$($asset.hash)]"
                     $target = Join-Path -Path $path -ChildPath $asset.filename
                     DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
-                } 
+                }
             } #all
             "Family" {
                 #download individual release files
@@ -243,7 +254,7 @@ Function Save-PSReleaseAsset {
                         "Arm" { $assets += $data.where( {$_.filename -match '-arm\d{2}'}) }
                         "AppImage" { $assets += $data.where( {$_.filename -match 'appimage'}) }
                     } #Switch
-                       
+
                     if (($assets.family -eq 'Windows') -AND ($PSBoundParameters.ContainsKey("Format"))) {
                         $type = $PSBoundParameters["format"]
                         Write-Verbose "[PROCESS] Limiting download to $type files"
@@ -255,7 +266,7 @@ Function Save-PSReleaseAsset {
                         $target = Join-Path -Path $path -ChildPath $asset.fileName
                         DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
                     } #foreach asset
-                } #foreach family name 
+                } #foreach family name
             } #Family
             "File" {
                 Write-Verbose "[PROCESS] ...$($asset.filename) [$($asset.hash)]"
@@ -282,8 +293,8 @@ Function Get-PSReleaseAsset {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"  
-    
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+
         $uri = "https://api.github.com/repos/powershell/powershell/releases/latest"
 
     } #begin
@@ -292,7 +303,7 @@ Function Get-PSReleaseAsset {
         Write-Verbose "[PROCESS] Getting latest release information from $uri"
         Try {
             $data = Invoke-Restmethod -uri $uri -Method Get -ErrorAction Stop
-        
+
             #parse out file names and hashes
             [regex]$rx = "(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
             $r = $rx.Matches($data.body)
@@ -303,8 +314,8 @@ Function Get-PSReleaseAsset {
             }
 
             Write-Verbose "[PROCESS] Found $($data.assets.count) downloads"
-       
-            $assets = $data.assets | 
+
+            $assets = $data.assets |
                 Select-Object @{Name = "FileName"; Expression = {$_.Name}},
             @{Name = "Family"; Expression = {
                     Switch -regex ($_.name) {
@@ -328,20 +339,20 @@ Function Get-PSReleaseAsset {
             @{Name = "Created"; Expression = {$_.Created_at -as [datetime]}},
             @{Name = "Updated"; Expression = {$_.Updated_at -as [datetime]}},
             @{Name = "URL"; Expression = {$_.browser_download_Url}},
-            @{Name = "DownloadCount"; Expression = {$_.download_count}} 
+            @{Name = "DownloadCount"; Expression = {$_.download_count}}
 
             if ($Family) {
                 Write-Verbose "[PROCESS] Filtering by family"
                 $assets = $assets.where( {$_.family -match $($family -join "|")})
-            }     
+            }
             if ($Only64Bit) {
                 Write-Verbose "[PROCESS] Filtering for 64bit"
                 $assets = ($assets).where( {$_.filename -match "(x|amd)64"})
-            }   
-           
+            }
+
             #write the results to the pipeline
             $assets
-           
+
         } #Try
         catch {
             Throw $_
@@ -356,5 +367,4 @@ Function Get-PSReleaseAsset {
 #endregion
 
 #configure TLS settings for GitHub
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
-
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
