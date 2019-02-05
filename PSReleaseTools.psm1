@@ -35,10 +35,11 @@ Function Get-PSReleaseCurrent {
     } #begin
 
     Process {
-        Write-Verbose "[PROCESS] Getting current release information from $uri"
         if($Pre) {
+            Write-Verbose "[PROCESS] Getting current release information from "+$($uri -replace '(?i)/latest','')
             $data = $(Invoke-Restmethod -uri ($uri -replace '(?i)/latest','') -Method Get)[0]
         } else {
+            Write-Verbose "[PROCESS] Getting current release information from $uri"
             $data = Invoke-Restmethod -uri $uri -Method Get
         }
         #get the local version from the GitCommitID on v6 platforms
@@ -84,7 +85,7 @@ Function Get-PSReleaseSummary {
 
     Process {
         if($Pre) {
-          Write-Verbose "[PROCESS] Getting latest release information from $($uri -replace '(?i)/latest','')"
+          Write-Verbose "[PROCESS] Getting latest release information from "+$($uri -replace '(?i)/latest','')
           $data = $(Invoke-Restmethod -uri ($uri -replace '(?i)/latest','') -Method Get)[0]
         } else {
           Write-Verbose "[PROCESS] Getting latest release information from $uri"
@@ -158,6 +159,9 @@ Function Save-PSReleaseAsset {
                 }
             })]
         [string]$Path = ".",
+
+        [switch]$Pre,
+
         [Parameter(ParameterSetName = "All")]
         [switch]$All,
 
@@ -169,9 +173,7 @@ Function Save-PSReleaseAsset {
         [Parameter(ParameterSetName = "file", ValueFromPipeline)]
         [object]$Asset,
 
-        [switch]$Passthru,
-
-        [Switch]$Pre
+        [switch]$Passthru
     )
     DynamicParam {
         if ($Family -match 'Windows') {
@@ -218,6 +220,11 @@ Function Save-PSReleaseAsset {
 
         if ($PSCmdlet.ParameterSetName -match "All|Family") {
             Write-Verbose "[PROCESS] Getting latest releases from $uri"
+            if($Pre){
+              Write-Verbose "[PROCESS] Getting current release information from "+$($uri -replace '(?i)/latest','')
+            } else {
+              Write-Verbose "[PROCESS] Getting current release information from $uri"
+            }
             Try {
                 $data = Get-PSReleaseAsset
 
