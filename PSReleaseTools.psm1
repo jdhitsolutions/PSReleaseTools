@@ -160,7 +160,10 @@ Function Save-PSReleaseAsset {
             })]
         [string]$Path = ".",
 
-        [switch]$Pre,
+        [parameter(Mandatory=$false, ParameterSetName="Family")]
+        [parameter(Mandatory=$false, ParameterSetName="All")]
+        [Switch]
+        $Pre,
 
         [Parameter(ParameterSetName = "All")]
         [switch]$All,
