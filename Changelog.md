@@ -1,5 +1,9 @@
 # Change log for PSReleaseTools
 
+## v1.0.0
+
++ There have been enough updates that this seems like a good time.
+
 ## v0.8.1
 
 + Raised minimum PowerShell version to 5.1 to support CompatiblePSEditions
