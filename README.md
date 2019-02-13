@@ -37,11 +37,15 @@ Of course, you will want to download these files which is the job of the last co
 
 You can select multiple names. If you select only Window, then there is a dynamic parameter called `-Format` where you can select ZIP or MSI. And the command supports `-WhatIf`.
 
-I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details before downloading. Since you have those objects, why not be able to pipe them to the save command? 
+I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details before downloading. Since you have those objects, why not be able to pipe them to the save command?
 
 ![pipelinesave.png](/images/pipelinesave.png)
 
-The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them. 
+The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them.
+
+## Preview Builds
+
+Starting in v0.8.0, command modules have a `-Preview` parameter which will get the latest preview build. Otherwise, the commands will use the latest stable release.
 
 ## PowerShell Gallery
 
@@ -61,4 +65,4 @@ Install-Module PSReleaseTools -scope currentuser
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-*Last updated 22 October 2018*
+*Last updated 13 February 2019*

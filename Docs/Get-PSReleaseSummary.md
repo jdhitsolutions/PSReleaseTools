@@ -1,6 +1,6 @@
 ---
 external help file: PSReleaseTools-help.xml
-Module Name: psreleasetools
+Module Name: PSReleaseTools
 online version:
 schema: 2.0.0
 ---
@@ -14,12 +14,12 @@ Get information on latest PowerShell v6 release
 ## SYNTAX
 
 ```yaml
-Get-PSReleaseSummary [-AsMarkdown] [<CommonParameters>]
+Get-PSReleaseSummary [-AsMarkdown] [-Preview] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will query the PowerShell GitHub repository for the latest release information using the GitHub APIs. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.
+This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.
 
 The default output is a text report but you have the the option to create a markdown version.
 
@@ -30,77 +30,67 @@ The default output is a text report but you have the the option to create a mark
 ```powershell
 PS C:\> Get-PSReleaseSummary
 
+
 -----------------------------------------------------------
-Release  : v6.0.0
-Published: 01/10/2018 17:21:29
+v6.1.2 Release of PowerShell Core
+Published: 01/15/2019 15:02:39
 -----------------------------------------------------------
-### Breaking changes
+## v6.1.2 - 2019-01-15
 
-- Remove `sc` alias which conflicts with `sc.exe` (#5827)
-- Separate group policy settings and enable policy controlled logging in PowerShell Core (#5791)
+### Tests
 
-### Engine updates and fixes
-
-- Handle `DLLImport` failure of `libpsrpclient` in PowerShell Remoting on Unix platforms (#5622)
-
-### Test
-
-- Replace `lee.io` Tests with `WebListener` (#5709) (Thanks @markekraus!)
-- Update the docker based release package tests due to the removal of `Pester` module and other issues (#5692)
-- Replace Remaining `HttpBin.org` Tests with `WebListener` (#5665) (Thanks @markekraus!)
+- Fix test failures (Internal 6310)
 
 ### Build and Packaging Improvements
 
-- Update x86 and x64 `MSI` packages to not overwrite each other (#5812) (Thanks @bergmeister!)
-- Update `Restore-PSPester` to include the fix for nested describe errors (#5771)
-- Automate the generation of release change log draft (#5712)
+- Moved the cleanup logic to `Restore-PSModuleToBuild` (Internal 6442)
+- Update dependency versions (Internal 6421)
+- Create unified release build for macOS and Linux packages (#8399)
+- Build Alpine `tar.gz` package in release builds (Internal 6027)
 
 ### Documentation and Help Content
 
-- Updated help Uri to point to latest help content for `Microsoft.PowerShell.Core` module (#5820)
-- Update the installation doc for `Raspberry-Pi` about supported devices (#5773)
-- Fix a typo and a Markdown linting error in the Pull Request Template (#5807) (Thanks @markekraus!)
-- Update submodule documentation for pester removal (#5786) (Thanks @bergmeister!)
-- Change `Github` to `GitHub` in `CONTRIBUTING.md` (#5697) (Thanks @stuntguy3000!)
-- Fix incorrect release date on the changelog (#5698) (Thanks @SwarfegaGit!)
-- Add instructions to deploy `win-arm` build on Windows IoT (#5682)
+- Update version for README, Alpine docker file and hosting tests (Internal 6438)
 
 ### SHA256 Hashes of the release artifacts
 
-- powershell_6.0.0-1.debian.8_amd64.deb
-  - 4A805E7B276646ECD4CD7A33D9B701CA9893FCB3F502E9D87207E1A017CDD7AC
-- powershell_6.0.0-1.debian.9_amd64.deb
-  - 14CD9082B827E987F63D1539FA5EB448DC9F5F55B927F51D331010B7C35CFD19
-- powershell_6.0.0-1.ubuntu.14.04_amd64.deb
-  - 690DD94132C841C379A0456E89A7F494379C790E873B55FA3DB2C2E6108447D2
-- powershell_6.0.0-1.ubuntu.16.04_amd64.deb
-  - A1C4981BB8059D7052DD723BA40F1FF4AD1F8ED3CB037A7D20699FB47AAE9CEE
-- powershell_6.0.0-1.ubuntu.17.04_amd64.deb
-  - 5A316C60E1D8FB4673D1374BF641CF42D3EC8274D3B606A35AF937198C374F3F
-- powershell-6.0.0-1.rhel.7.x86_64.rpm
-  - BA625BA77D6E75550E227BF408325BFF25CFFBA1911AC74A8DC11154AEB8314F
-- powershell-6.0.0-linux-arm32.tar.gz
-  - 65831535A136FFE53077864D55D2F7E51E7DD1CB52CA38E9000032F09B244E86
-- powershell-6.0.0-linux-x64.tar.gz
-  - 2CCC89CC6C99FF607FF5D82F2DBBEC05C60E0494C75DC500CD46F2EDCC7624FE
-- powershell-6.0.0-x86_64.AppImage
-  - B1E1E435EC3BEC5BBC350F6E6B9110B4A98D56CC5DA203B234C386139B1477E5
-- PowerShell-6.0.0-win-arm32.zip
-  - 05C3BD906ECBDD87B2799F720172FA9B5AB5BCF17127DA9DF44765BA76FF310B
-- PowerShell-6.0.0-win-arm64.zip
-  - 2B308C2435270C1429146B3D309167C7B9BAF3524D3665DA9A703091171FDA2A
-- PowerShell-6.0.0-win-x64.msi
-  - A1155D0F9D697B3EBF51C03D328886F9000709C1C4688DA42FF9C234AF02A63F
-- PowerShell-6.0.0-win-x64.zip
-  - FE6C17E9829FFD0503917A1A4ACC3E75A203A80B28E2D9EFFDD7F0AB576F7D5D
-- PowerShell-6.0.0-win-x86.msi
-  - 494DF01BFF5A007F98761A5088E6E4AA6754808DEE0CBF096FFF171D1233E8FC
-- PowerShell-6.0.0-win-x86.zip
-  - 8E32785547FDD90412FA3A8FA4703D272933999F3D29CAE9FEDA19119B3A2D46
-- powershell-6.0.0-osx-x64.tar.gz
-  - B23BDB6A89238C64D7C7A125EB28554693502D6203A9E8EFA84E583F63E44B11
-- powershell-6.0.0-osx.10.12-x64.pkg
-  - 396BBB5907FD0EC0BDFBFE0BF01961B52B4F1F1CEDDC95467DD9ECD4FA5281DF
+- powershell-6.1.2-1.rhel.7.x86_64.rpm
+  - DACA3BB4C868667024281D6668ED877234C05F96A49E97E7A7F3619629B84075
+- powershell-6.1.2-linux-alpine-x64.tar.gz
+  - 6A619BDA0611ABF415524C203A0FC47A80CBB63EAE8BEDDB45916A803030EF42
+- powershell-6.1.2-linux-arm32.tar.gz
+  - 4C2722C6E7B41D49229BD7E85C2A428D5E4BE77B77B026201FA748B2835AB3A1
+- powershell-6.1.2-linux-x64.tar.gz
+  - 17CB0DEDCA726BF6CB6C47B513BA1B0977A2BCA9E041AC34AE7F1CE2BB174BDA
+- powershell-6.1.2-osx-x64.pkg
+  - 23E90DBFD00BF1B4C82DFEF0FBDDA7AA1B2CE5C544FCA0D1CDEF657EF7398689
+- powershell-6.1.2-osx-x64.tar.gz
+  - 5568DDF50EA071F7D6BB61002EBEAFED9D449AC4950F4C387F779382D03A34D2
+- PowerShell-6.1.2-win-arm32.zip
+  - A2A3C6F66F20239B3F118F334D6512214995720BFC5902AF6582BE5E981B7659
+- PowerShell-6.1.2-win-arm64.zip
+  - CDFACB350A8756B43BB6556587C84C19CBACBCBAED4C8EA15F9527D34C0A77D6
+- PowerShell-6.1.2-win-x64.msi
+  - 271195A099D9D3E906B523B6A40BA6F1E61D962559F408321651C551D5A45EC6
+- PowerShell-6.1.2-win-x64.zip
+  - EE7C46F2ABD1CDD775C727719C12A428D47AA1C087BC849A09AE18E89982D420
+- PowerShell-6.1.2-win-x86.msi
+  - D6EE3E941989556D5A5EF3AB940A297387AF7A427B3F4779C0ACDC2BB44C0232
+- PowerShell-6.1.2-win-x86.zip
+  - 2D6228F4F5FE9A78188286EEF51267F5DE4F2C5F0FF84CD67654AF4F30AEDB37
+- powershell_6.1.2-1.debian.8_amd64.deb
+  - 43BD89C112B436B262BA6418DD6FE567ECD1836D72591E6425E57EF9F6613EFE
+- powershell_6.1.2-1.debian.9_amd64.deb
+  - 3D49A399D90A91B50E4978C00489CA3C24B347DBC0E106FC65812B2F8A74B84B
+- powershell_6.1.2-1.ubuntu.14.04_amd64.deb
+  - D5B14ECC35C30B34871E60909E442F561FE16BBB34F80F024D8B5BD7E44125A7
+- powershell_6.1.2-1.ubuntu.16.04_amd64.deb
+  - 3ACDE9FE1FEB35EC290270B4F579CE54BCC0D49ACB0C9A5F79BA0ED5FC3C1D6F
+- powershell_6.1.2-1.ubuntu.17.10_amd64.deb
+  - 797295B4973607C95B79ED1FFB48C3AE2E3BC4C4265FEF7BF313CADE8D535193
+- powershell_6.1.2-1.ubuntu.18.04_amd64.deb
+  - BA1DE884775766EAADD795BDEF96232D724487E1BFA8B774EB164AD3D16712BA
+
 
 -------------
 | Downloads |
@@ -108,38 +98,55 @@ Published: 01/10/2018 17:21:29
 
 Filename                                  Updated              SizeMB
 --------                                  -------              ------
-powershell-6.0.0-1.rhel.7.x86_64.rpm      1/10/2018 1:28:46 PM     49
-powershell-6.0.0-linux-arm32.tar.gz       1/10/2018 1:28:49 PM     24
-powershell-6.0.0-linux-x64.tar.gz         1/10/2018 1:28:54 PM     50
-powershell-6.0.0-osx-x64.tar.gz           1/10/2018 1:39:22 PM     48
-powershell-6.0.0-osx.10.12-x64.pkg        1/10/2018 1:39:13 PM     48
-PowerShell-6.0.0-win-arm32.zip            1/10/2018 1:28:58 PM     31
-PowerShell-6.0.0-win-arm64.zip            1/10/2018 1:29:02 PM     31
-PowerShell-6.0.0-win-x64.msi              1/10/2018 1:29:09 PM     48
-PowerShell-6.0.0-win-x64.zip              1/10/2018 1:29:19 PM     49
-PowerShell-6.0.0-win-x86.msi              1/10/2018 1:29:24 PM     44
-PowerShell-6.0.0-win-x86.zip              1/10/2018 1:29:30 PM     46
-powershell-6.0.0-x86_64.AppImage          1/10/2018 1:29:39 PM     73
-powershell_6.0.0-1.debian.8_amd64.deb     1/10/2018 1:28:10 PM     50
-powershell_6.0.0-1.debian.9_amd64.deb     1/10/2018 1:28:17 PM     50
-powershell_6.0.0-1.ubuntu.14.04_amd64.deb 1/10/2018 1:28:23 PM     50
-powershell_6.0.0-1.ubuntu.16.04_amd64.deb 1/10/2018 1:28:29 PM     50
-powershell_6.0.0-1.ubuntu.17.04_amd64.deb 1/10/2018 1:28:40 PM     50
+powershell-6.1.2-1.rhel.7.x86_64.rpm      1/14/2019 8:44:35 PM     55
+powershell-6.1.2-linux-alpine-x64.tar.gz  1/14/2019 8:44:56 PM     43
+powershell-6.1.2-linux-arm32.tar.gz       1/14/2019 8:45:25 PM     43
+powershell-6.1.2-linux-x64.tar.gz         1/14/2019 8:46:21 PM     55
+powershell-6.1.2-osx-x64.pkg              1/14/2019 8:47:04 PM     54
+powershell-6.1.2-osx-x64.tar.gz           1/14/2019 8:47:37 PM     54
+PowerShell-6.1.2-win-arm32.zip            1/14/2019 8:48:02 PM     39
+PowerShell-6.1.2-win-arm64.zip            1/14/2019 8:48:29 PM     39
+PowerShell-6.1.2-win-x64.msi              1/14/2019 8:49:03 PM     55
+PowerShell-6.1.2-win-x64.zip              1/14/2019 8:49:42 PM     56
+PowerShell-6.1.2-win-x86.msi              1/14/2019 8:50:21 PM     50
+PowerShell-6.1.2-win-x86.zip              1/14/2019 8:50:50 PM     52
+powershell_6.1.2-1.debian.8_amd64.deb     1/14/2019 8:51:31 PM     55
+powershell_6.1.2-1.debian.9_amd64.deb     1/14/2019 8:52:40 PM     55
+powershell_6.1.2-1.ubuntu.14.04_amd64.deb 1/14/2019 8:53:19 PM     55
+powershell_6.1.2-1.ubuntu.16.04_amd64.deb 1/14/2019 8:53:53 PM     55
+powershell_6.1.2-1.ubuntu.17.10_amd64.deb 1/14/2019 8:54:21 PM     55
+powershell_6.1.2-1.ubuntu.18.04_amd64.deb 1/14/2019 8:55:06 PM     55
 ```
 
 ### EXAMPLE 2
 
 ```powershell
-PS /home/jeff> get-psreleasesummary -AsMarkdown | show-markdown
+PS /home/jeff> get-psreleasesummary -AsMarkdown -preview | show-markdown
 ```
 
-Get the current release summary as markdown and use the Show-Markdown command in PowerShell Core to render the markdown in the console. Note that Show-Markdown may not render tables correctly.
+Get the latest preview release summary as markdown and use the Show-Markdown command in PowerShell Core to render the markdown in the console. Note that Show-Markdown may not render tables correctly.
 
 ## PARAMETERS
 
 ### -AsMarkdown
 
 Create a markdown version of the report.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Preview
+
+Get the latest preview release.
 
 ```yaml
 Type: SwitchParameter

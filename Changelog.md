@@ -1,5 +1,15 @@
 # Change log for PSReleaseTools
 
+## v0.8.0
+
++ Modified commands to default to most recent stable build
++ Modified commands to get preview build and related assets (Issue #7)
++ Updated the manifest to reflect support for Desktop and Core editions
++ Added an alias of `x64` to the `Only64bit` parameter in `Get-PSReleaseAsset`
++ Reorganized module file layout
++ Help updates
++ Updated `README.md`
+
 ## v0.7.0
 
 + Added switch parameter on `Get-PSReleaseAsset` to only get x64 versions

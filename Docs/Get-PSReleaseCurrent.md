@@ -14,12 +14,12 @@ Get the current PowerShell v6 release
 ## SYNTAX
 
 ```yaml
-Get-PSReleaseCurrent [<CommonParameters>]
+Get-PSReleaseCurrent [-Preview] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will query the GitHub repository for the latest release and write an object to the pipeline. If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update.
+This command will query the GitHub repository for the latest stable release and write an object to the pipeline. If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update. Use the -Preview parameter to get the latest preview build.
 
 ## EXAMPLES
 
@@ -28,9 +28,10 @@ This command will query the GitHub repository for the latest release and write a
 ```powershell
 PS C:\> Get-PSReleaseCurrent
 
+
 Name                              Version Released             LocalVersion
 ----                              ------- --------             ------------
-v6.1.0 Release of PowerShell Core v6.1.0  9/13/2018 9:49:59 PM 6.1.0
+v6.1.2 Release of PowerShell Core v6.1.2  1/15/2019 3:02:39 PM 5.1.17763.134
 ```
 
 This gets the current release from a Windows platform.
@@ -38,16 +39,32 @@ This gets the current release from a Windows platform.
 ### Example 2
 
 ```powershell
-PS /home/me> Get-PSReleaseCurrent
+PS /home/me> Get-PSReleaseCurrent -preview
 
-Name                              Version Released           LocalVersion
-----                              ------- --------           ------------
-v6.1.0 Release of PowerShell Core v6.1.0  9/13/18 9:49:59 PM 6.1.0
+Name                                        Version          Released           LocalVersion
+----                                        -------          --------           ------------
+v6.2.0-preview.4 Release of PowerShell Core v6.2.0-preview.4 1/28/19 9:28:01 PM 6.1.2
 ```
 
-This gets the current release from an Ubuntu platform.
+This gets the current preview release from an Ubuntu platform.
 
 ## PARAMETERS
+
+### -Preview
+
+Get the latest preview release.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### CommonParameters
 
