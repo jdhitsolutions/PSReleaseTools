@@ -1,6 +1,6 @@
 # Change log for PSReleaseTools
 
-## v1.0.0
+## v1.1.0
 
 + Updated asset cmdlets to include new families (Issue #10)
 + Updated `Get-PSReleaseAsset` to allow specifying a format (Issue #9)
@@ -8,6 +8,9 @@
 + Updated `README.md`
 + Added `Install-PSPreview` to install the latest 64bit PowerShell Preview build for Windows.
 + Help updates
+
+## v1.0.0
+
 + There have been enough updates that this seems like a good time.
 
 ## v0.8.1
