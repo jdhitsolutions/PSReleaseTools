@@ -1,6 +1,6 @@
 ---
 external help file: PSReleaseTools-help.xml
-Module Name: PSReleaseTools
+Module Name: psreleasetools
 online version:
 schema: 2.0.0
 ---
@@ -22,8 +22,8 @@ Save-PSReleaseAsset [[-Path] <String>] [-All] [-Passthru] [-Preview] [-WhatIf] [
 ### Family
 
 ```yaml
-Save-PSReleaseAsset [[-Path] <String>] -Family <String[]> [-Passthru] [-Preview] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Save-PSReleaseAsset [[-Path] <String>] -Family <String[]> [-Format <String[]>] [-Passthru] [-Preview] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ### file
@@ -37,7 +37,6 @@ Save-PSReleaseAsset [[-Path] <String>] [-Asset <Object>] [-Passthru] [-Preview] 
 
 This command will download the latest stable PowerShell Core releases from the GitHub repository. You can download everything or limit the download to specific platforms. Use -Preview to get the latest preview build.
 
-If you select Windows files you can use the -Format dynamic parameter to download only MSI or ZIP files. Note that this will not work if you specify a combination of Windows and non-Windows platforms.
 
 ## EXAMPLES
 
@@ -73,11 +72,10 @@ PS C:\> Get-PSReleaseAsset -Family rhel -preview | Save-PSReleaseAsset -path D:\
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        2/13/2019   5:16 PM       57704136 powershell-preview-6.2.0_preview.4-1.rhel.7.x86_64.rpm
-
+-a----         7/10/2019 11:33 AM       52896509 powershell-preview-7.0.0_preview.1-1.rhel.7.x86_64.rpm
 ```
 
-Get the RedHat assets for the latest preview build and save them to D:\Temp
+Get the RedHat assetsfor the latest preview build and save them to D:\Temp
 
 ## PARAMETERS
 
@@ -183,9 +181,25 @@ The platform you wish to download.
 Type: String[]
 Parameter Sets: Family
 Aliases:
-Accepted values: Rhel, Raspbian, Ubuntu, Debian, Windows, AppImage, Arm, MacOS
+Accepted values: Rhel, Raspbian, Ubuntu, Debian, Windows, AppImage, Arm, MacOS, Alpine, FXDependent
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Format
+
+Limit results to a given format. The default is all formats.
+
+```yaml
+Type: String[]
+Parameter Sets: Family
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

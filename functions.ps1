@@ -37,7 +37,7 @@ Function GetData {
 
     if ($Preview) {
         Write-Verbose "[PROCESS] Getting latest preview"
-       ($get).where( {$_.prerelease}) | Select-Object -first 1
+        ($get).where( {$_.prerelease}) | Select-Object -first 1
     }
     else {
         Write-Verbose "[PROCESS] Getting latest stable release"
@@ -115,7 +115,7 @@ Function Get-PSReleaseSummary {
         }
 
         $dl = $data.assets |
-        Select-Object @{Name = "Filename"; Expression = {$_.name}},
+            Select-Object @{Name = "Filename"; Expression = {$_.name}},
         @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
         @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
 
@@ -185,12 +185,16 @@ Function Save-PSReleaseAsset {
         [Parameter(ParameterSetName = "All")]
         [switch]$All,
 
-        [Parameter(ParameterSetName = "Family", Mandatory)]
-        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS")]
-        [ValidateNotNullorEmpty()]
+        [Parameter(ParameterSetName = "Family", Mandatory, HelpMessage = "Limit results to a given platform. The default is all platforms.")]
+        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent")]
         [string[]]$Family,
 
+        [Parameter(ParameterSetName = "Family", HelpMessage = "Limit results to a given format. The default is all formats.")]
+        [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip')]
+        [string[]]$Format,
+
         [Parameter(ParameterSetName = "file", ValueFromPipeline)]
+        [ValidateNotNullOrEmpty()]
         [object]$Asset,
 
         [switch]$Passthru,
@@ -199,33 +203,6 @@ Function Save-PSReleaseAsset {
         [switch]$Preview
 
     )
-    DynamicParam {
-        if ($Family -match 'Windows') {
-            #define a parameter attribute object
-            $attributes = New-Object System.Management.Automation.ParameterAttribute
-            $attributes.ValueFromPipelineByPropertyName = $True
-            $attributes.HelpMessage = "Select a download format"
-            $attributes.ParameterSetName = "Family"
-            $attributes.DontShow = $False
-
-            $validate = [System.Management.Automation.ValidateSetAttribute]::New("zip", "msi")
-
-            #define a collection for attributes
-            $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
-            $attributeCollection.Add($attributes)
-            $attributeCollection.Add($validate)
-
-            #define the dynamic param
-            $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("Format", [string], $attributeCollection)
-
-            #create array of dynamic parameters
-            $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
-            $paramDictionary.Add("Format", $dynParam1)
-            #use the array
-            return $paramDictionary
-
-        } #if
-    } #dynamic parameter
 
 
     Begin {
@@ -261,20 +238,22 @@ Function Save-PSReleaseAsset {
                 Write-Verbose "[PROCESS] Downloading releases for $($family -join ',')"
                 $assets = @()
                 Foreach ($item in $Family) {
-                    #"Rhel","Raspbian","Ubuntu","Debian","Windows","AppImage","Arm","MacOS"
+
                     Switch ($item) {
                         "Windows" { $assets += $data.where( {$_.filename -match 'win-x\d{2}'})}
-                        "Rhel" { $assets += $data.where( {$_.filename -match 'rhel'}) }
+                        "Rhel" { $assets += $data.where( {$_.filename -match 'rhel'})}
                         "Raspbian" { $assets += $data.where( {$_.filename -match 'linux'})}
-                        "Debian" { $assets += $data.where( {$_.filename -match 'debian'}) }
+                        "Debian" { $assets += $data.where( {$_.filename -match 'debian'})}
                         "MacOS" { $assets += $data.where( {$_.filename -match 'osx'}) }
-                        "Ubuntu" { $assets += $data.where( {$_.filename -match 'ubuntu'})  }
-                        "Arm" { $assets += $data.where( {$_.filename -match '-arm\d{2}'}) }
-                        "AppImage" { $assets += $data.where( {$_.filename -match 'appimage'}) }
+                        "Ubuntu" { $assets += $data.where( {$_.filename -match 'ubuntu'})}
+                        "Arm" { $assets += $data.where( {$_.filename -match '-arm\d{2}'})}
+                        "AppImage" { $assets += $data.where( {$_.filename -match 'appimage'})}
+                        "FXDependent" { $assets += $data.where( {$_.filename -match 'fxdependent'})}
+                        "Alpine" {$assets += $data.where( {$_.filename -match 'alpine' })}
                     } #Switch
 
-                    if (($assets.family -eq 'Windows') -AND ($PSBoundParameters.ContainsKey("Format"))) {
-                        $type = $PSBoundParameters["format"]
+                    if ($PSBoundParameters.ContainsKey("Format")) {
+                        $type = $PSBoundParameters["format"] -join "|"
                         Write-Verbose "[PROCESS] Limiting download to $type files"
                         $assets = $assets.Where( {$_.filename -match "$type$"})
                     }
@@ -298,15 +277,18 @@ Function Save-PSReleaseAsset {
     End {
         Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
-
 }
 
 Function Get-PSReleaseAsset {
     [cmdletbinding()]
     [OutputType("PSCustomObject")]
     Param(
-        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS")]
+        [Parameter(HelpMessage = "Limit results to a given platform. The default is all platforms.")]
+        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent")]
         [string[]]$Family,
+        [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip')]
+        [Parameter(HelpMessage = "Limit results to a given format. The default is all formats.")]
+        [string[]]$Format,
         [alias("x64")]
         [switch]$Only64Bit,
         [Parameter(HelpMessage = "Get the latest preview release")]
@@ -315,11 +297,9 @@ Function Get-PSReleaseAsset {
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
-
     } #begin
 
     Process {
-
         Try {
             if ($Preview) {
                 $data = GetData -Preview -ErrorAction stop
@@ -350,6 +330,8 @@ Function Get-PSReleaseAsset {
                         "appimage" {"AppImage"}
                         "rhel" {"Rhel"}
                         "linux" {"Raspbian"}
+                        "alpine" {"Alpine"}
+                        "fxdepend" {"FXDependent"}
                     }
                 }
             },
@@ -366,13 +348,17 @@ Function Get-PSReleaseAsset {
 
             if ($Family) {
                 Write-Verbose "[PROCESS] Filtering by family"
-                $assets = $assets.where({$_.family -match $($family -join "|")})
+                $assets = $assets.where( {$_.family -match $($family -join "|")})
             }
             if ($Only64Bit) {
                 Write-Verbose "[PROCESS] Filtering for 64bit"
-                $assets = ($assets).where({$_.filename -match "(x|amd)64"})
+                $assets = ($assets).where( {$_.filename -match "(x|amd)64"})
             }
 
+            if ($Format) {
+                Write-Verbose "[PROCESS] Filtering for format"
+                $assets = $assets.where( {$_.format -match $($format -join "|")})
+            }
             #write the results to the pipeline
             $assets
 
@@ -386,6 +372,70 @@ Function Get-PSReleaseAsset {
         Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
 }
+
+<#
+Display Options
+	/quiet
+		Quiet mode, no user interaction
+	/passive
+		Unattended mode - progress bar only
+	/q[n|b|r|f]
+		Sets user interface level
+		n - No UI
+		b - Basic UI
+		r - Reduced UI
+		f - Full UI (default)
+#>
+Function Install-PSPreview {
+    [cmdletbinding(SupportsShouldProcess)]
+    Param(
+        [Parameter(HelpMessage = "Specify the path to the download folder")]
+        [string]$Path = $env:TEMP,
+        [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
+        [ValidateSet("Full", "Quiet", "Passive")]
+        [string]$Mode = "Full"
+    )
+    Begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+    } #begin
+
+    Process {
+        #only run on Windows
+        if (($psedition -eq 'Desktop') -OR ($PSVersionTable.platform -eq 'Win32NT')) {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path "
+            $install = Get-PSReleaseAsset -Preview -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
+            if ($PSBoundParameters.ContainsKey("WhatIf")) {
+                #create a dummy file name is using -Whatif
+                $filename = Join-path -path $Path -ChildPath "whatif-preview.msi"
+            }
+            else {
+                $filename = $install.fullname
+            }
+            $cmd = "$filename"
+
+            if ($Mode -eq "quiet") {
+                $cmd += " /quiet"
+            }
+            elseif ($Mode -eq "Passive") {
+                $cmd += " /passive"
+            }
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using $Mode mode"
+            $sb = [scriptblock]::Create($cmd)
+
+            if ($pscmdlet.ShouldProcess($sb)) {
+                Invoke-Command -scriptblock $sb
+            }
+        } #if Windows
+        else {
+            Write-Warning "This will only work on Windows platforms."
+        }
+    } #process
+
+    End {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+    } #end
+
+} #close Install-PSPreview
 
 #endregion
 

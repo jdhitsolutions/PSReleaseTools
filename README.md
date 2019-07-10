@@ -2,6 +2,7 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSReleaseTools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSReleaseTools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSReleaseTools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSReleaseTools/)
 
+![PSAvatar](/images/Powershell_avatar.ico)
 
 This PowerShell module provides a set of commands for working with the latest releases from the PowerShell [GitHub repository](https://github.com/PowerShell/PowerShell). The module contains commands to get summary information about the most current release as well as commands to download some or all of the release files.
 
@@ -13,12 +14,13 @@ This module should work cross-platform on both Windows PowerShell and PowerShell
 
 ## Notes
 
-The module currently has 4 commands:
+The module currently has 5 commands:
 
 - [Get-PSReleaseSummary](/Docs/Get-PSReleaseSummary.md)
 - [Get-PSReleaseCurrent](/Docs/Get-PSReleaseCurrent.md)
 - [Get-PSReleaseAsset](/Docs/Get-PSReleaseAsset.md)
 - [Save-PSReleaseAsset](/Docs/Save-PSReleaseAsset.md)
+- [Install-PSPreview](/Docs/Install-PSPreview.md)
 
 All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217034" target="_blank">Invoke-RestMethod</a> or <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217035" target="_blank">Invoke-WebRequest</a>, allow you to programmatically interact with GitHub.
 
@@ -46,6 +48,16 @@ I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details b
 
 The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them.
 
+## Installing a Build
+
+On Windows, it is pretty easy to install a new build with a one-line command like this:
+
+```powershell
+ Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path d:\temp -Passthru | Invoke-Item
+```
+
+Or you can use the [Install-PSPreview](/Docs/Install-PSPreview.md) command to download the latest 64 bit _*preview*_ build for Windows and kick off the installation.
+
 ## Preview Builds
 
 Starting in v0.8.0, command modules have a `-Preview` parameter which will get the latest preview build. Otherwise, the commands will use the latest stable release.
@@ -68,4 +80,4 @@ Install-Module PSReleaseTools -scope currentuser
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-*Last updated 13 February 2019*
+*Last updated 2019-07-10 15:49:37Z UTC*

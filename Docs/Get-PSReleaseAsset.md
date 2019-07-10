@@ -1,6 +1,6 @@
 ---
 external help file: PSReleaseTools-help.xml
-Module Name: PSReleaseTools
+Module Name: psreleasetools
 online version:
 schema: 2.0.0
 ---
@@ -14,7 +14,7 @@ Get PowerShell release assets.
 ## SYNTAX
 
 ```yaml
-Get-PSReleaseAsset [[-Family] <String[]>] [-Only64Bit] [-Preview] [<CommonParameters>]
+Get-PSReleaseAsset [[-Family] <String[]>] [-Format <String[]>] [-Only64Bit] [-Preview] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,72 +30,57 @@ This command will not download the file but allow you to look at the details. Yo
 ```powershell
 PS C:\> Get-PSReleaseAsset -Family Rhel
 
-FileName      : powershell-6.1.2-1.rhel.7.x86_64.rpm
+FileName      : powershell-6.2.1-1.rhel.7.x86_64.rpm
 Family        : Rhel
 Format        : rpm
 SizeMB        : 55
-Hash          : DACA3BB4C868667024281D6668ED877234C05F96A49E97E7A7F3619629B84075
-Created       : 1/14/2019 8:44:20 PM
-Updated       : 1/14/2019 8:44:35 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/powershell-6.1.2-1.rhel.7.x86_64.rpm
-DownloadCount : 2736
-
-PS C:\> Get-PSReleaseAsset -Family Rhel -preview
-
-FileName      : powershell-preview-6.2.0_preview.4-1.rhel.7.x86_64.rpm
-Family        : Rhel
-Format        : rpm
-SizeMB        : 55
-Hash          :
-Created       : 1/25/2019 2:51:03 PM
-Updated       : 1/25/2019 2:51:43 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.2.0-preview.4/powershell-preview-6.2.0_preview.4-1.rhel.7.x86_64.rpm
-DownloadCount : 897
-
+Hash          : 1CDF5E804A2FC84E91999E46231B00B8A8635D3595218E9709ADAA8208D02C4D
+Created       : 5/21/2019 5:08:40 PM
+Updated       : 5/21/2019 5:08:52 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.2.1/powershell-6.2.1-1.rhel.7.x86_64.rpm
+DownloadCount : 3225
 ```
 
-Getting the latest Red Hat related assets for both the stable and preview build.
+Getting the latest Red Hat related assets for the stable build.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-PSReleaseAsset -Family ubuntu | Save-PSReleaseAsset -Path D:\PS6 -whatif
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/powershell_6.1.2-1.ubuntu.14.04_amd64.deb" on target "D:\PS6\powershell_6.1.2-1.ubuntu.14.04_amd64.deb".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/powershell_6.1.2-1.ubuntu.16.04_amd64.deb" on target "D:\PS6\powershell_6.1.2-1.ubuntu.16.04_amd64.deb".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/powershell_6.1.2-1.ubuntu.17.10_amd64.deb" on target "D:\PS6\powershell_6.1.2-1.ubuntu.17.10_amd64.deb".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/powershell_6.1.2-1.ubuntu.18.04_amd64.deb" on target "D:\PS6\powershell_6.1.2-1.ubuntu.18.04_amd64.deb".
+PS C:\> Get-PSReleaseAsset -Family Windows -Only64Bit -Preview
+FileName      : PowerShell-7.0.0-preview.1-win-x64.msi
+Family        : Windows
+Format        : msi
+SizeMB        : 78
+Hash          : D4B6D58B0BFA791E3D613BEC89062579E58951EA07EEDAA54038F317EBBBAD0A
+Created       : 5/30/2019 9:13:01 PM
+Updated       : 5/30/2019 9:13:16 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-preview.1/PowerShell-7.0.0-preview.1-
+                win-x64.msi
+DownloadCount : 25063
+
+FileName      : PowerShell-7.0.0-preview.1-win-x64.zip
+Family        : Windows
+Format        : zip
+SizeMB        : 80
+Hash          : D3A8926C19B264A1A6CC8F983B04A2C1E70F78EEA8054E00D45ABD216F7907C7
+Created       : 5/30/2019 9:13:17 PM
+Updated       : 5/30/2019 9:13:28 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-preview.1/PowerShell-7.0.0-preview.1-
+                win-x64.zip
+DownloadCount : 3641
 ```
 
-Run the command without -Whatif to actually download the Ubuntu related files and save to D:\PS6
+Get the preview build assets for Windows.
 
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Get-PSReleaseAsset -Family Windows -Only64Bit
-
-
-FileName      : PowerShell-6.1.2-win-x64.msi
-Family        : Windows
-Format        : msi
-SizeMB        : 55
-Hash          : 271195A099D9D3E906B523B6A40BA6F1E61D962559F408321651C551D5A45EC6
-Created       : 1/14/2019 8:48:45 PM
-Updated       : 1/14/2019 8:49:03 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/PowerShell-6.1.2-win-x64.msi
-DownloadCount : 46109
-
-FileName      : PowerShell-6.1.2-win-x64.zip
-Family        : Windows
-Format        : zip
-SizeMB        : 56
-Hash          : EE7C46F2ABD1CDD775C727719C12A428D47AA1C087BC849A09AE18E89982D420
-Created       : 1/14/2019 8:49:05 PM
-Updated       : 1/14/2019 8:49:42 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.1.2/PowerShell-6.1.2-win-x64.zip
-DownloadCount : 5799
+PS C:\> Get-PSReleaseAsset -Family ubuntu | Save-PSReleaseAsset -Path D:\PS6 -whatif
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.2.1/powershell_6.2.1-1.ubuntu.16.04_amd64.deb" on target "D:\PS6\powershell_6.2.1-1.ubuntu.16.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.2.1/powershell_6.2.1-1.ubuntu.18.04_amd64.deb" on target "D:\PS6\powershell_6.2.1-1.ubuntu.18.04_amd64.deb".
 ```
 
-Get the latest 64bit Windows related assets.
+Run the command without -Whatif to actually download the Ubuntu related files and save to D:\PS6
 
 ## PARAMETERS
 
@@ -107,7 +92,7 @@ Limit search to a particular platform.
 Type: String[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: Rhel, Raspbian, Ubuntu, Debian, Windows, AppImage, Arm, MacOS
+Accepted values: Rhel, Raspbian, Ubuntu, Debian, Windows, AppImage, Arm, MacOS, Alpine, FXDependent
 
 Required: False
 Position: 0
@@ -124,6 +109,22 @@ Only display 64bit assets.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: x64
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Format
+
+Limit results to a given format. The default is all formats.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named
