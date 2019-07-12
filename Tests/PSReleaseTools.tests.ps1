@@ -1,5 +1,5 @@
 
-Remove-module PSReleaseTools -ErrorAction SilentlyContinue
+Remove-Module PSReleaseTools -ErrorAction SilentlyContinue
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $modRoot = Split-Path -Parent $here | Convert-Path
 
@@ -84,6 +84,12 @@ InModuleScope PSReleaseTools {
         }
     }
     Describe Install-PSPreview {
+        It "Has no tests defined at this time." {
+            $true | should be $True
+        }
+    }
+
+    Describe Install-PSCore {
         It "Has no tests defined at this time." {
             $true | should be $True
         }

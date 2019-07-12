@@ -1,6 +1,6 @@
 ---
 external help file: PSReleaseTools-help.xml
-Module Name: psreleasetools
+Module Name: PSReleaseTools
 online version:
 schema: 2.0.0
 ---

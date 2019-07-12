@@ -1,0 +1,161 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: PS C:\> Save-PSReleaseAsset C:\PS6 -all
+  postCode: ''
+- name: EXAMPLE 2
+  preCode: ''
+  code: PS C:\> Save-PSReleaseAsset -path C:\PS6 -family Windows -format msi
+  postCode: Download and save Windows MSI packages.
+- name: EXAMPLE 3
+  preCode: ''
+  code: PS C:\> Save-PSReleaseAsset -path C:\PS6 -name Ubuntu,Debian
+  postCode: Download and save Ubuntu and Debian packages.
+- name: EXAMPLE 4
+  preCode: ''
+  code: >-
+    PS C:\> Get-PSReleaseAsset -Family rhel -preview | Save-PSReleaseAsset -path D:\Temp -passthru
+
+
+
+        Directory: D:\Temp
+
+
+
+
+
+    Mode                LastWriteTime         Length Name
+
+    ----                -------------         ------ ----
+
+    -a----         7/10/2019 11:33 AM       52896509 powershell-preview-7.0.0_preview.1-1.rhel.7.x86_64.rpm
+  postCode: Get the RedHat assets for the latest preview build and save them to D:\Temp
+inputs:
+- type: system.string
+  description: ''
+links:
+- href: ''
+  text: Invoke-WebRequest
+- href: ''
+  text: Get-PSReleaseAsset
+module:
+  name: PSReleaseTools
+name: Save-PSReleaseAsset
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Path
+  aliases: []
+  defaultValue: .
+  description: The destination folder for all downloads.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 1
+  type: String
+- name: All
+  aliases: []
+  defaultValue: False
+  description: Download all files to the destination path. This is the default behavior.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Passthru
+  aliases: []
+  defaultValue: False
+  description: ''
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: WhatIf
+  aliases:
+  - wi
+  defaultValue: None
+  description: Shows what would happen if the cmdlet runs. The cmdlet is not run.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Confirm
+  aliases:
+  - cf
+  defaultValue: None
+  description: Prompts you for confirmation before running the cmdlet.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Asset
+  aliases: []
+  defaultValue: None
+  description: An asset object piped from Get-PSReleaseAsset.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: Named
+  type: Object
+- name: Format
+  aliases: []
+  defaultValue: None
+  description: Limit results to a given format. The default is all formats.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String[]
+- name: Preview
+  aliases: []
+  defaultValue: None
+  description: Get the latest preview release.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: System.IO.FileInfo
+  description: ''
+requiredParameters:
+- name: Family
+  aliases: []
+  defaultValue: None
+  description: The platform you wish to download.
+  parameterValueGroup:
+  - Rhel
+  - Raspbian
+  - Ubuntu
+  - Debian
+  - Windows
+  - AppImage
+  - Arm
+  - MacOS
+  - Alpine
+  - FXDependent
+  pipelineInput: False
+  position: Named
+  type: String[]
+remarks: This command will download the latest stable PowerShell Core releases from the GitHub repository. You can download everything or limit the download to specific platforms. Use -Preview to get the latest preview build.
+summary: Download the latest PowerShell v6.x  releases
+syntaxes:
+- parameterValueGroup: All
+  parameters:
+  - Path
+  - All
+  - Passthru
+  - WhatIf
+  - Confirm
+  - Preview
+- parameterValueGroup: file
+  parameters:
+  - Path
+  - Passthru
+  - WhatIf
+  - Confirm
+  - Asset
+  - Preview
+- parameterValueGroup: Family
+  parameters:
+  - Path
+  - Passthru
+  - WhatIf
+  - Confirm
+  - Family
+  - Format
+  - Preview

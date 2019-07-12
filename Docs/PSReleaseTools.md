@@ -30,3 +30,10 @@ Get a text summary of the latest PowerShell Core release
 
 Save PowerShell Core installation files.
 
+### [Install-PSCore](Install-PSCore.md)
+
+On Windows, install the latest 64bit STABLE release of PowerShell Core
+
+### [Install-PSPreview](Install-PSPreview.md)
+
+On Windows, install the latest 64bit PREVIEW release of PowerShell Core

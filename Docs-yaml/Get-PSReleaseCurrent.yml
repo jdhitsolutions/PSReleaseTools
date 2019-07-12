@@ -1,0 +1,57 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> Get-PSReleaseCurrent
+
+
+
+
+
+    Name                              Version Released             LocalVersion
+
+    ----                              ------- --------             ------------
+
+    v6.2.1 Release of PowerShell Core v6.2.1  5/21/2019 5:58:45 PM 6.2.1
+  postCode: This gets the current release from a Windows platform.
+- name: Example 2
+  preCode: ''
+  code: >-
+    PS /home/me> Get-PSReleaseCurrent -preview
+
+
+
+    Name                                   Version          Released             LocalVersion
+
+    ----                                   -------          --------             ------------
+
+    v7.0.0-preview.1 Release of PowerShell v7.0.0-preview.1 5/30/2019 9:28:31 PM 6.2.1
+  postCode: This gets the current preview release from an Ubuntu platform.
+inputs:
+- type: None
+  description: ''
+links:
+- href: ''
+  text: Get-PSReleaseSummary
+module:
+  name: PSReleaseTools
+name: Get-PSReleaseCurrent
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Preview
+  aliases: []
+  defaultValue: None
+  description: Get the latest preview release.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: System.Object
+  description: ''
+requiredParameters: []
+remarks: This command will query the GitHub repository for the latest stable release and write an object to the pipeline. If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update. Use the -Preview parameter to get the latest preview build.
+summary: Get the current PowerShell v6 release
+syntaxes:
+- parameters:
+  - Preview

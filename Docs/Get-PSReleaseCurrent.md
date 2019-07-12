@@ -31,7 +31,7 @@ PS C:\> Get-PSReleaseCurrent
 
 Name                              Version Released             LocalVersion
 ----                              ------- --------             ------------
-v6.1.2 Release of PowerShell Core v6.1.2  1/15/2019 3:02:39 PM 5.1.17763.134
+v6.2.1 Release of PowerShell Core v6.2.1  5/21/2019 5:58:45 PM 6.2.1
 ```
 
 This gets the current release from a Windows platform.
@@ -41,9 +41,9 @@ This gets the current release from a Windows platform.
 ```powershell
 PS /home/me> Get-PSReleaseCurrent -preview
 
-Name                                        Version          Released           LocalVersion
-----                                        -------          --------           ------------
-v6.2.0-preview.4 Release of PowerShell Core v6.2.0-preview.4 1/28/19 9:28:01 PM 6.1.2
+Name                                   Version          Released             LocalVersion
+----                                   -------          --------             ------------
+v7.0.0-preview.1 Release of PowerShell v7.0.0-preview.1 5/30/2019 9:28:31 PM 6.2.1
 ```
 
 This gets the current preview release from an Ubuntu platform.

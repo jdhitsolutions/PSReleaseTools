@@ -1,4 +1,13 @@
-# Change log for PSReleaseTools
+# Change Log for PSReleaseTools
+
+## v1.2.0
+
++ Added `Install-PSCore` command for Windows only (Issue #11)
++ Reorganized module layout
++ Updated verbose messages in private functions
++ Updated help
++ Added YAML versions of help documents
++ Updated `README.md`
 
 ## v1.1.0
 

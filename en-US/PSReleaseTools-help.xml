@@ -22,16 +22,16 @@
             <maml:para>Limit search to a particular platform.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">"Rhel"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Raspbian"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Ubuntu"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Debian"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Windows"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"AppImage"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Arm"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"MacOS"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Alpine"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"FXDependent"</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Rhel</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Raspbian</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Ubuntu</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Debian</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Windows</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">AppImage</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Arm</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">MacOS</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Alpine</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">FXDependent</command:parameterValue>
           </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -520,6 +520,172 @@ powershell_6.1.2-1.ubuntu.18.04_amd64.deb 1/14/2019 8:55:06 PM     55</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Install-PSCore</command:name>
+      <command:verb>Install</command:verb>
+      <command:noun>PSCore</command:noun>
+      <maml:description>
+        <maml:para>Install the latest PowerShell Preview on Windows</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is intended to make it easy to download and install the latest PowerShell stable release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.</maml:para>
+      <maml:para>This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Install-PSCore</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Specify the path to the download folder</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$env:\temp</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Mode</maml:name>
+          <maml:Description>
+            <maml:para>Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.</maml:para>
+            <maml:para>The default if a full interactive install.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Full</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Quiet</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Passive</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Full</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:Description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Mode</maml:name>
+        <maml:Description>
+          <maml:para>Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.</maml:para>
+          <maml:para>The default if a full interactive install.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Full</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Specify the path to the download folder</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$env:\temp</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:Description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Install-PSCore -mode Passive</dev:code>
+        <dev:remarks>
+          <maml:para>Download and install using the passive mode which will only display a progress bar.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Save-PSReleaseAsset</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Install-PSPreview</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Install-PSPreview</command:name>
       <command:verb>Install</command:verb>
       <command:noun>PSPreview</command:noun>
@@ -529,6 +695,7 @@ powershell_6.1.2-1.ubuntu.18.04_amd64.deb 1/14/2019 8:55:06 PM     55</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command is intended to make it easy to download and install the latest PowerShell preview release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.</maml:para>
+      <maml:para>This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -675,6 +842,10 @@ powershell_6.1.2-1.ubuntu.18.04_amd64.deb 1/14/2019 8:55:06 PM     55</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Save-PSReleaseAsset</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Install-PSCore</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -886,16 +1057,16 @@ powershell_6.1.2-1.ubuntu.18.04_amd64.deb 1/14/2019 8:55:06 PM     55</dev:code>
             <maml:para>The platform you wish to download.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">"Rhel"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Raspbian"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Ubuntu"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Debian"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Windows"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"AppImage"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Arm"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"MacOS"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"Alpine"</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">"FXDependent"</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Rhel</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Raspbian</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Ubuntu</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Debian</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Windows</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">AppImage</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Arm</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">MacOS</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Alpine</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">FXDependent</command:parameterValue>
           </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>

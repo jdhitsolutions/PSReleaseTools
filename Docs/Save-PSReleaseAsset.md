@@ -1,6 +1,6 @@
 ---
 external help file: PSReleaseTools-help.xml
-Module Name: psreleasetools
+Module Name: PSReleaseTools
 online version:
 schema: 2.0.0
 ---
@@ -75,7 +75,7 @@ Mode                LastWriteTime         Length Name
 -a----         7/10/2019 11:33 AM       52896509 powershell-preview-7.0.0_preview.1-1.rhel.7.x86_64.rpm
 ```
 
-Get the RedHat assetsfor the latest preview build and save them to D:\Temp
+Get the RedHat assets for the latest preview build and save them to D:\Temp
 
 ## PARAMETERS
 

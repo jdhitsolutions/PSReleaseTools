@@ -1,0 +1,151 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> Get-PSReleaseAsset -Family Rhel
+
+
+
+    FileName      : powershell-6.2.1-1.rhel.7.x86_64.rpm
+
+    Family        : Rhel
+
+    Format        : rpm
+
+    SizeMB        : 55
+
+    Hash          : 1CDF5E804A2FC84E91999E46231B00B8A8635D3595218E9709ADAA8208D02C4D
+
+    Created       : 5/21/2019 5:08:40 PM
+
+    Updated       : 5/21/2019 5:08:52 PM
+
+    URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.2.1/powershell-6.2.1-1.rhel.7.x86_64.rpm
+
+    DownloadCount : 3225
+  postCode: Getting the latest Red Hat related assets for the stable build.
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    PS C:\> Get-PSReleaseAsset -Family Windows -Only64Bit -Preview
+
+    FileName      : PowerShell-7.0.0-preview.1-win-x64.msi
+
+    Family        : Windows
+
+    Format        : msi
+
+    SizeMB        : 78
+
+    Hash          : D4B6D58B0BFA791E3D613BEC89062579E58951EA07EEDAA54038F317EBBBAD0A
+
+    Created       : 5/30/2019 9:13:01 PM
+
+    Updated       : 5/30/2019 9:13:16 PM
+
+    URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-preview.1/PowerShell-7.0.0-preview.1-
+
+                    win-x64.msi
+
+    DownloadCount : 25063
+
+
+
+    FileName      : PowerShell-7.0.0-preview.1-win-x64.zip
+
+    Family        : Windows
+
+    Format        : zip
+
+    SizeMB        : 80
+
+    Hash          : D3A8926C19B264A1A6CC8F983B04A2C1E70F78EEA8054E00D45ABD216F7907C7
+
+    Created       : 5/30/2019 9:13:17 PM
+
+    Updated       : 5/30/2019 9:13:28 PM
+
+    URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-preview.1/PowerShell-7.0.0-preview.1-
+
+                    win-x64.zip
+
+    DownloadCount : 3641
+  postCode: Get the preview build assets for Windows.
+- name: EXAMPLE 3
+  preCode: ''
+  code: >-
+    PS C:\> Get-PSReleaseAsset -Family ubuntu | Save-PSReleaseAsset -Path D:\PS6 -whatif
+
+    What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.2.1/powershell_6.2.1-1.ubuntu.16.04_amd64.deb" on target "D:\PS6\powershell_6.2.1-1.ubuntu.16.04_amd64.deb".
+
+    What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.2.1/powershell_6.2.1-1.ubuntu.18.04_amd64.deb" on target "D:\PS6\powershell_6.2.1-1.ubuntu.18.04_amd64.deb".
+  postCode: Run the command without -Whatif to actually download the Ubuntu related files and save to D:\PS6
+inputs:
+- type: None
+  description: ''
+links:
+- href: ''
+  text: Save-PSReleaseAsset
+module:
+  name: PSReleaseTools
+name: Get-PSReleaseAsset
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Family
+  aliases: []
+  defaultValue: None
+  description: Limit search to a particular platform.
+  parameterValueGroup:
+  - Rhel
+  - Raspbian
+  - Ubuntu
+  - Debian
+  - Windows
+  - AppImage
+  - Arm
+  - MacOS
+  - Alpine
+  - FXDependent
+  pipelineInput: False
+  position: 0
+  type: String[]
+- name: Only64Bit
+  aliases:
+  - x64
+  defaultValue: None
+  description: Only display 64bit assets.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Format
+  aliases: []
+  defaultValue: None
+  description: Limit results to a given format. The default is all formats.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String[]
+- name: Preview
+  aliases: []
+  defaultValue: None
+  description: Get the latest preview release.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: System.Object
+  description: ''
+requiredParameters: []
+remarks: >-
+  Use this command to get details about the different PowerShell release assets. The default is to get all assets for the most recent stable release but you can limit results to a particular family like Windows or Ubuntu or get assets from the latest preview build.
+
+  This command will not download the file but allow you to look at the details. You can pipe these results to Save-PSReleaseAsset to download.
+summary: Get PowerShell release assets.
+syntaxes:
+- parameters:
+  - Family
+  - Only64Bit
+  - Format
+  - Preview

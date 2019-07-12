@@ -14,12 +14,13 @@ This module should work cross-platform on both Windows PowerShell and PowerShell
 
 ## Notes
 
-The module currently has 5 commands:
+The module currently has 6 commands:
 
 - [Get-PSReleaseSummary](/Docs/Get-PSReleaseSummary.md)
 - [Get-PSReleaseCurrent](/Docs/Get-PSReleaseCurrent.md)
 - [Get-PSReleaseAsset](/Docs/Get-PSReleaseAsset.md)
 - [Save-PSReleaseAsset](/Docs/Save-PSReleaseAsset.md)
+- [Install-PSCore](/Docs/Install-PSCore.md)
 - [Install-PSPreview](/Docs/Install-PSPreview.md)
 
 All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217034" target="_blank">Invoke-RestMethod</a> or <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217035" target="_blank">Invoke-WebRequest</a>, allow you to programmatically interact with GitHub.
@@ -28,7 +29,7 @@ The first command, `Get-PSReleaseSummary` queries the PowerShell repository rele
 
 ![get-psreleasesummary.png](/images/get-psreleasesummary.png)
 
-I put the release name and date right at the top so you can quickly check if you need to download something new. In GitHub, each release file is referred to as an <em>asset</em>. The `Get-PSReleaseAsset` command will query GitHub about each file and write a custom object to the pipeline.
+I put the release name and date right at the top so you can quickly check if you need to download something new. In GitHub, each release file is referred to as an *asset*. The `Get-PSReleaseAsset` command will query GitHub about each file and write a custom object to the pipeline.
 
 ![get-psreleaseasset.png](/images/get-psreleaseasset.png)
 
@@ -38,7 +39,7 @@ By default it will display assets for all platforms, but I added a `-Family` par
 
 Of course, you will want to download these files which is the job of the last command. By default the command will save all files to the current directory unless you specify a different path. You can limit the selection to a specific platform via the `-Family` parameter which uses a validation set.
 
-![save-psreleaseasset-ubunutpng](/images/save-psreleaseasset-ubuntu.png)
+![save-psreleaseasset-ubuntu.png](/images/save-psreleaseasset-ubuntu.png)
 
 You can select multiple names. If you select only Window, then there is a dynamic parameter called `-Format` where you can select ZIP or MSI. And the command supports `-WhatIf`.
 
@@ -48,6 +49,10 @@ I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details b
 
 The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them.
 
+## Preview Builds
+
+Starting in v0.8.0, command modules have a `-Preview` parameter which will get the latest preview build. Otherwise, the commands will use the latest stable release.
+
 ## Installing a Build
 
 On Windows, it is pretty easy to install a new build with a one-line command like this:
@@ -56,11 +61,19 @@ On Windows, it is pretty easy to install a new build with a one-line command lik
  Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path d:\temp -Passthru | Invoke-Item
 ```
 
-Or you can use the [Install-PSPreview](/Docs/Install-PSPreview.md) command to download the latest 64 bit _*preview*_ build for Windows and kick off the installation.
+Or you can use one of two newer functions to install the latest 64bit release. You can specify the interaction level.
 
-## Preview Builds
+ [Install-PSPreview](/Docs/Install-PSPreview.md) will download the latest 64 bit _*preview*_ build for Windows and kick off the installation.
 
-Starting in v0.8.0, command modules have a `-Preview` parameter which will get the latest preview build. Otherwise, the commands will use the latest stable release.
+ ```powershell
+Install-PSPreview -mode passive
+ ```
+
+ [Install-PSCore](/Docs/Install-PSCore.md) will do the same thing but for the latest stable release.
+
+ The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
+
+Non-Windows platforms have existing installation tools that work great from the command-line. Plus, I don't have the resources to develop and test installation techniques for all of the non-Windows options. That is why install-related commands in this module are limited to Windows.
 
 ## PowerShell Gallery
 
@@ -76,8 +89,8 @@ On PowerShell Core you might need to run:
 Install-Module PSReleaseTools -scope currentuser
 ```
 
-## Roadmap
+## Road Map
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-*Last updated 2019-07-10 15:49:37Z UTC*
+Last updated 2019-07-12 12:56:02Z UTC

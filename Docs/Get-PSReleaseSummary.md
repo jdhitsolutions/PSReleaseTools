@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get information on latest PowerShell v6 release
+Get information on latest PowerShell [Core] release
 
 ## SYNTAX
 
@@ -32,90 +32,112 @@ PS C:\> Get-PSReleaseSummary
 
 
 -----------------------------------------------------------
-v6.1.2 Release of PowerShell Core
-Published: 01/15/2019 15:02:39
+v6.2.1 Release of PowerShell Core
+Published: 05/21/2019 17:58:45
 -----------------------------------------------------------
-## v6.1.2 - 2019-01-15
+## v6.2.1 - 05/21/2019
+
+### Engine Updates and Fixes
+
+- Re-enable tab completion for functions (#9383)
+- Disable debugger in System Lock down mode (Internal 8428)
+
+### Code Cleanup
+
+- Update repo for Ubuntu 14.04 EOL (#9324)
 
 ### Tests
 
-- Fix test failures (Internal 6310)
+- Fix skipping of tests in `RemoteSession.Basic.Tests.ps1` (#9304)
+- Update tests to account for when `$PSHOME` is read only (#9279)
+- Mark tests in macOS CI which use `applescript` as pending/inconclusive (#9352)
+- Make sure non-Windows CI fails when a test fails (#9303)
 
 ### Build and Packaging Improvements
 
-- Moved the cleanup logic to `Restore-PSModuleToBuild` (Internal 6442)
-- Update dependency versions (Internal 6421)
-- Create unified release build for macOS and Linux packages (#8399)
-- Build Alpine `tar.gz` package in release builds (Internal 6027)
-
-### Documentation and Help Content
-
-- Update version for README, Alpine docker file and hosting tests (Internal 6438)
+- Partially revert "Fix the failed test and update `Publish-TestResults` to make `AzDO` fail the task when any tests failed (#9457)"
+- Bump `Markdig.Signed` from `0.16.0` to `0.17.0` (#9595)
+- Bump `Microsoft.PowerShell.Archive` from `1.2.2.0` to `1.2.3.0` in `/src/Modules` (#9594)
+- Enable building on Kali Linux (#9471)
+- Fix the failed test and update `Publish-TestResults` to make `AzDO` fail the task when any tests failed (#9457)
+- Add Preview assets for `msix` (#9375)
+- Create code coverage and test packages for non-windows (#9373)
+- Fix publishing daily `nupkg` to MyGet (#9269)
+- Bump `PackageManagement` from `1.3.1` to `1.3.2` in `/src/Modules` (#9568)
+- Bump `NJsonSchema` from `9.13.27` to `9.13.37` (#9524)
+- Bump `gulp` from `4.0.0` to `4.0.2` in `/test/common/markdown` (#9443)
+- Bump `Newtonsoft.Json` from `12.0.1` to `12.0.2` (#9433)
+- Bump `System.Net.Http.WinHttpHandler` from `4.5.2` to `4.5.3` (#9367)
+- Add `AccessToken` variable to jobs that perform signing (#9351)
+- Create test package for macOS on release builds (#9344)
+- Add component detection to all jobs (#8964)
+- Move artifacts to artifact staging directory before uploading (#9273)
 
 ### SHA256 Hashes of the release artifacts
 
-- powershell-6.1.2-1.rhel.7.x86_64.rpm
-  - DACA3BB4C868667024281D6668ED877234C05F96A49E97E7A7F3619629B84075
-- powershell-6.1.2-linux-alpine-x64.tar.gz
-  - 6A619BDA0611ABF415524C203A0FC47A80CBB63EAE8BEDDB45916A803030EF42
-- powershell-6.1.2-linux-arm32.tar.gz
-  - 4C2722C6E7B41D49229BD7E85C2A428D5E4BE77B77B026201FA748B2835AB3A1
-- powershell-6.1.2-linux-x64.tar.gz
-  - 17CB0DEDCA726BF6CB6C47B513BA1B0977A2BCA9E041AC34AE7F1CE2BB174BDA
-- powershell-6.1.2-osx-x64.pkg
-  - 23E90DBFD00BF1B4C82DFEF0FBDDA7AA1B2CE5C544FCA0D1CDEF657EF7398689
-- powershell-6.1.2-osx-x64.tar.gz
-  - 5568DDF50EA071F7D6BB61002EBEAFED9D449AC4950F4C387F779382D03A34D2
-- PowerShell-6.1.2-win-arm32.zip
-  - A2A3C6F66F20239B3F118F334D6512214995720BFC5902AF6582BE5E981B7659
-- PowerShell-6.1.2-win-arm64.zip
-  - CDFACB350A8756B43BB6556587C84C19CBACBCBAED4C8EA15F9527D34C0A77D6
-- PowerShell-6.1.2-win-x64.msi
-  - 271195A099D9D3E906B523B6A40BA6F1E61D962559F408321651C551D5A45EC6
-- PowerShell-6.1.2-win-x64.zip
-  - EE7C46F2ABD1CDD775C727719C12A428D47AA1C087BC849A09AE18E89982D420
-- PowerShell-6.1.2-win-x86.msi
-  - D6EE3E941989556D5A5EF3AB940A297387AF7A427B3F4779C0ACDC2BB44C0232
-- PowerShell-6.1.2-win-x86.zip
-  - 2D6228F4F5FE9A78188286EEF51267F5DE4F2C5F0FF84CD67654AF4F30AEDB37
-- powershell_6.1.2-1.debian.8_amd64.deb
-  - 43BD89C112B436B262BA6418DD6FE567ECD1836D72591E6425E57EF9F6613EFE
-- powershell_6.1.2-1.debian.9_amd64.deb
-  - 3D49A399D90A91B50E4978C00489CA3C24B347DBC0E106FC65812B2F8A74B84B
-- powershell_6.1.2-1.ubuntu.14.04_amd64.deb
-  - D5B14ECC35C30B34871E60909E442F561FE16BBB34F80F024D8B5BD7E44125A7
-- powershell_6.1.2-1.ubuntu.16.04_amd64.deb
-  - 3ACDE9FE1FEB35EC290270B4F579CE54BCC0D49ACB0C9A5F79BA0ED5FC3C1D6F
-- powershell_6.1.2-1.ubuntu.17.10_amd64.deb
-  - 797295B4973607C95B79ED1FFB48C3AE2E3BC4C4265FEF7BF313CADE8D535193
-- powershell_6.1.2-1.ubuntu.18.04_amd64.deb
-  - BA1DE884775766EAADD795BDEF96232D724487E1BFA8B774EB164AD3D16712BA
+- powershell_6.2.1-1.debian.9_amd64.deb
+  - 8F82DA9935196C420B82F5AAD731FC2992043668F49275E6955611440780C6F7
+- powershell_6.2.1-1.ubuntu.16.04_amd64.deb
+  - D2AF5AC877098ED4A2F86987C5F4D74DC2CFECF9E75805ECD04521EE2E4B25D0
+- powershell_6.2.1-1.ubuntu.18.04_amd64.deb
+  - B3FE1E5E03B566DE81EDB3C1B767BCBA76715D6FF9CA37BF3692B1711F076306
+- powershell-6.2.1-1.rhel.7.x86_64.rpm
+  - 1CDF5E804A2FC84E91999E46231B00B8A8635D3595218E9709ADAA8208D02C4D
+- powershell-6.2.1-linux-alpine-x64.tar.gz
+  - F1AB8E64706858190355AA41C5E481E0074A8E485DB4687E5BA5D1F1595726D9
+- powershell-6.2.1-linux-arm32.tar.gz
+  - 1C1ED1C764980C98092FAF8DABAA4C635AD9ED9BA43F5D1872DC27C47C7FD923
+- powershell-6.2.1-linux-arm64.tar.gz
+  - 7605F347F543880A90C1F67305C802562384A4DCDA9E797D501E7BBF674645AC
+- powershell-6.2.1-linux-x64.tar.gz
+  - E8287687C99162BF70FEFCC2E492F3B54F80BE880D86B9A0EC92C71B05C40013
+- powershell-6.2.1-linux-x64-fxdependent.tar.gz
+  - 36F70A4D79094FEEA7BA21527531C0A4C3F2691EFA554AEA012E73285C2E9841
+- powershell-6.2.1-osx-x64.pkg
+  - F490DC74E47467BD171E0F6B0496900F094467B34F85498DE043D15572D6B35B
+- powershell-6.2.1-osx-x64.tar.gz
+  - 264AF97471D42795F61DAAE52746FF08AB701892EC58B34669DD15B11FC1041E
+- PowerShell-6.2.1-win-arm32.zip
+  - 7BC3852DF425571C6C33AF96CA3418360C5EBD798E52E0471552260331A525AE
+- PowerShell-6.2.1-win-arm64.zip
+  - E0ABA4E85ADAA1325B4BCD3037C4C1916F6CD1FA1E439DEC134BCE46424D1BD2
+- PowerShell-6.2.1-win-fxdependent.zip
+  - 541008A6F968AE13727428F939089F3B0430E47C2772272F58621874002ADB2B
+- PowerShell-6.2.1-win-x64.msi
+  - C24406CA8F65440FA0381E417B05A16161227276EB3B77091FDB9D174B7F3144
+- PowerShell-6.2.1-win-x64.zip
+  - 6BCC0F80CA549A8ADB317B2EC1294F103C4BF75CC29EFA8AC03A27F9A860B1F4
+- PowerShell-6.2.1-win-x86.msi
+  - 0FE4EA7B87A948C4C42551AB68E22FCD12BFF593954DD4483CFFDF541C23A5E4
+- PowerShell-6.2.1-win-x86.zip
+  - F8A713A2614603267683F463B75CE9A81756107F0C927F198BBDD747ACB10AC0
 
 
 -------------
 | Downloads |
 -------------
 
-Filename                                  Updated              SizeMB
---------                                  -------              ------
-powershell-6.1.2-1.rhel.7.x86_64.rpm      1/14/2019 8:44:35 PM     55
-powershell-6.1.2-linux-alpine-x64.tar.gz  1/14/2019 8:44:56 PM     43
-powershell-6.1.2-linux-arm32.tar.gz       1/14/2019 8:45:25 PM     43
-powershell-6.1.2-linux-x64.tar.gz         1/14/2019 8:46:21 PM     55
-powershell-6.1.2-osx-x64.pkg              1/14/2019 8:47:04 PM     54
-powershell-6.1.2-osx-x64.tar.gz           1/14/2019 8:47:37 PM     54
-PowerShell-6.1.2-win-arm32.zip            1/14/2019 8:48:02 PM     39
-PowerShell-6.1.2-win-arm64.zip            1/14/2019 8:48:29 PM     39
-PowerShell-6.1.2-win-x64.msi              1/14/2019 8:49:03 PM     55
-PowerShell-6.1.2-win-x64.zip              1/14/2019 8:49:42 PM     56
-PowerShell-6.1.2-win-x86.msi              1/14/2019 8:50:21 PM     50
-PowerShell-6.1.2-win-x86.zip              1/14/2019 8:50:50 PM     52
-powershell_6.1.2-1.debian.8_amd64.deb     1/14/2019 8:51:31 PM     55
-powershell_6.1.2-1.debian.9_amd64.deb     1/14/2019 8:52:40 PM     55
-powershell_6.1.2-1.ubuntu.14.04_amd64.deb 1/14/2019 8:53:19 PM     55
-powershell_6.1.2-1.ubuntu.16.04_amd64.deb 1/14/2019 8:53:53 PM     55
-powershell_6.1.2-1.ubuntu.17.10_amd64.deb 1/14/2019 8:54:21 PM     55
-powershell_6.1.2-1.ubuntu.18.04_amd64.deb 1/14/2019 8:55:06 PM     55
+Filename                                      Updated              SizeMB
+--------                                      -------              ------
+powershell-6.2.1-1.rhel.7.x86_64.rpm          5/21/2019 5:08:52 PM     55
+powershell-6.2.1-linux-alpine-x64.tar.gz      5/21/2019 5:09:23 PM     42
+powershell-6.2.1-linux-arm32.tar.gz           5/21/2019 5:09:29 PM     42
+powershell-6.2.1-linux-arm64.tar.gz           5/21/2019 5:09:42 PM     41
+powershell-6.2.1-linux-x64-fxdependent.tar.gz 5/21/2019 5:09:49 PM     25
+powershell-6.2.1-linux-x64.tar.gz             5/21/2019 5:09:47 PM     55
+powershell-6.2.1-osx-x64.pkg                  5/21/2019 5:10:09 PM     54
+powershell-6.2.1-osx-x64.tar.gz               5/21/2019 5:10:15 PM     54
+PowerShell-6.2.1-win-arm32.zip                5/21/2019 5:10:27 PM     39
+PowerShell-6.2.1-win-arm64.zip                5/21/2019 5:10:31 PM     39
+PowerShell-6.2.1-win-fxdependent.zip          5/21/2019 5:10:35 PM     27
+PowerShell-6.2.1-win-x64.msi                  5/21/2019 5:11:08 PM     55
+PowerShell-6.2.1-win-x64.zip                  5/21/2019 5:11:12 PM     56
+PowerShell-6.2.1-win-x86.msi                  5/21/2019 5:11:14 PM     50
+PowerShell-6.2.1-win-x86.zip                  5/21/2019 5:11:18 PM     51
+powershell_6.2.1-1.debian.9_amd64.deb         5/21/2019 5:08:31 PM     55
+powershell_6.2.1-1.ubuntu.16.04_amd64.deb     5/21/2019 5:08:36 PM     55
+powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55
+
 ```
 
 ### EXAMPLE 2
@@ -170,7 +192,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### system.string
+### System.String
 
 ## NOTES
 

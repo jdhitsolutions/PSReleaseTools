@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Install-PSPreview
+# Install-PSCore
 
 ## SYNOPSIS
 
@@ -14,12 +14,12 @@ Install the latest PowerShell Preview on Windows
 ## SYNTAX
 
 ```yaml
-Install-PSPreview [[-Path] <String>] [[-Mode] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Install-PSCore [[-Path] <String>] [[-Mode] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is intended to make it easy to download and install the latest PowerShell *preview* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.
+This command is intended to make it easy to download and install the latest PowerShell *stable* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.
 
 This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.
 
@@ -28,7 +28,7 @@ This command will only work on Windows platforms. Non-Windows platforms have bet
 ### Example 1
 
 ```powershell
-PS C:\> Install-PSPreview -mode Passive
+PS C:\> Install-PSCore -mode Passive
 ```
 
 Download and install using the passive mode which will only display a progress bar.
@@ -124,4 +124,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Save-PSReleaseAsset]()
 
-[Install-PSCore]()
+[Install-PSPreview]()
