@@ -209,6 +209,10 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseAsset.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Save-PSReleaseAsset</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -307,6 +311,10 @@ v7.0.0-preview.1 Release of PowerShell v7.0.0-preview.1 5/30/2019 9:28:31 PM 6.2
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseCurrent.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSReleaseSummary</maml:linkText>
         <maml:uri></maml:uri>
@@ -530,6 +538,10 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseSummary.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-PSReleaseCurrent</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -696,6 +708,10 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Install-PSCore.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Save-PSReleaseAsset</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -861,6 +877,10 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Install-PSPreview.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Save-PSReleaseAsset</maml:linkText>
         <maml:uri></maml:uri>
@@ -1294,6 +1314,10 @@ Mode                LastWriteTime         Length Name
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Save-PSReleaseAsset.md</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Invoke-WebRequest</maml:linkText>
         <maml:uri></maml:uri>

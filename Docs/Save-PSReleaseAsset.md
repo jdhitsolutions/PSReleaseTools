@@ -1,7 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version:
+online version: https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Save-PSReleaseAsset.md
 schema: 2.0.0
 ---
 

@@ -71,6 +71,8 @@ Install-PSPreview -mode passive
 
  [Install-PSCore](/Docs/Install-PSCore.md) will do the same thing but for the latest stable release.
 
+ ![install-pscore](/images/install-pscore.png)
+
  The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
 
 Non-Windows platforms have existing installation tools that work great from the command-line. Plus, I don't have the resources to develop and test installation techniques for all of the non-Windows options. That is why install-related commands in this module are limited to Windows.

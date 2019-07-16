@@ -1,5 +1,10 @@
 # Change Log for PSReleaseTools
 
+## v1.3.0
+
++ Added online help links
++ Updated `README.md`
+
 ## v1.2.0
 
 + Added `Install-PSCore` command for Windows only (Issue #11)
