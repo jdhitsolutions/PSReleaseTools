@@ -1,5 +1,9 @@
 # Change Log for PSReleaseTools
 
+## 1.3.1
+
++ Fixed installation issue with spaces in filenames (Issue #13)
+
 ## v1.3.0
 
 + Added online help links

@@ -53,20 +53,13 @@ Function InstallMsi {
     )
 
     Write-Verbose "[$($myinvocation.mycommand)] Creating install command for $Path"
-    $cmd = "$path"
 
-    if ($Mode -eq "quiet") {
-        $cmd += " /quiet"
-    }
-    elseif ($Mode -eq "Passive") {
-        $cmd += " /passive"
-    }
+    $cmd = "Start-Process -filepath '$Path' -argumentlist '/$mode'"
     Write-Verbose "[$($myinvocation.mycommand)] Using $Mode mode"
     $sb = [scriptblock]::Create($cmd)
 
     if ($pscmdlet.ShouldProcess($sb)) {
         Invoke-Command -scriptblock $sb
     }
-
 
 } #close installmsi

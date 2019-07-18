@@ -71,7 +71,7 @@ Install-PSPreview -mode passive
 
  [Install-PSCore](/Docs/Install-PSCore.md) will do the same thing but for the latest stable release.
 
- ![install-pscore](/images/install-pscore.png)
+ ![Install-PSCore](/images/install-pscore.png)
 
  The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
 
@@ -95,4 +95,4 @@ Install-Module PSReleaseTools -scope currentuser
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-Last updated 2019-07-12 12:56:02Z UTC
+Last updated 2019-07-18 13:35:25Z UTC
