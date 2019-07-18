@@ -95,4 +95,4 @@ Install-Module PSReleaseTools -scope currentuser
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-Last updated 2019-07-18 13:35:25Z UTC
+Last Updated 2019-07-18 18:07:49Z UTC

@@ -1,6 +1,11 @@
 # Change Log for PSReleaseTools
 
-## 1.3.1
+## v1.3.2
+
++ Fixed another new bug with installation commands
++ Standardized verbose output to include a timestamp
+
+## v1.3.1
 
 + Fixed installation issue with spaces in filenames (Issue #13)
 

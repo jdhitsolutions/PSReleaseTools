@@ -8,7 +8,7 @@ Function Get-PSReleaseCurrent {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
 
     } #begin
 
@@ -36,7 +36,7 @@ Function Get-PSReleaseCurrent {
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
 
 }
@@ -53,7 +53,7 @@ Function Get-PSReleaseSummary {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
     } #begin
 
     Process {
@@ -112,7 +112,7 @@ $($DL | Out-String)
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
 
 }
@@ -157,14 +157,14 @@ Function Save-PSReleaseAsset {
 
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
     } #begin
 
     Process {
-        Write-Verbose "[PROCESS] Using Parameter set $($PSCmdlet.ParameterSetName)"
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using Parameter set $($PSCmdlet.ParameterSetName)"
 
         if ($PSCmdlet.ParameterSetName -match "All|Family") {
-            Write-Verbose "[PROCESS] Getting latest releases from $uri"
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting latest releases from $uri"
             Try {
                 $data = Get-PSReleaseAsset -Preview:$Preview -ErrorAction Stop
             }
@@ -177,16 +177,16 @@ Function Save-PSReleaseAsset {
 
         Switch ($PSCmdlet.ParameterSetName) {
             "All" {
-                Write-Verbose "[PROCESS] Downloading all releases to $Path"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Downloading all releases to $Path"
                 foreach ($asset in $data) {
-                    Write-Verbose "[PROCESS] ...$($Asset.filename) [$($asset.hash)]"
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($Asset.filename) [$($asset.hash)]"
                     $target = Join-Path -Path $path -ChildPath $asset.filename
                     DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
                 }
             } #all
             "Family" {
                 #download individual release files
-                Write-Verbose "[PROCESS] Downloading releases for $($family -join ',')"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Downloading releases for $($family -join ',')"
                 $assets = @()
                 Foreach ($item in $Family) {
 
@@ -205,19 +205,19 @@ Function Save-PSReleaseAsset {
 
                     if ($PSBoundParameters.ContainsKey("Format")) {
                         $type = $PSBoundParameters["format"] -join "|"
-                        Write-Verbose "[PROCESS] Limiting download to $type files"
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Limiting download to $type files"
                         $assets = $assets.Where( {$_.filename -match "$type$"})
                     }
 
                     foreach ($asset in $Assets) {
-                        Write-Verbose "[PROCESS] ...$($Asset.filename) [$($asset.hash)]"
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($Asset.filename) [$($asset.hash)]"
                         $target = Join-Path -Path $path -ChildPath $asset.fileName
                         DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
                     } #foreach asset
                 } #foreach family name
             } #Family
             "File" {
-                Write-Verbose "[PROCESS] ...$($asset.filename) [$($asset.hash)]"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($asset.filename) [$($asset.hash)]"
                 $target = Join-Path -Path $path -ChildPath $asset.fileName
                 DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
             } #file
@@ -226,7 +226,7 @@ Function Save-PSReleaseAsset {
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
 }
 
@@ -247,7 +247,7 @@ Function Get-PSReleaseAsset {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
     } #begin
 
     Process {
@@ -267,7 +267,7 @@ Function Get-PSReleaseAsset {
                 $h.add($_.groups["file"].value.trim(), $_.groups["hash"].value.trim())
             }
 
-            Write-Verbose "[PROCESS] Found $($data.assets.count) downloads"
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($data.assets.count) downloads"
 
             $assets = $data.assets |
                 Select-Object @{Name = "FileName"; Expression = {$_.Name}},
@@ -298,16 +298,16 @@ Function Get-PSReleaseAsset {
             @{Name = "DownloadCount"; Expression = {$_.download_count}}
 
             if ($Family) {
-                Write-Verbose "[PROCESS] Filtering by family"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering by family"
                 $assets = $assets.where( {$_.family -match $($family -join "|")})
             }
             if ($Only64Bit) {
-                Write-Verbose "[PROCESS] Filtering for 64bit"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for 64bit"
                 $assets = ($assets).where( {$_.filename -match "(x|amd)64"})
             }
 
             if ($Format) {
-                Write-Verbose "[PROCESS] Filtering for format"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for format"
                 $assets = $assets.where( {$_.format -match $($format -join "|")})
             }
             #write the results to the pipeline
@@ -320,7 +320,7 @@ Function Get-PSReleaseAsset {
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
     } #end
 }
 
