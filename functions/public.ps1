@@ -237,7 +237,7 @@ Function Get-PSReleaseAsset {
         [Parameter(HelpMessage = "Limit results to a given platform. The default is all platforms.")]
         [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent")]
         [string[]]$Family,
-        [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip')]
+        [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip','msix')]
         [Parameter(HelpMessage = "Limit results to a given format. The default is all formats.")]
         [string[]]$Format,
         [alias("x64")]
@@ -308,7 +308,7 @@ Function Get-PSReleaseAsset {
 
             if ($Format) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for format"
-                $assets = $assets.where( {$_.format -match $($format -join "|")})
+                $assets = $assets.where({$_.format -match $("^$format$" -join "|")})
             }
             #write the results to the pipeline
             $assets
@@ -353,22 +353,24 @@ Function Install-PSPreview {
     Process {
         #only run on Windows
         if (($psedition -eq 'Desktop') -OR ($PSVersionTable.platform -eq 'Win32NT')) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path "
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path"
             $install = Get-PSReleaseAsset -Preview -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
-                $filename = Join-path -path $Path -ChildPath "whatif-preview.msi"
+                $filename = Join-Path -path $Path -ChildPath "whatif-preview.msi"
             }
             else {
                 $filename = $install.fullname
             }
+
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
 
             #call the internal helper function
             InstallMSI -path $filename -mode $mode
 
         } #if Windows
         else {
-            Write-Warning "This will only work on Windows platforms."
+            Write-Warning "This command will only work on Windows platforms."
         }
     } #process
 
@@ -403,6 +405,8 @@ Function Install-PSCore {
             else {
                 $filename = $install.fullname
             }
+
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
 
             #call the internal helper function
             InstallMSI -path $filename -mode $mode

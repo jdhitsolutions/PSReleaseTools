@@ -1,7 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version: https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSReleaseCurrent.md
+online version: http://bit.ly/323JVh9
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get the current PowerShell v6 release
+Get the current PowerShell v6 (Core) release
 
 ## SYNTAX
 

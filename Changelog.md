@@ -1,5 +1,12 @@
 # Change Log for PSReleaseTools
 
+## v1.4.0
+
++ Changed online help links to `bit.ly` links
++ Added `msix` as an asset format
++ Updated `Get-PSReleaseAsset` to be stricter on format matching
++ Fixed bug with `Install-PSPreview` erroring on path (Issue #15)
+
 ## v1.3.2
 
 + Fixed another new bug with installation commands

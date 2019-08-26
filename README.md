@@ -51,7 +51,7 @@ The current version of this module uses regular expression named captures to pul
 
 ## Preview Builds
 
-Starting in v0.8.0, command modules have a `-Preview` parameter which will get the latest preview build. Otherwise, the commands will use the latest stable release.
+Starting in v0.8.0, command functions have a `-Preview` parameter which will get the latest preview build. Otherwise, the commands will use the latest stable release.
 
 ## Installing a Build
 
@@ -95,4 +95,4 @@ Install-Module PSReleaseTools -scope currentuser
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-Last Updated 2019-07-18 18:07:49Z UTC
+Last Updated 2019-08-26 18:58:24Z UTC

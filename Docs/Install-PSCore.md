@@ -1,7 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version: https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Install-PSCore.md
+online version: http://bit.ly/325i1Bm
 schema: 2.0.0
 ---
 

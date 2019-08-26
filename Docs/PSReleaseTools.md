@@ -1,7 +1,7 @@
 ---
 Module Name: PSReleaseTools
 Module Guid: f7afa9bf-3f74-45e8-b855-0810431aafb4 f7afa9bf-3f74-45e8-b855-0810431aafb4
-Download Help Link: {{Please enter FwLink manually}}
+Download Help Link:
 Help Version: 1.0.0.0
 Locale: en-US
 ---
@@ -36,4 +36,4 @@ On Windows, install the latest 64bit STABLE release of PowerShell Core
 
 ### [Install-PSPreview](Install-PSPreview.md)
 
-On Windows, install the latest 64bit PREVIEW release of PowerShell Core
+On Windows, install the latest 64bit PREVIEW release of PowerShell Core or PowerShell 7
