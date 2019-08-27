@@ -52,20 +52,20 @@ Function InstallMsi {
         [string]$Mode = "Full"
     )
 
-    Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Creating install command for $Path"
+    Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Creating Start-Process parameters"
 
-    switch ($Mode) {
-        "Full" { $installParam = "/qf" }
-        "Quiet" { $installparam = "/quiet"}
-        "Passive" {$installParam = "/passive"}
+    $installOption = switch ($Mode) {
+        "Full"    {"/qf" }
+        "Quiet"   {"/quiet"}
+        "Passive" {"/passive"}
     }
-    $cmd = "Start-Process -filepath '$Path' -argumentlist '$installParam'"
-    Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] $cmd"
-    $sb = [scriptblock]::Create($cmd)
 
-    if ($pscmdlet.ShouldProcess($sb)) {
-        Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Invoking command"
-        Invoke-Command -scriptblock $sb
+    Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] FilePath: $Path"
+    Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] ArgumentList: $installOption"
+
+    if ($pscmdlet.ShouldProcess("$Path $installOption")) {
+        Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Starting process"
+        Start-Process -FilePath $Path -ArgumentList $installOption
     }
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Ending function"
