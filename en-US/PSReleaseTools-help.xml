@@ -557,11 +557,11 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       <command:verb>Install</command:verb>
       <command:noun>PSCore</command:noun>
       <maml:description>
-        <maml:para>Install the latest PowerShell Preview on Windows</maml:para>
+        <maml:para>Install the latest PowerShell Core version on Windows</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is intended to make it easy to download and install the latest PowerShell stable release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.</maml:para>
+      <maml:para>This command is intended to make it easy to download and install the latest PowerShell Core stable release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer. Previous versions will either be removed or overwritten.</maml:para>
       <maml:para>This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.</maml:para>
     </maml:description>
     <command:syntax>
@@ -570,7 +570,7 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>Specify the path to the download folder</maml:para>
+            <maml:para>Specify the path to the download folder.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -582,8 +582,12 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Mode</maml:name>
           <maml:Description>
-            <maml:para>Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.</maml:para>
-            <maml:para>The default if a full interactive install.</maml:para>
+            <maml:para>Specify what kind of installation you want.</maml:para>
+            <maml:para>- Quiet is no interaction at all.</maml:para>
+            <maml:para>- Passive will display a progress bar.</maml:para>
+            <maml:para>- Full is the complete interactive experience.</maml:para>
+            <maml:para></maml:para>
+            <maml:para>The default is a full interactive install.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Full</command:parameterValue>
@@ -637,8 +641,12 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Mode</maml:name>
         <maml:Description>
-          <maml:para>Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.</maml:para>
-          <maml:para>The default if a full interactive install.</maml:para>
+          <maml:para>Specify what kind of installation you want.</maml:para>
+          <maml:para>- Quiet is no interaction at all.</maml:para>
+          <maml:para>- Passive will display a progress bar.</maml:para>
+          <maml:para>- Full is the complete interactive experience.</maml:para>
+          <maml:para></maml:para>
+          <maml:para>The default is a full interactive install.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -650,7 +658,7 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>Specify the path to the download folder</maml:para>
+          <maml:para>Specify the path to the download folder.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -731,8 +739,8 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is intended to make it easy to download and install the latest PowerShell preview release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.</maml:para>
-      <maml:para>This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.</maml:para>
+      <maml:para>This command is intended to make it easy to download and install the latest PowerShell preview release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer. If you have previous PowerShell preview versions installed, they will be either removed or overwritten.</maml:para>
+      <maml:para>This command will only work on Windows platforms. Non-Windows platforms have their own native installation tools.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -740,7 +748,7 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>Specify the path to the download folder</maml:para>
+            <maml:para>Specify the path to the download folder.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -752,8 +760,12 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Mode</maml:name>
           <maml:Description>
-            <maml:para>Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.</maml:para>
-            <maml:para>The default if a full interactive install.</maml:para>
+            <maml:para>Specify what kind of installation you want.</maml:para>
+            <maml:para>- Quiet is no interaction at all.</maml:para>
+            <maml:para>- Passive will display a progress bar.</maml:para>
+            <maml:para>- Full is the complete interactive experience.</maml:para>
+            <maml:para></maml:para>
+            <maml:para>The default is a full interactive install.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Full</command:parameterValue>
@@ -807,8 +819,12 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Mode</maml:name>
         <maml:Description>
-          <maml:para>Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.</maml:para>
-          <maml:para>The default if a full interactive install.</maml:para>
+          <maml:para>Specify what kind of installation you want.</maml:para>
+          <maml:para>- Quiet is no interaction at all.</maml:para>
+          <maml:para>- Passive will display a progress bar.</maml:para>
+          <maml:para>- Full is the complete interactive experience.</maml:para>
+          <maml:para></maml:para>
+          <maml:para>The default is a full interactive install.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -820,7 +836,7 @@ powershell_6.2.1-1.ubuntu.18.04_amd64.deb     5/21/2019 5:08:39 PM     55</dev:c
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>Specify the path to the download folder</maml:para>
+          <maml:para>Specify the path to the download folder.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>

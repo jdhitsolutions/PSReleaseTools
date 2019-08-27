@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Install the latest PowerShell Preview on Windows
+Install the latest PowerShell Core version on Windows
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Install-PSCore [[-Path] <String>] [[-Mode] <String>] [-WhatIf] [-Confirm] [<Comm
 
 ## DESCRIPTION
 
-This command is intended to make it easy to download and install the latest PowerShell *stable* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer.
+This command is intended to make it easy to download and install the latest PowerShell Core *stable* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer. Previous versions will either be removed or overwritten.
 
 This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.
 
@@ -53,9 +53,13 @@ Accept wildcard characters: False
 
 ### -Mode
 
-Specify what kind of installation you want. Quiet is no interaction at all. Passive will display a progress bar. Full is the complete interactive experience.
+Specify what kind of installation you want.
 
-The default if a full interactive install.
+- Quiet is no interaction at all.
+- Passive will display a progress bar.
+- Full is the complete interactive experience.
+
+The default is a full interactive install.
 
 ```yaml
 Type: String
@@ -72,7 +76,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-Specify the path to the download folder
+Specify the path to the download folder.
 
 ```yaml
 Type: String

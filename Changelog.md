@@ -1,5 +1,10 @@
 # Change Log for PSReleaseTools
 
+## v1.4.1
+
++ Merged PR from @weebsnore to fix a bug when installing from a path with an apostrophe.
++ Minor help corrections
+
 ## v1.4.0
 
 + Changed online help links to `bit.ly` links

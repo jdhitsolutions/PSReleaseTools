@@ -45,7 +45,8 @@ Function GetData {
 Function InstallMsi {
     [cmdletbinding(SupportsShouldProcess)]
     Param(
-        [parameter(Mandatory, HelpMessage = "The full path to the MSI file")]
+        [Parameter(Mandatory, HelpMessage = "The full path to the MSI file")]
+        [ValidateScript({Test-Path $_})]
         [string]$Path,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
         [ValidateSet("Full", "Quiet", "Passive")]
@@ -64,9 +65,10 @@ Function InstallMsi {
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] ArgumentList: $installOption"
 
     if ($pscmdlet.ShouldProcess("$Path $installOption")) {
-        Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Starting process"
+        Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Starting installation process"
         Start-Process -FilePath $Path -ArgumentList $installOption
     }
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Ending function"
+
 } #close installmsi
