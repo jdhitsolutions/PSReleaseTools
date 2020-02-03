@@ -1,5 +1,13 @@
 # Change Log for PSReleaseTools
 
+## v1.5.0
+
++ Fixed bug installing preview on Windows PowerShell (Issue #16)
++ Fixed regex in `Get-PSReleaseAsset` to get all preview files (Issue #17)
++ Help updates to reflect PowerShell 7
++ License update
++ Updated `README.md`
+
 ## v1.4.1
 
 + Merged PR from @weebsnore to fix a bug when installing from a path with an apostrophe.

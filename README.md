@@ -10,7 +10,7 @@ These commands utilize the GitHub API which is subject to rate limits. It is rec
 
 ## Cross-Platform
 
-This module should work cross-platform on both Windows PowerShell and PowerShell Core.
+This module should work cross-platform on both Windows PowerShell and PowerShell Core/7.
 
 ## Notes
 
@@ -23,7 +23,7 @@ The module currently has 6 commands:
 - [Install-PSCore](/Docs/Install-PSCore.md)
 - [Install-PSPreview](/Docs/Install-PSPreview.md)
 
-All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217034" target="_blank">Invoke-RestMethod</a> or <a title="Read online help for this command" href="http://go.microsoft.com/fwlink/?LinkID=217035" target="_blank">Invoke-WebRequest</a>, allow you to programmatically interact with GitHub.
+All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either [Invoke-RestMethod](http://go.microsoft.com/fwlink/?LinkID=217034) or [Invoke-WebRequest](http://go.microsoft.com/fwlink/?LinkID=217035), allow you to programmatically interact with GitHub.
 
 The first command, `Get-PSReleaseSummary` queries the PowerShell repository release page and constructs a text summary. You can also have the command write the report text as markdown.
 
@@ -88,11 +88,11 @@ Install-Module PSReleaseTools
 On PowerShell Core you might need to run:
 
 ```powershell
-Install-Module PSReleaseTools -scope currentuser
+Install-Module PSReleaseTools [-scope currentuser]
 ```
 
 ## Road Map
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-Last Updated 2019-08-27 18:58:01Z UTC
+Last Updated *2020-02-03 15:13:07Z UTC*

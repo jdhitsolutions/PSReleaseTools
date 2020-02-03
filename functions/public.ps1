@@ -253,18 +253,31 @@ Function Get-PSReleaseAsset {
     Process {
         Try {
             if ($Preview) {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting preview assets"
                 $data = GetData -Preview -ErrorAction stop
             }
             else {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting normal assets"
                 $data = GetData -ErrorAction stop
             }
             #parse out file names and hashes
-            [regex]$rx = "(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
+            [regex]$rx = "(?<file>[p|P]ower[s|S]hell(-preview)?[-|_]\d.*)\s+-\s+(?<hash>\w+)"
+            # old regex pattern
+            #"(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
             $r = $rx.Matches($data.body)
             $r | ForEach-Object -Begin {
                 $h = @{}
             } -process {
-                $h.add($_.groups["file"].value.trim(), $_.groups["hash"].value.trim())
+                #if there is a duplicate entry, assume it is part of a Note
+                $f = $_.groups["file"].value.trim()
+                $v = $_.groups["hash"].value.trim()
+                if (-not ($h.ContainsKey($f))) {
+                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Adding $f [$v]"
+                    $h.add($f,$v )
+                }
+                else {
+                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Ignoring duplicate asset: $f [$v]"
+                }
             }
 
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($data.assets.count) downloads"

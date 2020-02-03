@@ -10,7 +10,7 @@ Locale: en-US
 
 ## Description
 
-A set of commands for working with PowerShell Core from the [GitHub Repository](https://github.com/PowerShell/PowerShell)
+A set of commands for working with PowerShell Core and PowerShell 7 from the [GitHub Repository](https://github.com/PowerShell/PowerShell)
 
 ## PSReleaseTools Cmdlets
 

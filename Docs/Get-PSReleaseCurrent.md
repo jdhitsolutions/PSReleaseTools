@@ -29,9 +29,9 @@ This command will query the GitHub repository for the latest stable release and 
 PS C:\> Get-PSReleaseCurrent
 
 
-Name                              Version Released             LocalVersion
-----                              ------- --------             ------------
-v6.2.1 Release of PowerShell Core v6.2.1  5/21/2019 5:58:45 PM 6.2.1
+Name                         Version Released             LocalVersion
+----                         ------- --------             ------------
+v6.2.4 Release of PowerShell v6.2.4  1/27/2020 5:19:26 PM 5.1.18362.145
 ```
 
 This gets the current release from a Windows platform.
@@ -41,9 +41,9 @@ This gets the current release from a Windows platform.
 ```powershell
 PS /home/me> Get-PSReleaseCurrent -preview
 
-Name                                   Version          Released             LocalVersion
-----                                   -------          --------             ------------
-v7.0.0-preview.1 Release of PowerShell v7.0.0-preview.1 5/30/2019 9:28:31 PM 6.2.1
+Name                              Version     Released            LocalVersion
+----                              -------     --------            ------------
+v7.0.0-rc.2 Release of PowerShell v7.0.0-rc.2 1/16/20 11:35:38 PM 6.2.4
 ```
 
 This gets the current preview release from an Ubuntu platform.

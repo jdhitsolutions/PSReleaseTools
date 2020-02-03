@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Download the latest PowerShell v6.x  releases
+Download the latest PowerShell v6.x or 7  releases
 
 ## SYNTAX
 
@@ -35,8 +35,7 @@ Save-PSReleaseAsset [[-Path] <String>] [-Asset <Object>] [-Passthru] [-Preview] 
 
 ## DESCRIPTION
 
-This command will download the latest stable PowerShell Core releases from the GitHub repository. You can download everything or limit the download to specific platforms. Use -Preview to get the latest preview build.
-
+This command will download the latest stable PowerShell Core (6.x) or PowerShell 7 releases from the GitHub repository. You can download everything or limit the download to specific platforms. Use -Preview to get the latest preview build.
 
 ## EXAMPLES
 
@@ -72,7 +71,7 @@ PS C:\> Get-PSReleaseAsset -Family rhel -preview | Save-PSReleaseAsset -path D:\
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----         7/10/2019 11:33 AM       52896509 powershell-preview-7.0.0_preview.1-1.rhel.7.x86_64.rpm
+-a----         2/3/2020  10:22 AM       57876871 powershell-preview-7.0.0_rc.2-1.rhel.7.x86_64.rpm
 ```
 
 Get the RedHat assets for the latest preview build and save them to D:\Temp
