@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Download the latest PowerShell v6.x or 7  releases
+Download the latest PowerShell from the Github PowerShell repository.
 
 ## SYNTAX
 
@@ -35,20 +35,23 @@ Save-PSReleaseAsset [[-Path] <String>] [-Asset <Object>] [-Passthru] [-Preview] 
 
 ## DESCRIPTION
 
-This command will download the latest stable PowerShell Core (6.x) or PowerShell 7 releases from the GitHub repository. You can download everything or limit the download to specific platforms. Use -Preview to get the latest preview build.
+This command will download the latest stable PowerShell 7 releases from the PowerShell GitHub repository. You can download everything or limit the download to specific platforms. Use -Preview to get the latest preview build.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> Save-PSReleaseAsset C:\PS6 -all
+
+PS C:\> Save-PSReleaseAsset D:\PS7 -all
 ```
+
+Save all release assets for all platforms.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Save-PSReleaseAsset -path C:\PS6 -family Windows -format msi
+PS C:\> Save-PSReleaseAsset -path D:\PS7 -family Windows -format msi
 ```
 
 Download and save Windows MSI packages.
@@ -56,7 +59,7 @@ Download and save Windows MSI packages.
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Save-PSReleaseAsset -path C:\PS6 -name Ubuntu,Debian
+PS C:\> Save-PSReleaseAsset -path D:\PS7Linux -name Ubuntu,Debian
 ```
 
 Download and save Ubuntu and Debian packages.
@@ -223,7 +226,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

@@ -50,15 +50,28 @@ Function InstallMsi {
         [string]$Path,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
         [ValidateSet("Full", "Quiet", "Passive")]
-        [string]$Mode = "Full"
+        [string]$Mode = "Full",
+        [Parameter(HelpMessage = "Enable PowerShell Remoting over WSMan.")]
+        [switch]$EnableRemoting,
+        [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
+        [switch]$EnableContextMenu
     )
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Creating Start-Process parameters"
 
-    $installOption = switch ($Mode) {
+    $modeOption = switch ($Mode) {
         "Full"    {"/qf" }
         "Quiet"   {"/quiet"}
         "Passive" {"/passive"}
+    }
+
+    $installOption = "$modeOption REGISTER_MANIFEST=1"
+
+    if ($EnableRemoting) {
+        $installOption += " ENABLE_PSREMOTING=1"
+    }
+    If ($EnableContextMenu) {
+        $installOption += " ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
     }
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] FilePath: $Path"

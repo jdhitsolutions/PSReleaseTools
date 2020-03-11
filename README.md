@@ -10,7 +10,7 @@ These commands utilize the GitHub API which is subject to rate limits. It is rec
 
 ## Cross-Platform
 
-This module should work cross-platform on both Windows PowerShell and PowerShell Core/7.
+This module should work cross-platform on both Windows PowerShell and PowerShell f  7.
 
 ## Notes
 
@@ -20,7 +20,7 @@ The module currently has 6 commands:
 - [Get-PSReleaseCurrent](/Docs/Get-PSReleaseCurrent.md)
 - [Get-PSReleaseAsset](/Docs/Get-PSReleaseAsset.md)
 - [Save-PSReleaseAsset](/Docs/Save-PSReleaseAsset.md)
-- [Install-PSCore](/Docs/Install-PSCore.md)
+- [Install-PowerShell](/Docs/Install-PowerShell.md)
 - [Install-PSPreview](/Docs/Install-PSPreview.md)
 
 All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either [Invoke-RestMethod](http://go.microsoft.com/fwlink/?LinkID=217034) or [Invoke-WebRequest](http://go.microsoft.com/fwlink/?LinkID=217035), allow you to programmatically interact with GitHub.
@@ -31,21 +31,64 @@ The first command, `Get-PSReleaseSummary` queries the PowerShell repository rele
 
 I put the release name and date right at the top so you can quickly check if you need to download something new. In GitHub, each release file is referred to as an *asset*. The `Get-PSReleaseAsset` command will query GitHub about each file and write a custom object to the pipeline.
 
-![get-psreleaseasset.png](/images/get-psreleaseasset.png)
+```powershell
+PS C:\> Get-PSReleaseAsset
+
+FileName      : PowerShell-7.0.0-win-x64.msi
+Family        : Windows
+Format        : msi
+SizeMB        : 87
+Hash          : 876F4A64012A1FB024DCCEA696DB00C5CD1A37C8DC9DFA2431C58CDF9F82950B
+Created       : 3/3/2020 10:55:37 PM
+Updated       : 3/3/2020 10:55:39 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/PowerShell-7.0.0-win-x64.msi
+DownloadCount : 46253
+...
+```
 
 By default it will display assets for all platforms, but I added a `-Family` parameter if you want to limit yourself to a single entry like MacOS.
 
-![get-psreleaseasset-macos.png](/images/get-psreleaseasset-macos.png)
+```powershell
+PS C:\> Get-PSReleaseAsset -Family MacOS
+
+FileName      : powershell-7.0.0-osx-x64.pkg
+Family        : MacOS
+Format        : pkg
+SizeMB        : 55
+Hash          : 80F75903E9F33B407A7F15C087A2C2B12A93DC153469E091D18048D01080085E
+Created       : 3/4/2020 6:13:06 PM
+Updated       : 3/4/2020 6:13:08 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-7.0.0-osx-x64.pkg
+DownloadCount : 7995
+...
+```
 
 Of course, you will want to download these files which is the job of the last command. By default the command will save all files to the current directory unless you specify a different path. You can limit the selection to a specific platform via the `-Family` parameter which uses a validation set.
 
-![save-psreleaseasset-ubuntu.png](/images/save-psreleaseasset-ubuntu.png)
+```powershell
+PS C:\> Save-PSReleaseAsset -Family Ubuntu -Path D:\PS\ -WhatIf
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-lts_7.0.0-1.ubuntu.16.04_amd64.deb" on target "D:\PS\powershell-lts_7.0.0-1.ubuntu.16.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-lts_7.0.0-1.ubuntu.18.04_amd64.deb" on target "D:\PS\powershell-lts_7.0.0-1.ubuntu.18.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell_7.0.0-1.ubuntu.16.04_amd64.deb" on target "D:\PS\powershell_7.0.0-1.ubuntu.16.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell_7.0.0-1.ubuntu.18.04_amd64.deb" on target "D:\PS\powershell_7.0.0-1.ubuntu.18.04_amd64.deb".
+```
 
 You can select multiple names. If you select only Window, then there is a dynamic parameter called `-Format` where you can select ZIP or MSI. And the command supports `-WhatIf`.
 
 I also realized you might run `Get-PSReleaseAsset`, perhaps to examine details before downloading. Since you have those objects, why not be able to pipe them to the save command?
 
-![pipelinesave.png](/images/pipelinesave.png)
+```powershell
+PS C:\> Get-PSReleaseAsset -Family Debian -LTS | Save-PSReleaseAsset -Path D:\PS\ -Passthru
+
+
+    Directory: D:\PS
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           3/11/2020 12:44 PM       61101934 powershell-lts_7.0.0-1.debian.10_amd64.deb
+-a---           3/11/2020 12:44 PM       61101718 powershell-lts_7.0.0-1.debian.11_amd64.deb
+-a---           3/11/2020 12:44 PM       61100218 powershell-lts_7.0.0-1.debian.9_amd64.deb
+```
 
 The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current hash and compares them.
 
@@ -69,11 +112,13 @@ Or you can use one of two newer functions to install the latest 64bit release. Y
 Install-PSPreview -mode passive
  ```
 
- [Install-PSCore](/Docs/Install-PSCore.md) will do the same thing but for the latest stable release.
+ [Install-PowerShell](/Docs/Install-PowerShell.md) will do the same thing but for the latest stable release.
 
- ![Install-PSCore](/images/install-pscore.png)
+```powershell
+PS C:\> Install-PowerShell -mode quiet -EnableRemote -EnableContextMenu
+```
 
- The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
+The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
 
 Non-Windows platforms have existing installation tools that work great from the command-line. Plus, I don't have the resources to develop and test installation techniques for all of the non-Windows options. That is why install-related commands in this module are limited to Windows.
 
@@ -85,7 +130,7 @@ This module has been published to the PowerShell Gallery. You should be able to 
 Install-Module PSReleaseTools
 ```
 
-On PowerShell Core you might need to run:
+On PowerShell you might need to run:
 
 ```powershell
 Install-Module PSReleaseTools [-scope currentuser]
@@ -95,4 +140,4 @@ Install-Module PSReleaseTools [-scope currentuser]
 
 I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
 
-Last Updated *2020-02-03 15:13:07Z UTC*
+Last Updated *2020-03-11 16:52:13Z UTC*

@@ -10,7 +10,7 @@ Locale: en-US
 
 ## Description
 
-A set of commands for working with PowerShell Core and PowerShell 7 from the [GitHub Repository](https://github.com/PowerShell/PowerShell)
+A set of commands for working with PowerShell 7.x from the [GitHub Repository](https://github.com/PowerShell/PowerShell)
 
 ## PSReleaseTools Cmdlets
 
@@ -20,20 +20,20 @@ Get download file information for each new platform.
 
 ### [Get-PSReleaseCurrent](Get-PSReleaseCurrent.md)
 
-Get the current status of PowerShell Core
+Get the current status of PowerShell.
 
 ### [Get-PSReleaseSummary](Get-PSReleaseSummary.md)
 
-Get a text summary of the latest PowerShell Core release
+Get a text summary of the latest PowerShell release.
 
 ### [Save-PSReleaseAsset](Save-PSReleaseAsset.md)
 
-Save PowerShell Core installation files.
+Save PowerShell installation files.
 
-### [Install-PSCore](Install-PSCore.md)
+### [Install-PowerShell](Install-PowerShell.md)
 
-On Windows, install the latest 64bit STABLE release of PowerShell Core
+On Windows, install the latest 64bit STABLE release of PowerShell.
 
 ### [Install-PSPreview](Install-PSPreview.md)
 
-On Windows, install the latest 64bit PREVIEW release of PowerShell Core or PowerShell 7
+On Windows, install the latest 64bit PREVIEW release of PowerShell.

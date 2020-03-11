@@ -14,7 +14,8 @@ Get PowerShell release assets.
 ## SYNTAX
 
 ```yaml
-Get-PSReleaseAsset [[-Family] <String[]>] [-Format <String[]>] [-Only64Bit] [-Preview] [<CommonParameters>]
+Get-PSReleaseAsset [[-Family] <String[]>] [-Format <String[]>] [-Only64Bit] [-Preview] [-LTS]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,15 +32,25 @@ This command will not download the file but allow you to look at the details. Yo
 PS C:\> Get-PSReleaseAsset -Family Rhel
 
 
-FileName      : powershell-6.2.4-1.rhel.7.x86_64.rpm
+FileName      : powershell-7.0.0-1.rhel.7.x86_64.rpm
 Family        : Rhel
 Format        : rpm
-SizeMB        : 54
-Hash          : 1AB9C1EB4A213966E25D8448754D4207C1020B3A282710A1981492C08BF2EEFE
-Created       : 1/23/2020 7:11:13 PM
-Updated       : 1/23/2020 7:11:17 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v6.2.4/powershell-6.2.4-1.rhel.7.x86_64.rpm
-DownloadCount : 929
+SizeMB        : 55
+Hash          : 09EB0F49F91FC5DA569DE9F8FCADA36CDF79846A1AEA0679D357D316453B2838
+Created       : 3/3/2020 10:55:11 PM
+Updated       : 3/3/2020 10:55:13 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-7.0.0-1.rhel.7.x86_64.rpm
+DownloadCount : 601
+
+FileName      : powershell-lts-7.0.0-1.rhel.7.x86_64.rpm
+Family        : Rhel
+Format        : rpm
+SizeMB        : 58
+Hash          : EF6D8728FDE0226A715B85FB199352D9EDE2ECC88CFF890846713CCA34099D82
+Created       : 3/3/2020 10:56:50 PM
+Updated       : 3/3/2020 10:56:52 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-lts-7.0.0-1.rhel.7.x86_64.rpm
+DownloadCount : 346
 ```
 
 Getting the latest Red Hat related assets for the stable build.
@@ -50,35 +61,35 @@ Getting the latest Red Hat related assets for the stable build.
 PS C:\> Get-PSReleaseAsset -Family Windows -Only64Bit -Preview
 
 
-FileName      : PowerShell-7.0.0-rc.2-win-x64.msi
+FileName      : PowerShell-7.0.0-rc.3-win-x64.msi
 Family        : Windows
 Format        : msi
 SizeMB        : 87
-Hash          : A903B63F27882B726E81E7A6EE3E52CE3979036A372DDF4F4D62DF8CE5523345
-Created       : 1/16/2020 6:18:21 PM
-Updated       : 1/16/2020 6:18:28 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-rc.2/PowerShell-7.0.0-rc.2-win-x64.msi
-DownloadCount : 20687
+Hash          : 26ECB13EAD40B006B74C6A901A9F9CF08AE12F9D9E3C77A07CB8D0CFA8C7024C
+Created       : 2/21/2020 11:43:55 PM
+Updated       : 2/21/2020 11:43:57 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-rc.3/PowerShell-7.0.0-rc.3-win-x64.msi
+DownloadCount : 17953
 
-FileName      : PowerShell-7.0.0-rc.2-win-x64.msix
+FileName      : PowerShell-7.0.0-rc.3-win-x64.msix
 Family        : Windows
 Format        : msix
 SizeMB        : 90
-Hash          : C10DC9A253FAD9AF058D3B9C58DBF533C0831379F60E74F1D873AE8A02356ED2
-Created       : 1/16/2020 6:18:28 PM
-Updated       : 1/16/2020 6:18:31 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-rc.2/PowerShell-7.0.0-rc.2-win-x64.msix
-DownloadCount : 2054
+Hash          : 6E75503E0F026D9065FDE35885015645E7AA82E376F68A9E98A8892FC987D1E5
+Created       : 2/21/2020 11:43:57 PM
+Updated       : 2/21/2020 11:43:59 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-rc.3/PowerShell-7.0.0-rc.3-win-x64.msix
+DownloadCount : 1558
 
-FileName      : PowerShell-7.0.0-rc.2-win-x64.zip
+FileName      : PowerShell-7.0.0-rc.3-win-x64.zip
 Family        : Windows
 Format        : zip
 SizeMB        : 89
-Hash          : 58C76BF77E206494E1FD82F96B65FC4BF240092DCB247C78077B63976262AF41
-Created       : 1/16/2020 6:18:31 PM
-Updated       : 1/16/2020 6:18:35 PM
-URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-rc.2/PowerShell-7.0.0-rc.2-win-x64.zip
-DownloadCount : 2153
+Hash          : C8448F44619517C24DF8F392D6AC9E3A1F9589F2C74A3C9EB8CC94B902D78835
+Created       : 2/21/2020 11:43:59 PM
+Updated       : 2/21/2020 11:44:01 PM
+URL           : https://github.com/PowerShell/PowerShell/releases/download/v7.0.0-rc.3/PowerShell-7.0.0-rc.3-win-x64.zip
+DownloadCount : 1763
 ```
 
 Get the preview build assets for Windows.
@@ -86,13 +97,13 @@ Get the preview build assets for Windows.
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Get-PSReleaseAsset -Family ubuntu | Save-PSReleaseAsset -Path D:\PS6 -whatif
+PS C:\> Get-PSReleaseAsset -Family ubuntu -lts | Save-PSReleaseAsset -Path D:\PS -whatif
 
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.2.4/powershell_6.2.4-1.ubuntu.16.04_amd64.deb" on target "D:\PS6\powershell_6.2.4-1.ubuntu.16.04_amd64.deb".
-What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v6.2.4/powershell_6.2.4-1.ubuntu.18.04_amd64.deb" on target "D:\PS6\powershell_6.2.4-1.ubuntu.18.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-lts_7.0.0-1.ubuntu.16.04_amd64.deb" on target "D:\PS\powershell-lts_7.0.0-1.ubuntu.16.04_amd64.deb".
+What if: Performing the operation "Downloading https://github.com/PowerShell/PowerShell/releases/download/v7.0.0/powershell-lts_7.0.0-1.ubuntu.18.04_amd64.deb" on target "D:\PS\powershell-lts_7.0.0-1.ubuntu.18.04_amd64.deb".
 ```
 
-Run the command without -Whatif to actually download the Ubuntu related files and save to D:\PS6
+Run the command without -Whatif to actually download the Ubuntu related files that are also part of the LTS channel, and save to D:\PS.
 
 ## PARAMETERS
 
@@ -104,7 +115,7 @@ Limit search to a particular platform.
 Type: String[]
 Parameter Sets: (All)
 Aliases:
-Accepted values: Rhel, Raspbian, Ubuntu, Debian, Windows, AppImage, Arm, MacOS, Alpine, FXDependent
+Accepted values: Rhel, Raspbian, Ubuntu, Debian, Windows, AppImage, Arm, MacOS, Alpine, FXDependent, CentOS, Linux
 
 Required: False
 Position: 0
@@ -137,6 +148,7 @@ Limit results to a given format. The default is all formats.
 Type: String[]
 Parameter Sets: (All)
 Aliases:
+Accepted Values: deb, gz, msi, pkg, rpm, zip, msix
 
 Required: False
 Position: Named
@@ -161,9 +173,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -LTS
+
+Only get LTS release-related assets.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

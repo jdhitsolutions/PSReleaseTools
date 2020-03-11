@@ -9,12 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Install the latest PowerShell Preview on Windows
+Install the latest PowerShell Preview on Windows.
 
 ## SYNTAX
 
 ```yaml
-Install-PSPreview [[-Path] <String>] [[-Mode] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Install-PSPreview [[-Path] <String>] [[-Mode] <String>] [-EnableRemoting] [-EnableContextMenu] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,10 +29,11 @@ This command will only work on Windows platforms. Non-Windows platforms have the
 ### Example 1
 
 ```powershell
-PS C:\> Install-PSPreview -mode Passive
+PS C:\> Install-PSPreview -mode Passive -EnableRemoting
 ```
 
 Download and install using the passive mode which will only display a progress bar.
+PowerShell remoting will also be enabled.
 
 ## PARAMETERS
 
@@ -107,10 +109,41 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -EnableContextMenu
+
+Enable the PowerShell context menu in Windows Explorer.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EnableRemoting
+
+Enable PowerShell Remoting over WSMan.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -128,4 +161,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Save-PSReleaseAsset]()
 
-[Install-PSCore]()
+[Install-PowerShell]()

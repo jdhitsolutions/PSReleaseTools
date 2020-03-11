@@ -1,5 +1,15 @@
 # Change Log for PSReleaseTools
 
+## v1.6.0
+
++ Updated install functions to allow options for enabling remoting and Explorer context menus.
++ Updated documentation and help to reference PowerShell 7 and not PowerShell Core. (Issue #18)
++ Fixed bug in  Get-PSReleaseAsset` that failed to label a family for CentOS assets.
++ Updated commands to recognize the LTS assets.
++ Added `-LTS` parameter to `Get-PSReleaseAsset` to limit results to LTS-related files.
++ Renamed `Install-PSCore` to `Install-PowerShell`. Kept `Install-PSCore` as a command alias.
++ Updated `README.md`
+
 ## v1.5.0
 
 + Fixed bug installing preview on Windows PowerShell (Issue #16)

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get the current PowerShell v6 (Core) release
+Get the current PowerShell 7.x release.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Get-PSReleaseCurrent [-Preview] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will query the GitHub repository for the latest stable release and write an object to the pipeline. If you are running v6 the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update. Use the -Preview parameter to get the latest preview build.
+This command will query the GitHub repository for the latest stable PowerShell release and write an object to the pipeline. If you are running PowerShell 7.x the LocalVersion property will reflect the GitCommitID so you can accurately compare and determine if you need to update. Use the -Preview parameter to get the latest preview build.
 
 ## EXAMPLES
 
@@ -29,9 +29,9 @@ This command will query the GitHub repository for the latest stable release and 
 PS C:\> Get-PSReleaseCurrent
 
 
-Name                         Version Released             LocalVersion
-----                         ------- --------             ------------
-v6.2.4 Release of PowerShell v6.2.4  1/27/2020 5:19:26 PM 5.1.18362.145
+Name                         Version Released            LocalVersion
+----                         ------- --------            ------------
+v7.0.0 Release of PowerShell v7.0.0  3/4/2020 5:00:08 PM 7.0.0
 ```
 
 This gets the current release from a Windows platform.

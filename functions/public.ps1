@@ -66,13 +66,13 @@ Function Get-PSReleaseSummary {
         }
 
         $dl = $data.assets |
-            Select-Object @{Name = "Filename"; Expression = {$_.name}},
+        Select-Object @{Name = "Filename"; Expression = {$_.name}},
         @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
         @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
 
         if ($AsMarkdown) {
             #create a markdown table from download data
-            $tbl = (($DL | Convertto-CSV -notypeInformation -delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
+            $tbl = (($DL | ConvertTo-Csv -notypeInformation -delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
 
             $out = @"
 # $($data.Name.trim())
@@ -137,7 +137,7 @@ Function Save-PSReleaseAsset {
         [switch]$All,
 
         [Parameter(ParameterSetName = "Family", Mandatory, HelpMessage = "Limit results to a given platform. The default is all platforms.")]
-        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent")]
+        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent", "CentOS", "Linux")]
         [string[]]$Family,
 
         [Parameter(ParameterSetName = "Family", HelpMessage = "Limit results to a given format. The default is all formats.")]
@@ -193,9 +193,11 @@ Function Save-PSReleaseAsset {
                     Switch ($item) {
                         "Windows" { $assets += $data.where( {$_.filename -match 'win-x\d{2}'})}
                         "Rhel" { $assets += $data.where( {$_.filename -match 'rhel'})}
-                        "Raspbian" { $assets += $data.where( {$_.filename -match 'linux'})}
+                        "Raspbian" { $assets += $data.where( {$_.filename -match 'linux-arm'})}
                         "Debian" { $assets += $data.where( {$_.filename -match 'debian'})}
                         "MacOS" { $assets += $data.where( {$_.filename -match 'osx'}) }
+                        "CentOS" { $assets += $data.where( {$_.filename -match 'centos'}) }
+                        "Linux" { $assets += $data.where( {$_.filename -match 'linux-x64'}) }
                         "Ubuntu" { $assets += $data.where( {$_.filename -match 'ubuntu'})}
                         "Arm" { $assets += $data.where( {$_.filename -match '-arm\d{2}'})}
                         "AppImage" { $assets += $data.where( {$_.filename -match 'appimage'})}
@@ -231,19 +233,22 @@ Function Save-PSReleaseAsset {
 }
 
 Function Get-PSReleaseAsset {
+
     [cmdletbinding()]
     [OutputType("PSCustomObject")]
     Param(
         [Parameter(HelpMessage = "Limit results to a given platform. The default is all platforms.")]
-        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent")]
+        [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent", "CentOS", "Linux")]
         [string[]]$Family,
-        [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip','msix')]
+        [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip', 'msix')]
         [Parameter(HelpMessage = "Limit results to a given format. The default is all formats.")]
         [string[]]$Format,
         [alias("x64")]
         [switch]$Only64Bit,
-        [Parameter(HelpMessage = "Get the latest preview release")]
-        [switch]$Preview
+        [Parameter(HelpMessage = "Get the latest preview release.")]
+        [switch]$Preview,
+        [Parameter(HelpMessage = "Only get LTS release-related assets.")]
+        [switch]$LTS
     )
 
     Begin {
@@ -261,8 +266,11 @@ Function Get-PSReleaseAsset {
                 $data = GetData -ErrorAction stop
             }
             #parse out file names and hashes
-            [regex]$rx = "(?<file>[p|P]ower[s|S]hell(-preview)?[-|_]\d.*)\s+-\s+(?<hash>\w+)"
-            # old regex pattern
+            #updated pattern 10 March 2020 to capture LTS assets
+            [regex]$rx = "(?<file>[p|P]ower[s|S]hell((-preview)|(-lts))?[-|_]\d.*)\s+-\s+(?<hash>\w+)"
+            # pre GA pattern
+            #"(?<file>[p|P]ower[s|S]hell(-preview)?[-|_]\d.*)\s+-\s+(?<hash>\w+)"
+            # original regex pattern
             #"(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
             $r = $rx.Matches($data.body)
             $r | ForEach-Object -Begin {
@@ -272,30 +280,32 @@ Function Get-PSReleaseAsset {
                 $f = $_.groups["file"].value.trim()
                 $v = $_.groups["hash"].value.trim()
                 if (-not ($h.ContainsKey($f))) {
-                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Adding $f [$v]"
-                    $h.add($f,$v )
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Adding $f [$v]"
+                    $h.add($f, $v )
                 }
                 else {
-                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Ignoring duplicate asset: $f [$v]"
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Ignoring duplicate asset: $f [$v]"
                 }
             }
 
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($data.assets.count) downloads"
 
             $assets = $data.assets |
-                Select-Object @{Name = "FileName"; Expression = {$_.Name}},
+            Select-Object @{Name = "FileName"; Expression = {$_.Name}},
             @{Name = "Family"; Expression = {
                     Switch -regex ($_.name) {
-                        "Win-x\d{2}" {"Windows"}
-                        "arm\d{2}.zip" {"Arm"}
-                        "Ubuntu" {"Ubuntu"}
-                        "osx" {"MacOS"}
-                        "debian" {"Debian"}
-                        "appimage" {"AppImage"}
-                        "rhel" {"Rhel"}
-                        "linux" {"Raspbian"}
-                        "alpine" {"Alpine"}
-                        "fxdepend" {"FXDependent"}
+                        "Win-x\d{2}" {"Windows" ; break}
+                        "arm\d{2}.zip" {"Arm" ; break}
+                        "Ubuntu" {"Ubuntu"; break}
+                        "osx" {"MacOS"; break}
+                        "debian" {"Debian"; break}
+                        "appimage" {"AppImage"; break}
+                        "rhel" {"Rhel"; break}
+                        "linux-arm" {"Raspbian"; break}
+                        "alpine" {"Alpine" ; break}
+                        "fxdepend" {"FXDependent"; break}
+                        "centos" {"CentOS"; break}
+                        "linux-x64" {"Linux" ; break}
                     }
                 }
             },
@@ -321,11 +331,20 @@ Function Get-PSReleaseAsset {
 
             if ($Format) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for format"
-                $assets = $assets.where({$_.format -match $("^$format$" -join "|")})
+                $assets = $assets.where( {$_.format -match $("^$format$" -join "|")})
+            }
+
+            If ($LTS) {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for LTS assets"
+                $assets = $assets.where({$_.filename -match "LTS"})
             }
             #write the results to the pipeline
-            $assets
-
+            if ($assets.filename) {
+                $assets
+            }
+            else {
+                Write-Warning "Failed to find any release assets using the specified critiera."
+            }
         } #Try
         catch {
             Throw $_
@@ -357,7 +376,11 @@ Function Install-PSPreview {
         [string]$Path = $env:TEMP,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
         [ValidateSet("Full", "Quiet", "Passive")]
-        [string]$Mode = "Full"
+        [string]$Mode = "Full",
+        [Parameter(HelpMessage = "Enable PowerShell Remoting over WSMan.")]
+        [switch]$EnableRemoting,
+        [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
+        [switch]$EnableContextMenu
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
@@ -379,7 +402,14 @@ Function Install-PSPreview {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
 
             #call the internal helper function
-            InstallMSI -path $filename -mode $mode
+            $inParams = @{
+                Path              = $filename
+                Mode              = $Mode
+                EnableRemoting    = $EnableRemoting
+                EnableContextMenu = $EnableContextMenu
+                ErrorAction       = "stop"
+            }
+            InstallMSI @inParams
 
         } #if Windows
         else {
@@ -393,14 +423,19 @@ Function Install-PSPreview {
 
 } #close Install-PSPreview
 
-Function Install-PSCore {
+Function Install-PowerShell {
     [cmdletbinding(SupportsShouldProcess)]
+    [alias("Install-PSCore")]
     Param(
         [Parameter(HelpMessage = "Specify the path to the download folder")]
         [string]$Path = $env:TEMP,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
         [ValidateSet("Full", "Quiet", "Passive")]
-        [string]$Mode = "Full"
+        [string]$Mode = "Full",
+        [Parameter(HelpMessage = "Enable PowerShell Remoting over WSMan.")]
+        [switch]$EnableRemoting,
+        [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
+        [switch]$EnableContextMenu
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
@@ -422,7 +457,14 @@ Function Install-PSCore {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
 
             #call the internal helper function
-            InstallMSI -path $filename -mode $mode
+            $inParams = @{
+                Path              = $filename
+                Mode              = $Mode
+                EnableRemoting    = $EnableRemoting
+                EnableContextMenu = $EnableContextMenu
+                ErrorAction       = "stop"
+            }
+            InstallMSI @inParams
 
         } #if Windows
         else {
