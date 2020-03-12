@@ -10,7 +10,7 @@ These commands utilize the GitHub API which is subject to rate limits. It is rec
 
 ## Cross-Platform
 
-This module should work cross-platform on both Windows PowerShell and PowerShell f  7.
+This module should work cross-platform on both Windows PowerShell and PowerShell 7.x.
 
 ## Notes
 
