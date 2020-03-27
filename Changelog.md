@@ -1,5 +1,9 @@
 # Change Log for PSReleaseTools
 
+## v1.6.1
+
++ Updated `Install-PSPreview` and `Install-PowerShell` to fix errors when using `-WhatIf`. (Issue #19)
+
 ## v1.6.0
 
 + Updated install functions to allow options for enabling remoting and Explorer context menus.

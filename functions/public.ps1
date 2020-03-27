@@ -336,7 +336,7 @@ Function Get-PSReleaseAsset {
 
             If ($LTS) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for LTS assets"
-                $assets = $assets.where({$_.filename -match "LTS"})
+                $assets = $assets.where( {$_.filename -match "LTS"})
             }
             #write the results to the pipeline
             if ($assets.filename) {
@@ -389,13 +389,14 @@ Function Install-PSPreview {
     Process {
         #only run on Windows
         if (($psedition -eq 'Desktop') -OR ($PSVersionTable.platform -eq 'Win32NT')) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path"
-            $install = Get-PSReleaseAsset -Preview -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
                 $filename = Join-Path -path $Path -ChildPath "whatif-preview.msi"
             }
             else {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path"
+                $install = Get-PSReleaseAsset -Preview -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
                 $filename = $install.fullname
             }
 
@@ -409,7 +410,9 @@ Function Install-PSPreview {
                 EnableContextMenu = $EnableContextMenu
                 ErrorAction       = "stop"
             }
-            InstallMSI @inParams
+            if ($pscmdlet.ShouldProcess($filename, "Install PowerShell Preview using $mode mode")) {
+                InstallMSI @inParams
+            }
 
         } #if Windows
         else {
@@ -444,13 +447,14 @@ Function Install-PowerShell {
     Process {
         #only run on Windows
         if (($psedition -eq 'Desktop') -OR ($PSVersionTable.platform -eq 'Win32NT')) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path "
-            $install = Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
                 $filename = Join-Path -path $Path -ChildPath "whatif-preview.msi"
             }
             else {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path "
+                $install = Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
                 $filename = $install.fullname
             }
 
@@ -464,7 +468,9 @@ Function Install-PowerShell {
                 EnableContextMenu = $EnableContextMenu
                 ErrorAction       = "stop"
             }
-            InstallMSI @inParams
+            if ($pscmdlet.ShouldProcess($filename, "Install PowerShell using $mode mode")) {
+                InstallMSI @inParams
+            }
 
         } #if Windows
         else {
