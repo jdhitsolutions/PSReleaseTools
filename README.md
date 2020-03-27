@@ -136,8 +136,8 @@ On PowerShell you might need to run:
 Install-Module PSReleaseTools [-scope currentuser]
 ```
 
-## Road Map
+## Support
 
-I have a few other ideas for commands I might add to this module. If you have suggestions or encounter problems, please post an issue in the GitHub repository.
+If you have suggestions or encounter problems, please post an issue in this GitHub repository.
 
-Last Updated *2020-03-27 14:20:46Z UTC"
+Last Updated *2020-03-27 14:20:46Z UTC*
