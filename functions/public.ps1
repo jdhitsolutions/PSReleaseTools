@@ -9,7 +9,6 @@ Function Get-PSReleaseCurrent {
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
-
     } #begin
 
     Process {
@@ -42,22 +41,49 @@ Function Get-PSReleaseCurrent {
 }
 
 Function Get-PSReleaseSummary {
-
-    [cmdletbinding()]
+    [cmdletbinding(DefaultParameterSetName = "default")]
     [OutputType([System.String[]])]
     Param(
-        [Parameter(HelpMessage = "Display as a markdown document")]
+        [Parameter(HelpMessage = "Display as a markdown document", ParameterSetName = "md")]
         [switch]$AsMarkdown,
+        [Parameter(ParameterSetName = "md")]
+        [Parameter(ParameterSetName = "online")]
+        [Parameter(ParameterSetName = "default")]
         [Parameter(HelpMessage = "Get the latest preview release")]
         [switch]$Preview
     )
+    DynamicParam {
+        if ($IsWindows -OR $PSEdition -eq 'Desktop') {
+
+            #define a parameter attribute object
+            $attributes = New-Object System.Management.Automation.ParameterAttribute
+            $attributes.ParameterSetName = "online"
+            $attributes.HelpMessage = "Open GitHub release page in your browser"
+
+            #define a collection for attributes
+            $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+            $attributeCollection.Add($attributes)
+
+            #define the dynamic param
+            $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("Online", [switch], $attributeCollection)
+
+            #create array of dynamic parameters
+            $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+            $paramDictionary.Add("Online", $dynParam1)
+            #use the array
+            return $paramDictionary
+
+        } #if
+    } #dynamic parameter
+
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
     } #begin
 
     Process {
-
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($pscmdlet.ParameterSetName)"
+        $PSBoundParameters | Out-String | Write-Verbose
         if ($Preview) {
             $data = GetData -Preview
         }
@@ -65,16 +91,23 @@ Function Get-PSReleaseSummary {
             $data = GetData
         }
 
-        $dl = $data.assets |
-        Select-Object @{Name = "Filename"; Expression = {$_.name}},
-        @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
-        @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
+        if ($PSBoundParameters.ContainsKey("online")) {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Opening $($data.html_url)"
+            Start-Process $data.html_url
+        }
+        else {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Displaying locally"
+            $dl = $data.assets |
+            Select-Object @{Name = "Filename"; Expression = {$_.name}},
+            @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
+            @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
 
-        if ($AsMarkdown) {
-            #create a markdown table from download data
-            $tbl = (($DL | ConvertTo-Csv -notypeInformation -delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
+            if ($AsMarkdown) {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Formatting as markdown"
+                #create a markdown table from download data
+                $tbl = (($DL | ConvertTo-Csv -notypeInformation -delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
 
-            $out = @"
+                $out = @"
 # $($data.Name.trim())
 
 $($data.body.trim())
@@ -86,11 +119,11 @@ $($tbl[1..$($tbl.count)])
 Published: $($data.Published_At -as [datetime])
 "@
 
-        }
-        else {
+            }
+            else {
 
-            #create a here string for the details
-            $out = @"
+                #create a here string for the details
+                $out = @"
 
 -----------------------------------------------------------
 $($data.Name)
@@ -104,11 +137,11 @@ $($data.body)
 $($DL | Out-String)
 
 "@
+            }
+
+            #write the string to the pipeline
+            $out
         }
-
-        #write the string to the pipeline
-        $out
-
     } #process
 
     End {
@@ -343,7 +376,7 @@ Function Get-PSReleaseAsset {
                 $assets
             }
             else {
-                Write-Warning "Failed to find any release assets using the specified critiera."
+                Write-Warning "Get-PSReleaseAsset Failed to find any release assets using the specified critiera."
             }
         } #Try
         catch {
@@ -392,28 +425,36 @@ Function Install-PSPreview {
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
-                $filename = Join-Path -path $Path -ChildPath "whatif-preview.msi"
+                $filename = Join-Path -path $Path -ChildPath "whatif-PS7Preview.msi"
             }
             else {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path"
-                $install = Get-PSReleaseAsset -Preview -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
-                $filename = $install.fullname
+                $msi = Get-PSReleaseAsset -Preview -Family Windows -Only64Bit -Format msi
+                if ($msi) {
+                    $install = $msi | Save-PSReleaseAsset -Path $Path -Passthru
+                    $filename = $install.fullname
+
+                } #if msi found
+                else {
+                    Write-Warning "No preview MSI file found to download and install."
+                }
             }
 
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
+            if ($filename) {
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
 
-            #call the internal helper function
-            $inParams = @{
-                Path              = $filename
-                Mode              = $Mode
-                EnableRemoting    = $EnableRemoting
-                EnableContextMenu = $EnableContextMenu
-                ErrorAction       = "stop"
+                #call the internal helper function
+                $inParams = @{
+                    Path              = $filename
+                    Mode              = $Mode
+                    EnableRemoting    = $EnableRemoting
+                    EnableContextMenu = $EnableContextMenu
+                    ErrorAction       = "stop"
+                }
+                if ($pscmdlet.ShouldProcess($filename, "Install PowerShell Preview using $mode mode")) {
+                    InstallMSI @inParams
+                }
             }
-            if ($pscmdlet.ShouldProcess($filename, "Install PowerShell Preview using $mode mode")) {
-                InstallMSI @inParams
-            }
-
         } #if Windows
         else {
             Write-Warning "This command will only work on Windows platforms."
@@ -450,28 +491,34 @@ Function Install-PowerShell {
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
-                $filename = Join-Path -path $Path -ChildPath "whatif-preview.msi"
+                $filename = Join-Path -path $Path -ChildPath "whatif-ps7.msi"
             }
             else {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path "
-                $install = Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path $Path -Passthru
-                $filename = $install.fullname
+                $msi = Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi
+                if ($msi) {
+                    $install = $msi | Save-PSReleaseAsset -Path $Path -Passthru
+                    $filename = $install.fullname
+                } #if msi found
+                else {
+                    Write-Warning "No MSI file found to download and install."
+                }
             }
 
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
-
-            #call the internal helper function
-            $inParams = @{
-                Path              = $filename
-                Mode              = $Mode
-                EnableRemoting    = $EnableRemoting
-                EnableContextMenu = $EnableContextMenu
-                ErrorAction       = "stop"
+            if ($filename) {
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using $filename"
+                #call the internal helper function
+                $inParams = @{
+                    Path              = $filename
+                    Mode              = $Mode
+                    EnableRemoting    = $EnableRemoting
+                    EnableContextMenu = $EnableContextMenu
+                    ErrorAction       = "stop"
+                }
+                if ($pscmdlet.ShouldProcess($filename, "Install PowerShell using $mode mode")) {
+                    InstallMSI @inParams
+                }
             }
-            if ($pscmdlet.ShouldProcess($filename, "Install PowerShell using $mode mode")) {
-                InstallMSI @inParams
-            }
-
         } #if Windows
         else {
             Write-Warning "This will only work on Windows platforms."

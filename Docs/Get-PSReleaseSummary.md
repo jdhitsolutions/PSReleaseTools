@@ -13,8 +13,22 @@ Get information on latest PowerShell 7.x release.
 
 ## SYNTAX
 
+### default (Default)
+
+```yaml
+Get-PSReleaseSummary [-Preview] [<CommonParameters>]
+```
+
+### md
+
 ```yaml
 Get-PSReleaseSummary [-AsMarkdown] [-Preview] [<CommonParameters>]
+```
+
+### online
+
+```yaml
+Get-PSReleaseSummary [-Preview] [-Online] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,6 +36,8 @@ Get-PSReleaseSummary [-AsMarkdown] [-Preview] [<CommonParameters>]
 This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.
 
 The default output is a text report but you have the the option to create a markdown version.
+
+Use the -Online parameter to open the GitHub release page in your browser. This parameter only works in Windows.
 
 ## EXAMPLES
 
@@ -176,7 +192,7 @@ Create a markdown version of the report.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: md
 Aliases:
 
 Required: False
@@ -202,9 +218,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Online
+
+Open GitHub release page in your browser. This parameter only works on Windows systems.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: online
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

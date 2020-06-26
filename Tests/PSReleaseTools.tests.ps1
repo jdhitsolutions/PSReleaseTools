@@ -31,7 +31,6 @@ InModuleScope PSReleaseTools {
             It "Has a project URI" {
                 (Get-Module psreleasetools).PrivateData["PSData"]["ProjectUri"] | Should be $True
             }
-
         } #context
     }
 
@@ -45,7 +44,7 @@ InModuleScope PSReleaseTools {
 
         $FamilyValues = (Get-Command Get-PSReleaseAsset).Parameters["Family"].Attributes.ValidValues
         It "Has a validation set for Family" {
-            $FamilyValues.count | Should Be 10
+            $FamilyValues.count | Should Be 12
         }
 
         It "Should fail with a bad Family value" {

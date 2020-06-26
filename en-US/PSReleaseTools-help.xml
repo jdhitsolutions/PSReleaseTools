@@ -389,6 +389,7 @@ v7.0.0-rc.2 Release of PowerShell v7.0.0-rc.2 1/16/20 11:35:38 PM 6.2.4</dev:cod
     <maml:description>
       <maml:para>This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.</maml:para>
       <maml:para>The default output is a text report but you have the the option to create a markdown version.</maml:para>
+      <maml:para>Use the -Online parameter to open the GitHub release page in your browser. This parameter only works in Windows.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -416,6 +417,31 @@ v7.0.0-rc.2 Release of PowerShell v7.0.0-rc.2 1/16/20 11:35:38 PM 6.2.4</dev:cod
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-PSReleaseSummary</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Preview</maml:name>
+          <maml:Description>
+            <maml:para>Get the latest preview release.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Online</maml:name>
+          <maml:Description>
+            <maml:para>Open GitHub release page in your browser. This parameter only works on Windows systems.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
@@ -434,6 +460,18 @@ v7.0.0-rc.2 Release of PowerShell v7.0.0-rc.2 1/16/20 11:35:38 PM 6.2.4</dev:cod
         <maml:name>Preview</maml:name>
         <maml:Description>
           <maml:para>Get the latest preview release.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Online</maml:name>
+        <maml:Description>
+          <maml:para>Open GitHub release page in your browser. This parameter only works on Windows systems.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>

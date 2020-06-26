@@ -1,5 +1,11 @@
 # Change Log for PSReleaseTools
 
+## v1.6.2
+
++ Updated warning message for `Install-PSPreview` with a clearer error message and suppressed error output. (Issue #21)
++ Updated the same for `Install-PowerShell`
++ Added a dynamic parameter called `-Online` to `Get-PSReleaseSummary` to open the GitHub release page in the default web browser.
+
 ## v1.6.1
 
 + Updated `Install-PSPreview` and `Install-PowerShell` to fix errors when using `-WhatIf`. (Issue #19)
