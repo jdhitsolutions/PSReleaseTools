@@ -109,13 +109,13 @@ Or you can use one of two newer functions to install the latest 64bit release. Y
  [Install-PSPreview](/Docs/Install-PSPreview.md) will download the latest 64 bit _*preview*_ build for Windows and kick off the installation.
 
  ```powershell
-Install-PSPreview -mode passive
+Install-PSPreview -Mode Passive
  ```
 
  [Install-PowerShell](/Docs/Install-PowerShell.md) will do the same thing but for the latest stable release.
 
 ```powershell
-PS C:\> Install-PowerShell -mode quiet -EnableRemote -EnableContextMenu
+PS C:\> Install-PowerShell -Mode Quiet -EnableRemoting -EnableContextMenu
 ```
 
 The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
