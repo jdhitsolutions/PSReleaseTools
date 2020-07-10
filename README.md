@@ -115,7 +115,7 @@ Install-PSPreview -mode passive
  [Install-PowerShell](/Docs/Install-PowerShell.md) will do the same thing but for the latest stable release.
 
 ```powershell
-PS C:\> Install-PowerShell -mode quiet -EnableRemote -EnableContextMenu
+PS C:\> Install-PowerShell -mode quiet -EnableRemoting -EnableContextMenu
 ```
 
 The functionality of these commands could have been combined, but I decided to leave this as separate commands so there is no confusion about what you are installing.
