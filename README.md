@@ -140,4 +140,4 @@ Install-Module PSReleaseTools [-scope currentuser]
 
 If you have suggestions or encounter problems, please post an issue in this GitHub repository.
 
-Last Updated *2020-06-26 14:43:19Z UTC*
+Last Updated *2020-07-10 15:32:33Z UTC*

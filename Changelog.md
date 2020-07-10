@@ -1,5 +1,10 @@
 # Change Log for PSReleaseTools
 
+## v1.7.0
+
++ Fixed `critiera` typo in warning message for `Get-PSReleaseSummary`
++ Updated `README.md` (Thanks @Gimly)
+
 ## v1.6.2
 
 + Updated warning message for `Install-PSPreview` with a clearer error message and suppressed error output. (Issue #21)

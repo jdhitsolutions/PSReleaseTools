@@ -376,7 +376,7 @@ Function Get-PSReleaseAsset {
                 $assets
             }
             else {
-                Write-Warning "Get-PSReleaseAsset Failed to find any release assets using the specified critiera."
+                Write-Warning "Get-PSReleaseAsset Failed to find any release assets using the specified critiria."
             }
         } #Try
         catch {
