@@ -105,7 +105,7 @@ Function Get-PSReleaseSummary {
             if ($AsMarkdown) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Formatting as markdown"
                 #create a markdown table from download data
-                $tbl = (($DL | ConvertTo-Csv -notypeInformation -delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
+                $tbl = (($DL | ConvertTo-Csv -NoTypeInformation -Delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
 
                 $out = @"
 # $($data.Name.trim())
@@ -308,7 +308,7 @@ Function Get-PSReleaseAsset {
             $r = $rx.Matches($data.body)
             $r | ForEach-Object -Begin {
                 $h = @{}
-            } -process {
+            } -Process {
                 #if there is a duplicate entry, assume it is part of a Note
                 $f = $_.groups["file"].value.trim()
                 $v = $_.groups["hash"].value.trim()
@@ -425,7 +425,7 @@ Function Install-PSPreview {
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
-                $filename = Join-Path -path $Path -ChildPath "whatif-PS7Preview.msi"
+                $filename = Join-Path -Path $Path -ChildPath "whatif-PS7Preview.msi"
             }
             else {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path"
@@ -491,7 +491,7 @@ Function Install-PowerShell {
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
-                $filename = Join-Path -path $Path -ChildPath "whatif-ps7.msi"
+                $filename = Join-Path -Path $Path -ChildPath "whatif-ps7.msi"
             }
             else {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Saving download to $Path "

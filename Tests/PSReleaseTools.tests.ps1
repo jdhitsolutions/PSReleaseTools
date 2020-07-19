@@ -15,7 +15,7 @@ InModuleScope PSReleaseTools {
         }
 
         It "Has a README.md file" {
-            $f = Get-Item -Path $(Join-path -path $modpath -childpath README.md)
+            $f = Get-Item -Path $(Join-Path -Path $modpath -ChildPath README.md)
             $f.name | Should -Be "readme.md"
         }
         Context Manifest {
@@ -25,11 +25,11 @@ InModuleScope PSReleaseTools {
             }
 
             It "Has a license URI" {
-                (Get-Module psreleasetools).PrivateData["PSData"]["LicenseUri"] | Should -be $True
+                (Get-Module psreleasetools).PrivateData["PSData"]["LicenseUri"] | Should -Be $True
             }
 
             It "Has a project URI" {
-                (Get-Module psreleasetools).PrivateData["PSData"]["ProjectUri"] | Should -be $True
+                (Get-Module psreleasetools).PrivateData["PSData"]["ProjectUri"] | Should -Be $True
             }
         } #context
     }
@@ -39,7 +39,7 @@ InModuleScope PSReleaseTools {
             {$script:data = Get-PSReleaseAsset -ErrorAction Stop} | Should -Not -Throw
         }
         It "Writes one or more objects to the pipeline" {
-            $script:data.count | Should -beGreaterThan 1
+            $script:data.count | Should -BeGreaterThan 1
         }
 
         $FamilyValues = (Get-Command Get-PSReleaseAsset).Parameters["Family"].Attributes.ValidValues
@@ -52,7 +52,7 @@ InModuleScope PSReleaseTools {
         }
         It "Should get release assets for Ubuntu" {
             $script:dl = Get-PSReleaseAsset -Family Ubuntu
-            ($script:dl).Count | Should -beGreaterThan 0
+            ($script:dl).Count | Should -BeGreaterThan 0
         }
 
         It "Result should have a Filename property" {
@@ -79,18 +79,18 @@ InModuleScope PSReleaseTools {
 
     Describe Save-PSReleaseAsset {
         It "Has no tests defined at this time." {
-            $true | should -be $True
+            $true | Should -Be $True
         }
     }
     Describe Install-PSPreview {
         It "Has no tests defined at this time." {
-            $true | should -be $True
+            $true | Should -Be $True
         }
     }
 
     Describe Install-PSCore {
         It "Has no tests defined at this time." {
-            $true | should -be $True
+            $true | Should -Be $True
         }
     }
 }

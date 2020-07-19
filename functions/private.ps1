@@ -8,7 +8,7 @@ Function DL {
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] $Source to $Destination"
 
     if ($pscmdlet.ShouldProcess($Destination, "Downloading $source")) {
-        Invoke-Webrequest -Uri $source -UseBasicParsing -DisableKeepAlive -OutFile $Destination
+        Invoke-WebRequest -Uri $source -UseBasicParsing -DisableKeepAlive -OutFile $Destination
         Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Comparing file hash to $hash"
         $f = Get-FileHash -Path $Destination -Algorithm SHA256
         if ($f.hash -ne $hash) {
@@ -30,15 +30,15 @@ Function GetData {
     $uri = "https://api.github.com/repos/powershell/powershell/releases"
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Getting current release information from $uri"
-    $get = Invoke-Restmethod -uri $uri -Method Get -ErrorAction stop
+    $get = Invoke-RestMethod -Uri $uri -Method Get -ErrorAction stop
 
     if ($Preview) {
         Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Getting latest preview"
-        ($get).where( {$_.prerelease}) | Select-Object -first 1
+        ($get).where( {$_.prerelease}) | Select-Object -First 1
     }
     else {
         Write-Verbose "[$((Get-Date).TimeofDay) $($myinvocation.mycommand)] Getting latest stable release"
-        ($get).where( { -NOT $_.prerelease}) | Select-Object -first 1
+        ($get).where( { -NOT $_.prerelease}) | Select-Object -First 1
     }
 }
 
