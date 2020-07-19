@@ -3,12 +3,12 @@ Remove-Module PSReleaseTools -ErrorAction SilentlyContinue
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $modRoot = Split-Path -Parent $here | Convert-Path
 
-Write-Host "Importing module from $script:modroot" -ForegroundColor magenta
+Write-Host "Importing module from $script:modroot" -ForegroundColor Magenta
 Import-Module $modRoot -Force
 
 InModuleScope PSReleaseTools {
 
-    $modPath = Get-Module psreleasetools | Select-Object path | Split-Path
+    $modPath = Get-Module PSReleaseTools | Select-Object path | Split-Path
     Describe PSReleaseTools {
         It "Has exported commands" {
             {Get-Command -Module PSReleaseTools} | Should -Be $true
@@ -21,15 +21,15 @@ InModuleScope PSReleaseTools {
         Context Manifest {
 
             It "Has a manifest" {
-                Get-Item -Path $modpath\PSReleaseTools.psd1 | Should -Be $True
+                Get-Item -Path $modpath\PSReleaseTools.psd1 | Should -Be $true
             }
 
             It "Has a license URI" {
-                (Get-Module psreleasetools).PrivateData["PSData"]["LicenseUri"] | Should -Be $True
+                (Get-Module PSReleaseTools).PrivateData["PSData"]["LicenseUri"] | Should -Be $true
             }
 
             It "Has a project URI" {
-                (Get-Module psreleasetools).PrivateData["PSData"]["ProjectUri"] | Should -Be $True
+                (Get-Module PSReleaseTools).PrivateData["PSData"]["ProjectUri"] | Should -Be $true
             }
         } #context
     }
@@ -56,15 +56,15 @@ InModuleScope PSReleaseTools {
         }
 
         It "Result should have a Filename property" {
-            ($script:dl)[0].Filename | Should -Be $True
+            ($script:dl)[0].Filename | Should -Be $true
         }
 
         It "Result should have an URL property with https" {
-            ($Script:dl)[0].url | Should -Match "^https"
+            ($Script:dl)[0].URL | Should -Match "^https"
         }
 
         It "Result should have an [int] SizeMB property" {
-            ($script:dl)[0].sizeMB | Should -BeOfType "System.Int32"
+            ($script:dl)[0].SizeMB | Should -BeOfType "System.Int32"
         }
     }
 
@@ -73,24 +73,24 @@ InModuleScope PSReleaseTools {
             {$script:sum = Get-PSReleaseSummary -ErrorAction Stop} | Should -Not -Throw
         }
         It "Writes a string to the pipeline" {
-            $script:sum.getType().Name | Should -Be "string"
+            $script:sum.GetType().Name | Should -Be "string"
         }
     }
 
     Describe Save-PSReleaseAsset {
         It "Has no tests defined at this time." {
-            $true | Should -Be $True
+            $true | Should -Be $true
         }
     }
     Describe Install-PSPreview {
         It "Has no tests defined at this time." {
-            $true | Should -Be $True
+            $true | Should -Be $true
         }
     }
 
     Describe Install-PSCore {
         It "Has no tests defined at this time." {
-            $true | Should -Be $True
+            $true | Should -Be $true
         }
     }
 }

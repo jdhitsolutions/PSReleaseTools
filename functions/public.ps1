@@ -1,17 +1,17 @@
 #These are public functions for the PSReleaseTools module
-Function Get-PSReleaseCurrent {
-    [cmdletbinding()]
+function Get-PSReleaseCurrent {
+    [CmdletBinding()]
     [OutputType("PSCustomObject")]
-    Param(
+    param(
         [Parameter(HelpMessage = "Get the latest preview release")]
         [switch]$Preview
     )
 
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+    begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
-    Process {
+    process {
 
         $data = GetData @PSBoundParameters
 
@@ -34,16 +34,16 @@ Function Get-PSReleaseCurrent {
         }
     } #process
 
-    End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
+    end {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 
 }
 
-Function Get-PSReleaseSummary {
-    [cmdletbinding(DefaultParameterSetName = "default")]
+function Get-PSReleaseSummary {
+    [CmdletBinding(DefaultParameterSetName = "default")]
     [OutputType([System.String[]])]
-    Param(
+    param(
         [Parameter(HelpMessage = "Display as a markdown document", ParameterSetName = "md")]
         [switch]$AsMarkdown,
         [Parameter(ParameterSetName = "md")]
@@ -52,7 +52,7 @@ Function Get-PSReleaseSummary {
         [Parameter(HelpMessage = "Get the latest preview release")]
         [switch]$Preview
     )
-    DynamicParam {
+    dynamicparam {
         if ($IsWindows -OR $PSEdition -eq 'Desktop') {
 
             #define a parameter attribute object
@@ -77,12 +77,12 @@ Function Get-PSReleaseSummary {
     } #dynamic parameter
 
 
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+    begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
-    Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($pscmdlet.ParameterSetName)"
+    process {
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($PSCmdlet.ParameterSetName)"
         $PSBoundParameters | Out-String | Write-Verbose
         if ($Preview) {
             $data = GetData -Preview
@@ -98,7 +98,7 @@ Function Get-PSReleaseSummary {
         else {
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Displaying locally"
             $dl = $data.assets |
-            Select-Object @{Name = "Filename"; Expression = {$_.name}},
+            Select-Object @{Name = "Filename"; Expression = {$_.Name}},
             @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
             @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
 
@@ -108,15 +108,15 @@ Function Get-PSReleaseSummary {
                 $tbl = (($DL | ConvertTo-Csv -NoTypeInformation -Delimiter "|").Replace('"', '') -Replace '^', "|") -replace "$", "|`n"
 
                 $out = @"
-# $($data.Name.trim())
+# $($data.name.Trim())
 
-$($data.body.trim())
+$($data.body.Trim())
 
 ## Downloads
 
 $($tbl[0])|---|---|---|
-$($tbl[1..$($tbl.count)])
-Published: $($data.Published_At -as [datetime])
+$($tbl[1..$($tbl.Count)])
+Published: $($data.published_at -as [datetime])
 "@
 
             }
@@ -126,8 +126,8 @@ Published: $($data.Published_At -as [datetime])
                 $out = @"
 
 -----------------------------------------------------------
-$($data.Name)
-Published: $($data.Published_At -as [datetime])
+$($data.name)
+Published: $($data.published_at -as [datetime])
 -----------------------------------------------------------
 $($data.body)
 
@@ -144,25 +144,25 @@ $($DL | Out-String)
         }
     } #process
 
-    End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
+    end {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 
 }
 
-Function Save-PSReleaseAsset {
+function Save-PSReleaseAsset {
 
-    [cmdletbinding(DefaultParameterSetName = "All", SupportsShouldProcess)]
+    [CmdletBinding(DefaultParameterSetName = "All", SupportsShouldProcess)]
     [OutputType([System.IO.FileInfo])]
 
-    Param(
+    param(
         [Parameter(Position = 0, HelpMessage = "Where do you want to save the files?")]
         [ValidateScript( {
                 if (Test-Path $_) {
-                    $True
+                    $true
                 }
                 else {
-                    Throw "Cannot validate path $_"
+                    throw "Cannot validate path $_"
                 }
             })]
         [string]$Path = ".",
@@ -189,41 +189,41 @@ Function Save-PSReleaseAsset {
     )
 
 
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+    begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using Parameter set $($PSCmdlet.ParameterSetName)"
 
         if ($PSCmdlet.ParameterSetName -match "All|Family") {
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting latest releases from $uri"
-            Try {
+            try {
                 $data = Get-PSReleaseAsset -Preview:$Preview -ErrorAction Stop
             }
-            Catch {
+            catch {
                 Write-Warning $_.exception.message
                 #bail out
-                Return
+                return
             }
         }
 
-        Switch ($PSCmdlet.ParameterSetName) {
+        switch ($PSCmdlet.ParameterSetName) {
             "All" {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Downloading all releases to $Path"
                 foreach ($asset in $data) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($Asset.filename) [$($asset.hash)]"
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($asset.filename) [$($asset.Hash)]"
                     $target = Join-Path -Path $path -ChildPath $asset.filename
-                    DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
+                    DL -source $asset.URL -Destination $Target -Hash $asset.Hash -passthru:$passthru
                 }
             } #all
             "Family" {
                 #download individual release files
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Downloading releases for $($family -join ',')"
                 $assets = @()
-                Foreach ($item in $Family) {
+                foreach ($item in $Family) {
 
-                    Switch ($item) {
+                    switch ($item) {
                         "Windows" { $assets += $data.where( {$_.filename -match 'win-x\d{2}'})}
                         "Rhel" { $assets += $data.where( {$_.filename -match 'rhel'})}
                         "Raspbian" { $assets += $data.where( {$_.filename -match 'linux-arm'})}
@@ -236,7 +236,7 @@ Function Save-PSReleaseAsset {
                         "AppImage" { $assets += $data.where( {$_.filename -match 'appimage'})}
                         "FXDependent" { $assets += $data.where( {$_.filename -match 'fxdependent'})}
                         "Alpine" {$assets += $data.where( {$_.filename -match 'alpine' })}
-                    } #Switch
+                    } #switch
 
                     if ($PSBoundParameters.ContainsKey("Format")) {
                         $type = $PSBoundParameters["format"] -join "|"
@@ -245,38 +245,38 @@ Function Save-PSReleaseAsset {
                     }
 
                     foreach ($asset in $Assets) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($Asset.filename) [$($asset.hash)]"
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($Asset.filename) [$($asset.Hash)]"
                         $target = Join-Path -Path $path -ChildPath $asset.fileName
-                        DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
+                        DL -source $asset.URL -Destination $Target -Hash $asset.Hash -passthru:$passthru
                     } #foreach asset
                 } #foreach family name
             } #Family
             "File" {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($asset.filename) [$($asset.hash)]"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ...$($asset.filename) [$($asset.Hash)]"
                 $target = Join-Path -Path $path -ChildPath $asset.fileName
-                DL -source $asset.url -Destination $Target -hash $asset.hash -passthru:$passthru
+                DL -source $asset.URL -Destination $Target -Hash $asset.Hash -passthru:$passthru
             } #file
         } #switch parameter set name
 
     } #process
 
-    End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
+    end {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 }
 
-Function Get-PSReleaseAsset {
+function Get-PSReleaseAsset {
 
-    [cmdletbinding()]
+    [CmdletBinding()]
     [OutputType("PSCustomObject")]
-    Param(
+    param(
         [Parameter(HelpMessage = "Limit results to a given platform. The default is all platforms.")]
         [ValidateSet("Rhel", "Raspbian", "Ubuntu", "Debian", "Windows", "AppImage", "Arm", "MacOS", "Alpine", "FXDependent", "CentOS", "Linux")]
         [string[]]$Family,
         [ValidateSet('deb', 'gz', 'msi', 'pkg', 'rpm', 'zip', 'msix')]
         [Parameter(HelpMessage = "Limit results to a given format. The default is all formats.")]
         [string[]]$Format,
-        [alias("x64")]
+        [Alias("x64")]
         [switch]$Only64Bit,
         [Parameter(HelpMessage = "Get the latest preview release.")]
         [switch]$Preview,
@@ -284,19 +284,19 @@ Function Get-PSReleaseAsset {
         [switch]$LTS
     )
 
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+    begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
-    Process {
-        Try {
+    process {
+        try {
             if ($Preview) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting preview assets"
-                $data = GetData -Preview -ErrorAction stop
+                $data = GetData -Preview -ErrorAction Stop
             }
             else {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting normal assets"
-                $data = GetData -ErrorAction stop
+                $data = GetData -ErrorAction Stop
             }
             #parse out file names and hashes
             #updated pattern 10 March 2020 to capture LTS assets
@@ -310,11 +310,11 @@ Function Get-PSReleaseAsset {
                 $h = @{}
             } -Process {
                 #if there is a duplicate entry, assume it is part of a Note
-                $f = $_.groups["file"].value.trim()
-                $v = $_.groups["hash"].value.trim()
+                $f = $_.Groups["file"].Value.Trim()
+                $v = $_.Groups["hash"].Value.Trim()
                 if (-not ($h.ContainsKey($f))) {
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Adding $f [$v]"
-                    $h.add($f, $v )
+                    $h.Add($f, $v )
                 }
                 else {
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Ignoring duplicate asset: $f [$v]"
@@ -326,7 +326,7 @@ Function Get-PSReleaseAsset {
             $assets = $data.assets |
             Select-Object @{Name = "FileName"; Expression = {$_.Name}},
             @{Name = "Family"; Expression = {
-                    Switch -regex ($_.name) {
+                    switch -regex ($_.name) {
                         "Win-x\d{2}" {"Windows" ; break}
                         "arm\d{2}.zip" {"Arm" ; break}
                         "Ubuntu" {"Ubuntu"; break}
@@ -343,13 +343,13 @@ Function Get-PSReleaseAsset {
                 }
             },
             @{Name = "Format"; Expression = {
-                    $_.name.split(".")[-1]
+                    $_.name.Split(".")[-1]
                 }
             },
             @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int32]}},
-            @{Name = "Hash"; Expression = {$h.item($_.name)}},
-            @{Name = "Created"; Expression = {$_.Created_at -as [datetime]}},
-            @{Name = "Updated"; Expression = {$_.Updated_at -as [datetime]}},
+            @{Name = "Hash"; Expression = {$h.Item($_.name)}},
+            @{Name = "Created"; Expression = {$_.created_at -as [datetime]}},
+            @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
             @{Name = "URL"; Expression = {$_.browser_download_Url}},
             @{Name = "DownloadCount"; Expression = {$_.download_count}}
 
@@ -380,12 +380,12 @@ Function Get-PSReleaseAsset {
             }
         } #Try
         catch {
-            Throw $_
+            throw $_
         }
     } #process
 
-    End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.Mycommand)"
+    end {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 }
 
@@ -402,9 +402,9 @@ Display Options
 		r - Reduced UI
 		f - Full UI (default)
 #>
-Function Install-PSPreview {
-    [cmdletbinding(SupportsShouldProcess)]
-    Param(
+function Install-PSPreview {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
         [Parameter(HelpMessage = "Specify the path to the download folder")]
         [string]$Path = $env:TEMP,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
@@ -415,13 +415,13 @@ Function Install-PSPreview {
         [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
         [switch]$EnableContextMenu
     )
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+    begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
-    Process {
+    process {
         #only run on Windows
-        if (($psedition -eq 'Desktop') -OR ($PSVersionTable.platform -eq 'Win32NT')) {
+        if (($PSEdition -eq 'Desktop') -OR ($PSVersionTable.Platform -eq 'Win32NT')) {
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
@@ -449,9 +449,9 @@ Function Install-PSPreview {
                     Mode              = $Mode
                     EnableRemoting    = $EnableRemoting
                     EnableContextMenu = $EnableContextMenu
-                    ErrorAction       = "stop"
+                    ErrorAction       = "Stop"
                 }
-                if ($pscmdlet.ShouldProcess($filename, "Install PowerShell Preview using $mode mode")) {
+                if ($PSCmdlet.ShouldProcess($filename, "Install PowerShell Preview using $mode mode")) {
                     InstallMSI @inParams
                 }
             }
@@ -461,16 +461,16 @@ Function Install-PSPreview {
         }
     } #process
 
-    End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+    end {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Install-PSPreview
 
-Function Install-PowerShell {
-    [cmdletbinding(SupportsShouldProcess)]
-    [alias("Install-PSCore")]
-    Param(
+function Install-PowerShell {
+    [CmdletBinding(SupportsShouldProcess)]
+    [Alias("Install-PSCore")]
+    param(
         [Parameter(HelpMessage = "Specify the path to the download folder")]
         [string]$Path = $env:TEMP,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
@@ -481,13 +481,13 @@ Function Install-PowerShell {
         [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
         [switch]$EnableContextMenu
     )
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+    begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
-    Process {
+    process {
         #only run on Windows
-        if (($psedition -eq 'Desktop') -OR ($PSVersionTable.platform -eq 'Win32NT')) {
+        if (($PSEdition -eq 'Desktop') -OR ($PSVersionTable.Platform -eq 'Win32NT')) {
             if ($PSBoundParameters.ContainsKey("WhatIf")) {
                 #create a dummy file name is using -Whatif
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a dummy file for WhatIf purposes"
@@ -513,9 +513,9 @@ Function Install-PowerShell {
                     Mode              = $Mode
                     EnableRemoting    = $EnableRemoting
                     EnableContextMenu = $EnableContextMenu
-                    ErrorAction       = "stop"
+                    ErrorAction       = "Stop"
                 }
-                if ($pscmdlet.ShouldProcess($filename, "Install PowerShell using $mode mode")) {
+                if ($PSCmdlet.ShouldProcess($filename, "Install PowerShell using $mode mode")) {
                     InstallMSI @inParams
                 }
             }
@@ -525,8 +525,8 @@ Function Install-PowerShell {
         }
     } #process
 
-    End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+    end {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Install-PSCore
