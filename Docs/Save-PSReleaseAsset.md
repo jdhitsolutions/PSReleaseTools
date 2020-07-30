@@ -244,4 +244,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Invoke-WebRequest]()
 
-[Get-PSReleaseAsset]()
+[Get-PSReleaseAsset](Get-PSReleaseAsset.md)

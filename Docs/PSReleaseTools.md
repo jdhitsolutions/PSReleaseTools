@@ -10,7 +10,7 @@ Locale: en-US
 
 ## Description
 
-A set of commands for working with PowerShell 7.x from the [GitHub Repository](https://github.com/PowerShell/PowerShell)
+A set of commands for working with PowerShell 7.x releases from the [PowerShell GitHub Repository](https://github.com/PowerShell/PowerShell)
 
 ## PSReleaseTools Cmdlets
 
@@ -32,8 +32,8 @@ Save PowerShell installation files.
 
 ### [Install-PowerShell](Install-PowerShell.md)
 
-On Windows, install the latest 64bit STABLE release of PowerShell.
+On Windows, install the latest 64bit STABLE release of PowerShell 7.x.
 
 ### [Install-PSPreview](Install-PSPreview.md)
 
-On Windows, install the latest 64bit PREVIEW release of PowerShell.
+On Windows, install the latest 64bit PREVIEW release of PowerShell 7.x.
