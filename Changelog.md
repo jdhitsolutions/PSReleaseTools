@@ -2,9 +2,9 @@
 
 ## v1.7.1
 
-+ documentation Updates
++ Documentation updates.
 + Merge pull request #24 from xtqqczze/lint to fix casing issues.
-+ Updated manifest private data tags
++ Updated manifest private data tags.
 
 ## v1.7.0
 
