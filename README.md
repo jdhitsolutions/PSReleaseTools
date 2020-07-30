@@ -4,7 +4,7 @@
 
 ![PSAvatar](images/Powershell_avatar.ico)
 
-This PowerShell module provides a set of commands for working with the latest releases from the PowerShell [GitHub repository](https://github.com/PowerShell/PowerShell). The module contains commands to get summary information about the most current PowerShell version as well as functions to download some or all of the release files.
+This PowerShell module provides a set of commands for working with the latest releases from the [PowerShell GitHub repository](https://github.com/PowerShell/PowerShell). The module contains commands to get summary information about the most current PowerShell version as well as functions to download some or all of the release files.
 
 These commands utilize the GitHub API, which is subject to rate limits. It is recommended that you save results of commands like `Get-PSReleaseAsset` to a variable. If you encounter an error message for `Invoke-RestMethod` like "Server Error" then you have likely exceeded the API limit. You will need to wait a bit and try again.
 
@@ -138,6 +138,6 @@ Install-Module PSReleaseTools [-Scope CurrentUser]
 
 ## Support
 
-If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, please consider a small support donation. Use the <kbd>:heart:Sponsor</kbd> button at the top of the repository.
+If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, please consider a small support donation. Use the [<kbd>:heart:Sponsor</kbd>](https://paypal.me/jdhitsolutions?locale.x=en_US) button at the top of the repository.
 
 Last Updated *2020-07-30 14:54:52Z UTC*
