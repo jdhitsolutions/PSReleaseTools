@@ -138,6 +138,6 @@ Install-Module PSReleaseTools [-Scope CurrentUser]
 
 ## Support
 
-If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, please consider a small support donation. Use the [<kbd>:heart:Sponsor</kbd>](https://paypal.me/jdhitsolutions?locale.x=en_US) button at the top of the repository.
+If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, or any of my work, please consider a small support donation.[<kbd>:heart:Sponsor</kbd>](https://paypal.me/jdhitsolutions?locale.x=en_US)
 
 Last Updated *2020-07-30 14:54:52Z UTC*
