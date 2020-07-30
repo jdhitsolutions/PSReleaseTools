@@ -161,6 +161,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Save-PSReleaseAsset]()
+[Save-PSReleaseAsset](Save-PSReleaseAsset.md)
 
-[Install-PSPreview]()
+[Install-PSPreview](Install-PSPreview.md)

@@ -252,6 +252,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Get-PSReleaseCurrent]()
-
-[Invoke-Restmethod]()
+[Get-PSReleaseCurrent](Get-PSReleaseCurrent.md)
