@@ -6,7 +6,7 @@
       <command:verb>Get</command:verb>
       <command:noun>PSReleaseAsset</command:noun>
       <maml:description>
-        <maml:para>Get PowerShell release assets.</maml:para>
+        <maml:para>Get PowerShell 7.x release assets.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>

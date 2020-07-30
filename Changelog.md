@@ -1,5 +1,11 @@
 # Change Log for PSReleaseTools
 
+## v1.7.1
+
++ documentation Updates
++ Merge pull request #24 from xtqqczze/lint to fix casing issues.
++ Updated manifest private data tags
+
 ## v1.7.0
 
 + Fixed `critiera` typo in warning message for `Get-PSReleaseSummary`
