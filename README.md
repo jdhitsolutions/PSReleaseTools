@@ -133,7 +133,7 @@ Install-Module PSReleaseTools
 On PowerShell you might need to run:
 
 ```powershell
-Install-Module PSReleaseTools [-scope currentuser]
+Install-Module PSReleaseTools [-Scope CurrentUser]
 ```
 
 ## Support
