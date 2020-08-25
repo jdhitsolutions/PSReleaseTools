@@ -2,11 +2,332 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-PSIssue</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSIssue</command:noun>
+      <maml:description>
+        <maml:para>Get PowerShell issues from GitHub.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function will query the Issues section of the PowerShell repository on GitHub. You can filter for issues updates since a given date. You can filter based on labels. You can also limit how many items to return. The minimum is 25.</maml:para>
+      <maml:para>NOTE: The function uses the GitHub API which has rate limits. If you attempt to run this command repeatedly, in a short period of time, you might exceed the rate limits. At which point you will have to wait for the limits to reset.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSIssue</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Since</maml:name>
+          <maml:Description>
+            <maml:para>Display issues updated since this time.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Label</maml:name>
+          <maml:Description>
+            <maml:para>Specify a comma separated list of labels to filter with. If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>The number of results to return. The actual number of results you get back may vary depending on other parameters and how the GitHub API pages results. Think of this parameter value as more of an approximation instead of a hard count.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">25</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">50</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">75</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">100</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">150</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">200</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Count</maml:name>
+        <maml:Description>
+          <maml:para>The number of results to return. The actual number of results you get back may vary depending on other parameters and how the GitHub API pages results. Think of this parameter value as more of an approximation instead of a hard count.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Label</maml:name>
+        <maml:Description>
+          <maml:para>Specify a comma separated list of labels to filter with. If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Since</maml:name>
+        <maml:Description>
+          <maml:para>Display issues updated since this time.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>GitHubIssue</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSIssue
+
+  Title: Write better error message if config file is broken
+
+Updated     : 8/24/2020 11:07:02 PM
+SubmittedBy : iSazonov
+Labels      : {CL-General}
+Comments    : 0
+Url         : https://github.com/PowerShell/PowerShell/pull/13496
+body        : PR Summary
+
+              Fix #11964
+
+              Write better error message if config file is broken.
+
+              PR Context
+
+              PR Checklist
+
+              - [x] "PR has a meaningful title"  - Use the present tense and imperative mood when describing
+              your changes
+              - [x] "Summarized changes"- [x] "Make sure all "- [x] This PR is ready to merge and is not "Work
+              in Progress".
+              ...</dev:code>
+        <dev:remarks>
+          <maml:para>The command has a default list view. If you are running PowerShell 7, the body will be displayed as formatted markdown.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSIssue | Format-Table -view summary
+
+Updated               Comments Title
+-------               -------- -----
+8/24/2020 11:07:02 PM        0 Write better error message if config file is broken
+8/24/2020 10:53:10 PM        3 Linux - Powershell 7 - linux commands should not truncate results by default
+8/24/2020 8:26:23 PM         7 Distribution Support Request: Alpine 3.11 arm64
+8/24/2020 8:19:14 PM         1 Feature Request: Support PowerShell Core
+8/24/2020 7:00:48 PM         0 Remove unused usings
+8/24/2020 6:51:58 PM         2 Use boolean instead of bitwise operators on bools
+8/24/2020 6:48:54 PM         0 Run dotnet-format
+8/24/2020 6:41:46 PM         1 Use uint instead of long for PDH constants
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Display issues using a custom table view.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSIssue -Label First-Time-Issue
+
+
+   Title: IsReservedDeviceName does not recognize CONIN$, CONOUT$
+
+Updated     : 8/23/2020 10:01:40 PM
+SubmittedBy : KalleOlaviNiemitalo
+Labels      : {Area-Engine, First-Time-Issue, Issue-Enhancement, Up-for-Grabs}
+Comments    : 1
+Url         : https://github.com/PowerShell/PowerShell/issues/13046
+body        : Steps to reproduce
+
+              "hello" &gt; world
+              Move-Item world CONOUT$
+
+              Expected behavior
+
+              Move-Item: Cannot process path 'C:\Temp\u\CONOUT$' because the target represents a reserved device
+              name.
+              ...</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSIssue -count 150 | Sort-Object -property milestone | Format-Table -view milestone</dev:code>
+        <dev:remarks>
+          <maml:para>Get 150 of the most recently updated issues and display the result in a formatted table grouped by milestone. Be sure to sort on the Milestone property before piping to Format-Table.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSIssue.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSIssueLabel</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Open-PSIssue</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-PSIssueLabel</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSIssueLabel</command:noun>
+      <maml:description>
+        <maml:para>Get PowerShell issue labels.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The GitHub issues for the PowerShell repository have a number of labels defined. You can run this command to get a list of these labels.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSIssueLabel</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>Specify a label name. You can use wildcards.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>Specify a label name. You can use wildcards.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSIssueLabel
+
+Name                         Description
+----                         -----------
+.NET                         Pull requests that update .net code
+Area-Build
+Area-Cmdlets
+Area-Cmdlets-Archive
+Area-Cmdlets-Core
+...</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Open-PSIssue.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSIssue</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PSReleaseAsset</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PSReleaseAsset</command:noun>
       <maml:description>
-        <maml:para>Get PowerShell 7.x release assets.</maml:para>
+        <maml:para>Get PowerShell release assets.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1332,6 +1653,102 @@ powershell_7.0.0-1.ubuntu.18.04_amd64.deb      3/3/2020 10:55:08 PM     56</dev:
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Install-PowerShell</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Open-PSIssue</command:name>
+      <command:verb>Open</command:verb>
+      <command:noun>PSIssue</command:noun>
+      <maml:description>
+        <maml:para>Open a PowerShell issue in your browser.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command makes it easy to open the Issues section of the PowerShell GitHub repository. You can run the command by itself to open the Issues section in your browser. Or you can specify an issue URL from Get-PSIssue.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Open-PSIssue</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
+          <maml:name>Url</maml:name>
+          <maml:Description>
+            <maml:para>You can optionally specify the issue URL</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
+        <maml:name>Url</maml:name>
+        <maml:Description>
+          <maml:para>You can optionally specify the issue URL</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Open-PS-Issue</dev:code>
+        <dev:remarks>
+          <maml:para>Open PowerShell issues in your default browser.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $a = Get-PSIssue -since "8/1/2020"
+PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
+        <dev:remarks>
+          <maml:para>The first command gets all issues since 8/1/2020. The second command opens the issue in your web browser. The objects from Get-PSIssue also have a Show() method which will achieve the same result.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Open-PSIssue.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSIssue</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

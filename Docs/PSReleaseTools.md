@@ -37,3 +37,15 @@ On Windows, install the latest 64bit STABLE release of PowerShell 7.x.
 ### [Install-PSPreview](Install-PSPreview.md)
 
 On Windows, install the latest 64bit PREVIEW release of PowerShell 7.x.
+
+### [Get-PSIssue](Get-PSIssue.md)
+
+Get PowerShell issues from GitHub.
+
+### [Get-PSIssueLabel(Get-PSIssueLabel.md)]
+
+Get PowerShell issue labels.
+
+### [Open-PSIssue](Open-PSIssue.md)
+
+Open a PowerShell issue in your browser.

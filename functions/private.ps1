@@ -34,11 +34,11 @@ function GetData {
 
     if ($Preview) {
         Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Getting latest preview"
-        ($get).where( {$_.prerelease}) | Select-Object -First 1
+        ($get).where( { $_.prerelease }) | Select-Object -First 1
     }
     else {
         Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Getting latest stable release"
-        ($get).where( { -NOT $_.prerelease}) | Select-Object -First 1
+        ($get).where( { -NOT $_.prerelease }) | Select-Object -First 1
     }
 }
 
@@ -46,7 +46,7 @@ function InstallMsi {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory, HelpMessage = "The full path to the MSI file")]
-        [ValidateScript({Test-Path $_})]
+        [ValidateScript( { Test-Path $_ })]
         [string]$Path,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
         [ValidateSet("Full", "Quiet", "Passive")]
@@ -60,9 +60,9 @@ function InstallMsi {
     Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Creating Start-Process parameters"
 
     $modeOption = switch ($Mode) {
-        "Full"    {"/qf" }
-        "Quiet"   {"/quiet"}
-        "Passive" {"/passive"}
+        "Full" { "/qf" }
+        "Quiet" { "/quiet" }
+        "Passive" { "/passive" }
     }
 
     $installOption = "$modeOption REGISTER_MANIFEST=1"
@@ -85,3 +85,28 @@ function InstallMsi {
     Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Ending function"
 
 } #close installmsi
+
+Function NewGHIssue {
+    [cmdletbinding()]
+    Param (
+        [Parameter(Mandatory, ValueFromPipeline)]
+        [object]$InputObject
+    )
+    Process {
+        # GitHubIssue([string]$Title,[string]$url,[datetime]$Created,[datetime]$Updated,[string]$Body)
+        Write-Verbose "Creating issue for $($inputObject.title)"
+        $obj = [GitHubIssue]::New($InputObject.Title, $InputObject.html_url, $inputObject.created_at, $InputObject.updated_at, $inputObject.body)
+        $obj.SubmittedBy = $inputObject.user.login
+        $obj.state = $InputObject.state
+        $obj.SubmittedBy = $inputObject.user.login
+        $obj.Labels = $inputObject.labels.name
+        $obj.CommentCount = $inputObject.comments
+        $obj.Milestone = $inputObject.milestone.Title
+
+        if ($inputObject.pull_request) {
+            $obj.IsPullRequest = $True
+        }
+
+        $obj
+    }
+}

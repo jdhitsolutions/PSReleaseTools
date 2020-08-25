@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+format type data generated 08/24/2020 17:54:10 by BOVINE320\Jeff
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 08/24/2020 17:54:10 by BOVINE320\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>GitHubIssue</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <ScriptBlock>"$([char]0x1b)[38;5;214m$($_.title)$([char]0x1b)[0m"</ScriptBlock>
+        <Label>Title</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <ListItem>
+                <Label>Updated</Label>
+                <PropertyName>Updated</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>SubmittedBy</Label>
+                <PropertyName>SubmittedBy</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Labels</Label>
+                <PropertyName>Labels</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Comments</Label>
+                <PropertyName>CommentCount</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Url</Label>
+                <PropertyName>Url</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Body</Label>
+                <ScriptBlock>
+                if ($IsCoreCLR) {
+                  $_.body | Show-Markdown
+                }
+                else {
+                  $_.body
+                }
+                </ScriptBlock>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <!--Created 08/24/2020 18:03:30 by BOVINE320\Jeff-->
+      <Name>summary</Name>
+      <ViewSelectedBy>
+        <TypeName>GitHubIssue</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Updated</Label>
+            <Width>12</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Comments</Label>
+            <Width>8</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Title</Label>
+            <Width>62</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Updated</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CommentCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 08/25/2020 10:00:41 by BOVINE320\Jeff-->
+      <Name>milestone</Name>
+      <ViewSelectedBy>
+        <TypeName>GitHubIssue</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <PropertyName>Milestone</PropertyName>
+        <Label>Milestone</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Updated</Label>
+            <Width>12</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Comments</Label>
+            <Width>8</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>PR</Label>
+            <Width>5</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Title</Label>
+            <Width>91</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+          <Wrap/>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <ScriptBlock>$_.Updated.ToShortDateString()</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CommentCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IsPullRequest</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Title</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

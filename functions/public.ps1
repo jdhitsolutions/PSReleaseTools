@@ -1,4 +1,165 @@
 #These are public functions for the PSReleaseTools module
+
+# Added a class for GitHub issues - August 24, 2020 JDH
+Class GitHubIssue {
+    [datetime]$Created
+    [datetime]$Updated
+    [string]$SubmittedBy
+    [string]$State = "open"
+    [string]$Title
+    [string]$Body
+    [string[]]$Labels
+    [int32]$CommentCount = 0
+    [string]$Milestone
+    [string]$Url
+    [boolean]$IsPullRequest = $False
+
+    [void]Show() {
+        Start-Process $this.url
+    }
+
+    GitHubIssue([string]$Title, [string]$url, [datetime]$Created, [datetime]$Updated, [string]$Body) {
+        $this.Title = $Title
+        $this.url = $url
+        $this.Created = $Created
+        $this.updated = $Updated
+        $this.body = $Body
+    }
+}
+
+Function Open-PSIssue {
+    [cmdletbinding()]
+    [outputtype("None")]
+    Param(
+        [Parameter(ValueFromPipelineByPropertyName,HelpMessage = "You can optionally specify the issue URL")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Url = "https://github.com/powershell/powershell/issues"
+    )
+    Begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+    } #begin
+    Process {
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Opening $url"
+        start-process $url
+    } #process
+    End {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+    } #end
+}
+Function Get-PSIssue {
+    [cmdletbinding()]
+    [outputtype("GitHubIssue")]
+    Param(
+        [Parameter(HelpMessage = "Display issues updated since this time.")]
+        [datetime]$Since,
+        [Parameter(HelpMessage = "Specify a comma separated list of labels to filter with. If you select multiple labels, the issue must have all of them.")]
+        [string[]]$Label,
+        [Parameter(HelpMessage = "The number of results to return.")]
+        [ValidateSet(25, 50, 75, 100, 150, 200)]
+        [int]$Count = 25
+
+    )
+    Begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+
+        #number of results per page is 25 so calculate how many pages are needed.
+        [int]$m = $count/25
+        if ($m -ne 1) {
+            [int]$PageCount = $m + 1
+        }
+        else {
+            [int]$PageCount = 1
+        }
+
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Getting $pageCount page(s)."
+        $uri = "https://api.github.com/repos/PowerShell/PowerShell/issues?&state=open&sort=updated&direction=desc&per_page=25"
+
+        $header = @{ accept = "application/vnd.github.v3+json" }
+
+        if ($since) {
+            $dt = "{0:u}" -f $since
+            $uri += "&since=$dt"
+        }
+
+        if ($Label) {
+            $Labelstring = $Label -join ","
+            $uri += "&labels=$Labelstring"
+            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Filtering for labels $Labelstring"
+        }
+
+        $irm = @{
+            uri              = $uri
+            headers          = $header
+            DisableKeepAlive = $True
+            UseBasicParsing  = $True
+        }
+
+        $results = [System.Collections.Generic.List[object]]::new()
+        #set a flag to indicate we should keep getting pages
+        $run = $True
+    } #begin
+    Process {
+
+        1..$pageCount | ForEach-Object {
+            if ($run) {
+                $irm.uri = "$uri&page=$_"
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting recent PowerShell issues: $($irm.uri)"
+                #filter out pull requests
+                $r = (Invoke-RestMethod @irm).ForEach({ $_ | NewGHIssue })
+                if ($r.title) {
+                    $results.AddRange($r)
+                }
+                else {
+                    Write-Warning "No matching issues found."
+                    $run = $False
+                }
+            } #if $run
+        } #foreach page
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Returned $($results.count) matching issues"
+        $results
+    } #process
+    End {
+        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+    } #end
+}
+
+Function Get-PSIssueLabel {
+    [cmdletbinding()]
+    Param(
+        [Parameter(HelpMessage = "Specify a label name. You can use wildcards.")]
+        [string]$Name
+    )
+    Write-Verbose "Starting $($myinvocation.mycommand)"
+
+    $Label = [System.Collections.Generic.list[object]]::new()
+
+    $header = @{ accept = "application/vnd.github.v3+json" }
+    $irm = @{
+        uri              = ""
+        headers          = $header
+        DisableKeepAlive = $true
+        UseBasicParsing  = $True
+    }
+    $page = 0
+    do {
+        Write-Verbose "Processing Page $page"
+        $page++
+        $irm.uri = "https://api.github.com/repos/powershell/powershell/labels?per_page=50&page=$Page"
+        Write-Verbose $irm.uri
+        $r = Invoke-RestMethod @irm
+        $Label.Addrange( $r.ForEach( { $_ | Select-Object -Property Name, Description }))
+    } until ($r.count -eq 0 -or $page -ge 4)
+
+    Write-Verbose "Found $($Label.count) labels"
+    if ($Name) {
+        Write-Verbose "Filtering for $Name"
+        ($label).where( { $_.name -like $Name })
+    }
+    else {
+        $Label
+    }$p
+    Write-Verbose "Ending $($myinvocation.mycommand)"
+}
 function Get-PSReleaseCurrent {
     [CmdletBinding()]
     [OutputType("PSCustomObject")]
@@ -98,9 +259,9 @@ function Get-PSReleaseSummary {
         else {
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Displaying locally"
             $dl = $data.assets |
-            Select-Object @{Name = "Filename"; Expression = {$_.Name}},
-            @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
-            @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int]}}
+                Select-Object @{Name = "Filename"; Expression = { $_.Name } },
+                @{Name = "Updated"; Expression = { $_.updated_at -as [datetime] } },
+                @{Name = "SizeMB"; Expression = { $_.size / 1MB -as [int] } }
 
             if ($AsMarkdown) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Formatting as markdown"
@@ -224,24 +385,24 @@ function Save-PSReleaseAsset {
                 foreach ($item in $Family) {
 
                     switch ($item) {
-                        "Windows" { $assets += $data.where( {$_.filename -match 'win-x\d{2}'})}
-                        "Rhel" { $assets += $data.where( {$_.filename -match 'rhel'})}
-                        "Raspbian" { $assets += $data.where( {$_.filename -match 'linux-arm'})}
-                        "Debian" { $assets += $data.where( {$_.filename -match 'debian'})}
-                        "MacOS" { $assets += $data.where( {$_.filename -match 'osx'}) }
-                        "CentOS" { $assets += $data.where( {$_.filename -match 'centos'}) }
-                        "Linux" { $assets += $data.where( {$_.filename -match 'linux-x64'}) }
-                        "Ubuntu" { $assets += $data.where( {$_.filename -match 'ubuntu'})}
-                        "Arm" { $assets += $data.where( {$_.filename -match '-arm\d{2}'})}
-                        "AppImage" { $assets += $data.where( {$_.filename -match 'appimage'})}
-                        "FXDependent" { $assets += $data.where( {$_.filename -match 'fxdependent'})}
-                        "Alpine" {$assets += $data.where( {$_.filename -match 'alpine' })}
+                        "Windows" { $assets += $data.where( { $_.filename -match 'win-x\d{2}' }) }
+                        "Rhel" { $assets += $data.where( { $_.filename -match 'rhel' }) }
+                        "Raspbian" { $assets += $data.where( { $_.filename -match 'linux-arm' }) }
+                        "Debian" { $assets += $data.where( { $_.filename -match 'debian' }) }
+                        "MacOS" { $assets += $data.where( { $_.filename -match 'osx' }) }
+                        "CentOS" { $assets += $data.where( { $_.filename -match 'centos' }) }
+                        "Linux" { $assets += $data.where( { $_.filename -match 'linux-x64' }) }
+                        "Ubuntu" { $assets += $data.where( { $_.filename -match 'ubuntu' }) }
+                        "Arm" { $assets += $data.where( { $_.filename -match '-arm\d{2}' }) }
+                        "AppImage" { $assets += $data.where( { $_.filename -match 'appimage' }) }
+                        "FXDependent" { $assets += $data.where( { $_.filename -match 'fxdependent' }) }
+                        "Alpine" { $assets += $data.where( { $_.filename -match 'alpine' }) }
                     } #switch
 
                     if ($PSBoundParameters.ContainsKey("Format")) {
                         $type = $PSBoundParameters["format"] -join "|"
                         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Limiting download to $type files"
-                        $assets = $assets.Where( {$_.filename -match "$type$"})
+                        $assets = $assets.Where( { $_.filename -match "$type$" })
                     }
 
                     foreach ($asset in $Assets) {
@@ -307,7 +468,7 @@ function Get-PSReleaseAsset {
             #"(?<file>[p|P]ower[s|S]hell[-|_]\d.*)\s+-\s+(?<hash>\w+)"
             $r = $rx.Matches($data.body)
             $r | ForEach-Object -Begin {
-                $h = @{}
+                $h = @{ }
             } -Process {
                 #if there is a duplicate entry, assume it is part of a Note
                 $f = $_.Groups["file"].Value.Trim()
@@ -324,52 +485,52 @@ function Get-PSReleaseAsset {
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($data.assets.count) downloads"
 
             $assets = $data.assets |
-            Select-Object @{Name = "FileName"; Expression = {$_.Name}},
-            @{Name = "Family"; Expression = {
-                    switch -regex ($_.name) {
-                        "Win-x\d{2}" {"Windows" ; break}
-                        "arm\d{2}.zip" {"Arm" ; break}
-                        "Ubuntu" {"Ubuntu"; break}
-                        "osx" {"MacOS"; break}
-                        "debian" {"Debian"; break}
-                        "appimage" {"AppImage"; break}
-                        "rhel" {"Rhel"; break}
-                        "linux-arm" {"Raspbian"; break}
-                        "alpine" {"Alpine" ; break}
-                        "fxdepend" {"FXDependent"; break}
-                        "centos" {"CentOS"; break}
-                        "linux-x64" {"Linux" ; break}
+                Select-Object @{Name = "FileName"; Expression = { $_.Name } },
+                @{Name = "Family"; Expression = {
+                        switch -regex ($_.name) {
+                            "Win-x\d{2}" { "Windows" ; break }
+                            "arm\d{2}.zip" { "Arm" ; break }
+                            "Ubuntu" { "Ubuntu"; break }
+                            "osx" { "MacOS"; break }
+                            "debian" { "Debian"; break }
+                            "appimage" { "AppImage"; break }
+                            "rhel" { "Rhel"; break }
+                            "linux-arm" { "Raspbian"; break }
+                            "alpine" { "Alpine" ; break }
+                            "fxdepend" { "FXDependent"; break }
+                            "centos" { "CentOS"; break }
+                            "linux-x64" { "Linux" ; break }
+                        }
                     }
-                }
-            },
-            @{Name = "Format"; Expression = {
-                    $_.name.Split(".")[-1]
-                }
-            },
-            @{Name = "SizeMB"; Expression = {$_.size / 1MB -as [int32]}},
-            @{Name = "Hash"; Expression = {$h.Item($_.name)}},
-            @{Name = "Created"; Expression = {$_.created_at -as [datetime]}},
-            @{Name = "Updated"; Expression = {$_.updated_at -as [datetime]}},
-            @{Name = "URL"; Expression = {$_.browser_download_Url}},
-            @{Name = "DownloadCount"; Expression = {$_.download_count}}
+                },
+                @{Name = "Format"; Expression = {
+                        $_.name.Split(".")[-1]
+                    }
+                },
+                @{Name = "SizeMB"; Expression = { $_.size / 1MB -as [int32] } },
+                @{Name = "Hash"; Expression = { $h.Item($_.name) } },
+                @{Name = "Created"; Expression = { $_.created_at -as [datetime] } },
+                @{Name = "Updated"; Expression = { $_.updated_at -as [datetime] } },
+                @{Name = "URL"; Expression = { $_.browser_download_Url } },
+                @{Name = "DownloadCount"; Expression = { $_.download_count } }
 
             if ($Family) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering by family"
-                $assets = $assets.where( {$_.family -match $($family -join "|")})
+                $assets = $assets.where( { $_.family -match $($family -join "|") })
             }
             if ($Only64Bit) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for 64bit"
-                $assets = ($assets).where( {$_.filename -match "(x|amd)64"})
+                $assets = ($assets).where( { $_.filename -match "(x|amd)64" })
             }
 
             if ($Format) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for format"
-                $assets = $assets.where( {$_.format -match $("^$format$" -join "|")})
+                $assets = $assets.where( { $_.format -match $("^$format$" -join "|") })
             }
 
             If ($LTS) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering for LTS assets"
-                $assets = $assets.where( {$_.filename -match "LTS"})
+                $assets = $assets.where( { $_.filename -match "LTS" })
             }
             #write the results to the pipeline
             if ($assets.filename) {

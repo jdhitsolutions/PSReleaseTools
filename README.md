@@ -122,6 +122,59 @@ The functionality of these commands could have been combined, but I decided to l
 
 Non-Windows platforms have existing command-line installation tools that don't need to be replaced. Plus, I don't have the resources to develop and test installation techniques for all of the non-Windows options. That is why install-related commands in this module are limited to Windows.
 
+## PowerShell Issues
+
+A new set of commands have been introduced in v1.8.0. These commands are intended to make it easier for you to look at [issues from the PowerShell GitHub repository](https://github.com/PowerShell/PowerShell/issues). The idea is that you can take a peek at open issues from your PowerShell session and then open the issue in your browser to learn more or contribute.
+
+### Get-PSIssue
+
+`Get-PSIssue` is intended to get open PowerShell issues from Github. With no parameters, you can get the 25 most recent issues. Use the `-Count` parameter to increase that value using one of the possible values. The actual number of issues returned may vary depending on the rest of your command and how GitHub pages results.
+
+You can also fine-tune your search to get issues that have been updated since a given date. Finally, you can also limit your search to issues tagged with a specific label.
+
+![Get-PSIssue](images/get-psissue.png)
+
+The function write a custom object to the pipeline and includes a default formatted view. If you are running PowerShell 7, the issue body will be rendered as formatted markdown.
+
+Here is another way you might use the command.
+
+![Get-PSIssue Summary](images/get-psissue-summary.png)
+
+__Note:__ The issue commands use the GitHub API and anonymous connections. The API has rate limits. If you run one of these commands excessively in a short period of time, you might see an error about exceeding the rate limit. If this happens, all you can do is wait an hour and try again. You can read more about GitHub rate limiting [here](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting).
+
+### Get-PSIssueLabel
+
+To make it easier to search for issues based on labels, you can use `Get-PSIssueLabel` to list available labels from the PowerShell repository. However, you most likely won't need to run this command often. When you import the `PSReleaseTools` module, it will create a global variable called `$PSIssueLabel`.
+
+```powershell
+PS C:\> $PSIssueLabel
+
+name                         description
+----                         -----------
+.NET                         Pull requests that update .net code
+Area-Build
+Area-Cmdlets
+Area-Cmdlets-Archive
+Area-Cmdlets-Core
+Area-Cmdlets-Management
+Area-Cmdlets-Utility
+Area-Console
+Area-DSC
+...
+```
+
+This variable is used as part of an argument completer for the `Labels` parameter on `Get-PSIssue`.
+
+### Open-PSIssue
+
+Finally, you may want to respond to an issue. If you run `Open-PSIssue` without any parameters, it should open the Issues section of the PowerShell repository in your browser. Or you can pipe an issue object to the command, as long as you include the `Url` property.
+
+```powershell
+Get-PSIssue | Select-Object Updated,Labels,Title,Url | Out-GridView -PassThru | Open-PSIssue
+```
+
+There are no plans to add a command to open a new issue from a PowerShell session. You can use `Open-PSIssue` to get to GitHub and then use your browser to submit a new issue.
+
 ## PowerShell Gallery
 
 You can find this module in the PowerShell Gallery. You should be able to run these commands to find and install it.
@@ -140,4 +193,4 @@ Install-Module PSReleaseTools [-Scope CurrentUser]
 
 If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, or any of my work, please consider a small support donation.[<kbd>:heart:Sponsor</kbd>](https://paypal.me/jdhitsolutions?locale.x=en_US)
 
-Last Updated *2020-07-30 14:54:52Z UTC*
+Last Updated *2020-08-25 11:19:04Z*
