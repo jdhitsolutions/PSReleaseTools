@@ -14,24 +14,24 @@ Install the latest PowerShell 7.x version on Windows.
 ## SYNTAX
 
 ```yaml
-Install-PowerShell [[-Path] <String>] [[-Mode] <String>] [-EnableRemoting] [-EnableContextMenu] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Install-PowerShell [[-Path] <String>] [[-Mode] <String>] [-EnableRemoting] [-EnableContextMenu]
+ [-EnableRunContext] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is intended to make it easy to download and install the latest PowerShell (7.x) *stable* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer. Previous versions will either be removed or overwritten based on the MSI package. You also have options to enable PowerShell remoting over WSMan as well as enable a context menu in Windows Explorer to open current location in a PowerShell session.
+This command is intended to make it easy to download and install the latest PowerShell (7.x) *stable* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer. Previous versions will either be removed or overwritten based on the MSI package. You also have options to enable PowerShell remoting over WSMan as well as enable a context menu in Windows Explorer to open the current location in a PowerShell session.
 
 This command will only work on Windows platforms. Non-Windows platforms have better native installation tools.
 
-This command has an alias of Install-PSCore for backwards compatibility.
+This command has an alias of Install-PSCore for backward compatibility.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> Install-PowerShell -mode Passive -EnableRemoting -EnableContextMenu
+PS C:\> Install-PowerShell -mode Passive -EnableRemoting -EnableContextMenu -EnableRunContext
 ```
 
 Download and install using the passive mode which will only display a progress bar.
@@ -135,6 +135,22 @@ The cmdlet is not run.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EnableRunContext
+
+Add 'Run with PowerShell 7' context menu for PowerShell files.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

@@ -14,15 +14,15 @@ Install the latest PowerShell Preview on Windows.
 ## SYNTAX
 
 ```yaml
-Install-PSPreview [[-Path] <String>] [[-Mode] <String>] [-EnableRemoting] [-EnableContextMenu] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Install-PSPreview [[-Path] <String>] [[-Mode] <String>] [-EnableRemoting] [-EnableContextMenu]
+ [-EnableRunContext] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 This command is intended to make it easy to download and install the latest PowerShell *preview* release on Windows platforms. The command will download the 64bit MSI package and initiate the installation process. You can control how much of the installation you want to interact with. The default is the full, interactive installer. If you have previous PowerShell preview versions installed, they will be either removed or overwritten.
 
-This command will only work on Windows platforms. Non-Windows platforms have their own native installation tools.
+This command will only work on Windows platforms. Non-Windows platforms have native installation tools.
 
 ## EXAMPLES
 
@@ -128,6 +128,22 @@ Accept wildcard characters: False
 ### -EnableRemoting
 
 Enable PowerShell Remoting over WSMan.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EnableRunContext
+
+Add 'Run with PowerShell 7' context menu for PowerShell files.
 
 ```yaml
 Type: SwitchParameter

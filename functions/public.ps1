@@ -573,8 +573,10 @@ function Install-PSPreview {
         [string]$Mode = "Full",
         [Parameter(HelpMessage = "Enable PowerShell Remoting over WSMan.")]
         [switch]$EnableRemoting,
-        [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
-        [switch]$EnableContextMenu
+        [Parameter(HelpMessage = "Add 'Open Here' context menus to Explorer.")]
+        [switch]$EnableContextMenu,
+        [Parameter(HelpMessage = "Add 'Run with PowerShell 7` context menu for PowerShell files")]
+        [switch]$EnableRunContext
     )
     begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
@@ -610,6 +612,7 @@ function Install-PSPreview {
                     Mode              = $Mode
                     EnableRemoting    = $EnableRemoting
                     EnableContextMenu = $EnableContextMenu
+                    EnableRunContext  = $EnableRunContext
                     ErrorAction       = "Stop"
                 }
                 if ($PSCmdlet.ShouldProcess($filename, "Install PowerShell Preview using $mode mode")) {
@@ -639,8 +642,10 @@ function Install-PowerShell {
         [string]$Mode = "Full",
         [Parameter(HelpMessage = "Enable PowerShell Remoting over WSMan.")]
         [switch]$EnableRemoting,
-        [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
-        [switch]$EnableContextMenu
+        [Parameter(HelpMessage = "Add 'Open Here' context menus to Explorer.")]
+        [switch]$EnableContextMenu,
+        [Parameter(HelpMessage = "Add 'Run with PowerShell 7` context menu for PowerShell files")]
+        [switch]$EnableRunContext
     )
     begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
@@ -674,6 +679,7 @@ function Install-PowerShell {
                     Mode              = $Mode
                     EnableRemoting    = $EnableRemoting
                     EnableContextMenu = $EnableContextMenu
+                    EnableRunContext  = $EnableRunContext
                     ErrorAction       = "Stop"
                 }
                 if ($PSCmdlet.ShouldProcess($filename, "Install PowerShell using $mode mode")) {
@@ -690,4 +696,4 @@ function Install-PowerShell {
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
-} #close Install-PSCore
+} #close Install-PowerShell

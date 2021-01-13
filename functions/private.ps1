@@ -53,8 +53,10 @@ function InstallMsi {
         [string]$Mode = "Full",
         [Parameter(HelpMessage = "Enable PowerShell Remoting over WSMan.")]
         [switch]$EnableRemoting,
-        [Parameter(HelpMessage = "Enable the PowerShell context menu in Windows Explorer.")]
-        [switch]$EnableContextMenu
+        [Parameter(HelpMessage = "Add 'Open Here' context menus to Explorer.")]
+        [switch]$EnableContextMenu,
+        [Parameter(HelpMessage = "Add 'Run with PowerShell 7` context menu for PowerShell files.")]
+        [switch]$EnableRunContext
     )
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Creating Start-Process parameters"
@@ -65,13 +67,26 @@ function InstallMsi {
         "Passive" { "/passive" }
     }
 
-    $installOption = "$modeOption REGISTER_MANIFEST=1"
+    #create a log file
+    $log = Join-Path $env:temp -ChildPath "PS7Install.log"
+    $installOption = " $modeOption /lp! $log"
+
+    #Register Windows Event Logging Manifest
+    $installOption += " REGISTER_MANIFEST=1"
+    #Add PowerShell to Path Environment Variable
+    $installOption += " ADD_PATH=1"
 
     if ($EnableRemoting) {
+        #Enable PowerShell Remoting
         $installOption += " ENABLE_PSREMOTING=1"
     }
     If ($EnableContextMenu) {
+        #Add 'Open Here' context menus to Explorer
         $installOption += " ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1"
+    }
+    if ($EnableRunContext) {
+        #Add 'Run with PowerShell 7` context menu for PowerShell files
+        $installOption += " ADD_FILE_CONTEXT_MENU_RUNPOWERSHELL=1"
     }
 
     Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] FilePath: $Path"

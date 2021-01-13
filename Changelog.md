@@ -1,5 +1,13 @@
 # Change Log for PSReleaseTools
 
+## V1.9.0
+
++ Added `-EnableRunContext` parameter to `Install-PowerShell`, `Install-PSPreview`, and the internal `installMSI` functions to reflect a new MSI installation option.
++ Modified `installMSI` to create a log file at `$env:temp\PS7Install.log`.
++ Help updates.
++ Updated `README.md`.
++ Updated license year.
+
 ## v1.8.0
 
 + Added commands (`Get-PSIssue`, `Get-PSIssueLabel`,`Open-PSIssue`) to view and search issues from the PowerShell GitHub repository.
