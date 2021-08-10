@@ -1,7 +1,7 @@
 ---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version: http://bit.ly/325i1Bm
+online version: https://bit.ly/2U6BcfQ
 schema: 2.0.0
 ---
 
@@ -14,8 +14,8 @@ Install the latest PowerShell 7.x version on Windows.
 ## SYNTAX
 
 ```yaml
-Install-PowerShell [[-Path] <String>] [[-Mode] <String>] [-EnableRemoting] [-EnableContextMenu]
- [-EnableRunContext] [-WhatIf] [-Confirm] [<CommonParameters>]
+Install-PowerShell [[-Path] <String>] [-EnableRemoting] [-EnableContextMenu]
+[-EnableRunContext] [[-Mode] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,18 +39,41 @@ PowerShell remoting will be enabled as well as the "Open in PowerShell" context 
 
 ## PARAMETERS
 
-### -Confirm
+### -Path
 
-Prompts you for confirmation before running the cmdlet.
+Specify the path to the download folder.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
-Position: Named
-Default value: None
+Position: 0
+Default value: $env:\temp
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Mode
+
+Specify what kind of installation you want.
+
+- Quiet is no interaction at all.
+- Passive will display a progress bar.
+- Full is the complete interactive experience.
+
+The default is a full interactive install.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: Full, Quiet, Passive
+
+Required: False
+Position: 1
+Default value: Full
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -87,41 +110,18 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Mode
+### -EnableRunContext
 
-Specify what kind of installation you want.
-
-- Quiet is no interaction at all.
-- Passive will display a progress bar.
-- Full is the complete interactive experience.
-
-The default is a full interactive install.
+Add 'Run with PowerShell 7' context menu for PowerShell files.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: Full, Quiet, Passive
-
-Required: False
-Position: 1
-Default value: Full
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Path
-
-Specify the path to the download folder.
-
-```yaml
-Type: String
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
-Default value: $env:\temp
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -143,14 +143,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EnableRunContext
+### -Confirm
 
-Add 'Run with PowerShell 7' context menu for PowerShell files.
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
 Position: Named

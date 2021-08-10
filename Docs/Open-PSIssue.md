@@ -1,7 +1,7 @@
----
+﻿---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version: https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Open-PSIssue.md
+online version: https://bit.ly/3Aw48h0
 schema: 2.0.0
 ---
 
@@ -34,11 +34,11 @@ Open PowerShell issues in your default browser.
 ### Example 2
 
 ```powershell
-PS C:\> $a = Get-PSIssue -since "8/1/2020"
+PS C:\> $a = Get-PSIssue -since "1/1/2021"
 PS C:\> $a[1] | Open-PSSIssue
 ```
 
-The first command gets all issues since 8/1/2020. The second command opens the issue in your web browser. The objects from Get-PSIssue also have a Show() method which will achieve the same result.
+The first command gets all issues since 1/1/2021. The second command opens the issue in your web browser. The objects from Get-PSIssue also have a Show() method which will achieve the same result.
 
 ## PARAMETERS
 

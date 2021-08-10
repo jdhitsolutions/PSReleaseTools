@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get information on latest PowerShell 7.x release.
+Get information about the latest PowerShell 7.x release.
 
 ## SYNTAX
 
@@ -33,7 +33,7 @@ Get-PSReleaseSummary [-Preview] [-Online] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.
+This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.
 
 The default output is a text report but you have the option to create a markdown version.
 

@@ -18,9 +18,9 @@
         <maml:name>Get-PSIssue</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Since</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Display issues updated since this time.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
           <dev:type>
             <maml:name>DateTime</maml:name>
@@ -30,9 +30,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Label</maml:name>
-          <maml:Description>
-            <maml:para>Specify a comma separated list of labels to filter with. If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.</maml:para>
-          </maml:Description>
+          <maml:description>
+            <maml:para>Specify a comma-separated list of labels to filter with. If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.</maml:para>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
@@ -42,9 +42,9 @@
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Count</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The number of results to return. The actual number of results you get back may vary depending on other parameters and how the GitHub API pages results. Think of this parameter value as more of an approximation instead of a hard count.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">25</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">50</command:parameterValue>
@@ -65,9 +65,9 @@
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Count</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The number of results to return. The actual number of results you get back may vary depending on other parameters and how the GitHub API pages results. Think of this parameter value as more of an approximation instead of a hard count.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
           <maml:name>Int32</maml:name>
@@ -77,9 +77,9 @@
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Label</maml:name>
-        <maml:Description>
-          <maml:para>Specify a comma separated list of labels to filter with. If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.</maml:para>
-        </maml:Description>
+        <maml:description>
+          <maml:para>Specify a comma-separated list of labels to filter with. If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.</maml:para>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
@@ -89,9 +89,9 @@
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Since</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Display issues updated since this time.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
         <dev:type>
           <maml:name>DateTime</maml:name>
@@ -212,7 +212,7 @@ body        : Steps to reproduce
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSIssue.md</maml:uri>
+        <maml:uri>https://bit.ly/3jITkVR</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSIssueLabel</maml:linkText>
@@ -234,16 +234,16 @@ body        : Steps to reproduce
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The GitHub issues for the PowerShell repository have a number of labels defined. You can run this command to get a list of these labels.</maml:para>
+      <maml:para>The GitHub issues for the PowerShell repository have numerous labels defined. You can run this command to get a list of these labels.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PSIssueLabel</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Name</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify a label name. You can use wildcards.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -256,9 +256,9 @@ body        : Steps to reproduce
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Name</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify a label name. You can use wildcards.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -313,7 +313,7 @@ Area-Cmdlets-Core
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Open-PSIssue.md</maml:uri>
+        <maml:uri>https://bit.ly/3lMpNgK</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSIssue</maml:linkText>
@@ -339,9 +339,9 @@ Area-Cmdlets-Core
         <maml:name>Get-PSReleaseAsset</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Family</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Limit search to a particular platform.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Rhel</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">Raspbian</command:parameterValue>
@@ -365,9 +365,9 @@ Area-Cmdlets-Core
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="x64">
           <maml:name>Only64Bit</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Only display 64bit assets.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -376,9 +376,9 @@ Area-Cmdlets-Core
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Format</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Limit results to a given format. The default is all formats.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">deb</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">gz</command:parameterValue>
@@ -397,9 +397,9 @@ Area-Cmdlets-Core
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -408,9 +408,9 @@ Area-Cmdlets-Core
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>LTS</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Only get LTS release-related assets.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -422,9 +422,9 @@ Area-Cmdlets-Core
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Family</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Limit search to a particular platform.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
@@ -434,9 +434,9 @@ Area-Cmdlets-Core
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="x64">
         <maml:name>Only64Bit</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Only display 64bit assets.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -446,9 +446,9 @@ Area-Cmdlets-Core
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Format</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Limit results to a given format. The default is all formats.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
@@ -458,9 +458,9 @@ Area-Cmdlets-Core
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Preview</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Get the latest preview release.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -470,9 +470,9 @@ Area-Cmdlets-Core
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>LTS</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Only get LTS release-related assets.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -612,9 +612,9 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
         <maml:name>Get-PSReleaseCurrent</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -626,9 +626,9 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Preview</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Get the latest preview release.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -650,7 +650,7 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.Object</maml:name>
+          <maml:name>PSReleaseStatus</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -665,22 +665,37 @@ What if: Performing the operation "Downloading https://github.com/PowerShell/Pow
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; PS C:\&gt; Get-PSReleaseCurrent
+        <dev:code>PS C:\&gt; Get-PSReleaseCurrent
 
-Name                         Version Released               LocalVersion
-----                         ------- --------               ------------
-v7.1.0 Release of PowerShell v7.1.0  11/11/2020 11:23:08 AM 5.1.19041.610</dev:code>
+Name                            OnlineVersion  Released                  LocalVersion
+----                            -------        --------                  ------------
+v7.1.0 Release of PowerShell    7.1.0          11/11/2020 11:23:08 AM   5.1.19041.610</dev:code>
         <dev:remarks>
-          <maml:para>This gets the current release from a Windows platform.</maml:para>
+          <maml:para>This gets the current release from a Windows platform running Windows PowerShell.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSReleaseCurrent -preview | Select-Object *
+
+Name         : v7.2.0-preview.2 Release of PowerShell
+Version      : v7.2.0-preview.2
+Released     : 12/15/2020 9:31:39 PM
+LocalVersion : 7.1.0
+URL          : https://github.com/PowerShell/PowerShell/releases/tag/v7.2.0-preview.2
+Draft        : False
+Prerelease   : True</dev:code>
+        <dev:remarks>
+          <maml:para>View all properties for the latest preview release.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS /home/me&gt; Get-PSReleaseCurrent -preview
 
-Name                                   Version          Released            LocalVersion
-----                                   -------          --------            ------------
-v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.0</dev:code>
+Name                                    OnelineVersion     Released            LocalVersion
+----                                    -------            --------            ------------
+v7.2.0-preview.2 Release of PowerShell  7.2.0-preview.2    12/15/2020 21:31:39        7.1.0</dev:code>
         <dev:remarks>
           <maml:para>This gets the current preview release from an Ubuntu platform.</maml:para>
         </dev:remarks>
@@ -703,11 +718,11 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
       <command:verb>Get</command:verb>
       <command:noun>PSReleaseSummary</command:noun>
       <maml:description>
-        <maml:para>Get information on latest PowerShell 7.x release.</maml:para>
+        <maml:para>Get information about the latest PowerShell 7.x release.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account in order to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.</maml:para>
+      <maml:para>This command will query the PowerShell GitHub repository for the latest stable release information using the GitHub APIs. Use -Preview to get information about the latest preview build. You do not need to have a GitHub account to use this command, although you may still reach an API limit if you run this command repeatedly in a short time frame.</maml:para>
       <maml:para>The default output is a text report but you have the option to create a markdown version.</maml:para>
       <maml:para>Use the -Online parameter to open the GitHub release page in your browser. This parameter only works in Windows.</maml:para>
     </maml:description>
@@ -716,9 +731,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
         <maml:name>Get-PSReleaseSummary</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>AsMarkdown</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Create a markdown version of the report.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -727,9 +742,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -741,9 +756,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
         <maml:name>Get-PSReleaseSummary</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -752,9 +767,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Online</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Open the GitHub release page in your browser. This parameter only works on Windows systems.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -766,9 +781,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>AsMarkdown</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Create a markdown version of the report.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -778,9 +793,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Preview</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Get the latest preview release.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -790,9 +805,9 @@ v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Online</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Open the GitHub release page in your browser. This parameter only works on Windows systems.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -906,9 +921,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         <maml:name>Install-PowerShell</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify the path to the download folder.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -918,14 +933,14 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Mode</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify what kind of installation you want.</maml:para>
             <maml:para>- Quiet is no interaction at all.</maml:para>
             <maml:para>- Passive will display a progress bar.</maml:para>
             <maml:para>- Full is the complete interactive experience.</maml:para>
             <maml:para></maml:para>
             <maml:para>The default is a full interactive install.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Full</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">Quiet</command:parameterValue>
@@ -938,22 +953,11 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
           </dev:type>
           <dev:defaultValue>Full</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:Description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableContextMenu</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enable the PowerShell context menu in Windows Explorer.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -962,20 +966,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableRemoting</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enable PowerShell Remoting over WSMan.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:Description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -984,9 +977,31 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableRunContext</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Add 'Run with PowerShell 7' context menu for PowerShell files.</maml:para>
-          </maml:Description>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -996,23 +1011,40 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
-        <maml:Description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:description>
+          <maml:para>Specify the path to the download folder.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>SwitchParameter</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
+        <dev:defaultValue>$env:\temp</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Mode</maml:name>
+        <maml:description>
+          <maml:para>Specify what kind of installation you want.</maml:para>
+          <maml:para>- Quiet is no interaction at all.</maml:para>
+          <maml:para>- Passive will display a progress bar.</maml:para>
+          <maml:para>- Full is the complete interactive experience.</maml:para>
+          <maml:para></maml:para>
+          <maml:para>The default is a full interactive install.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Full</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableContextMenu</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enable the PowerShell context menu in Windows Explorer.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1022,50 +1054,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableRemoting</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enable PowerShell Remoting over WSMan.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>Mode</maml:name>
-        <maml:Description>
-          <maml:para>Specify what kind of installation you want.</maml:para>
-          <maml:para>- Quiet is no interaction at all.</maml:para>
-          <maml:para>- Passive will display a progress bar.</maml:para>
-          <maml:para>- Full is the complete interactive experience.</maml:para>
-          <maml:para></maml:para>
-          <maml:para>The default is a full interactive install.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>Full</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-        <maml:name>Path</maml:name>
-        <maml:Description>
-          <maml:para>Specify the path to the download folder.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>$env:\temp</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:Description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1075,9 +1066,33 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableRunContext</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Add 'Run with PowerShell 7' context menu for PowerShell files.</maml:para>
-        </maml:Description>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1123,7 +1138,7 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>http://bit.ly/325i1Bm</maml:uri>
+        <maml:uri>https://bit.ly/2U6BcfQ</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Save-PSReleaseAsset</maml:linkText>
@@ -1153,9 +1168,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         <maml:name>Install-PSPreview</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify the path to the download folder.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1165,14 +1180,14 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Mode</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Specify what kind of installation you want.</maml:para>
             <maml:para>- Quiet is no interaction at all.</maml:para>
             <maml:para>- Passive will display a progress bar.</maml:para>
             <maml:para>- Full is the complete interactive experience.</maml:para>
             <maml:para></maml:para>
             <maml:para>The default is a full interactive install.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Full</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">Quiet</command:parameterValue>
@@ -1185,33 +1200,11 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
           </dev:type>
           <dev:defaultValue>Full</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:Description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:Description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableContextMenu</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enable the PowerShell context menu in Windows Explorer.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1220,9 +1213,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableRemoting</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Enable PowerShell Remoting over WSMan.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1231,9 +1224,31 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>EnableRunContext</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Add 'Run with PowerShell 7' context menu for PowerShell files.</maml:para>
-          </maml:Description>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1243,40 +1258,11 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
-        <maml:Description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>Mode</maml:name>
-        <maml:Description>
-          <maml:para>Specify what kind of installation you want.</maml:para>
-          <maml:para>- Quiet is no interaction at all.</maml:para>
-          <maml:para>- Passive will display a progress bar.</maml:para>
-          <maml:para>- Full is the complete interactive experience.</maml:para>
-          <maml:para></maml:para>
-          <maml:para>The default is a full interactive install.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>Full</dev:defaultValue>
-      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Specify the path to the download folder.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1284,23 +1270,28 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         </dev:type>
         <dev:defaultValue>$env:\temp</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:Description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Mode</maml:name>
+        <maml:description>
+          <maml:para>Specify what kind of installation you want.</maml:para>
+          <maml:para>- Quiet is no interaction at all.</maml:para>
+          <maml:para>- Passive will display a progress bar.</maml:para>
+          <maml:para>- Full is the complete interactive experience.</maml:para>
+          <maml:para></maml:para>
+          <maml:para>The default is a full interactive install.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>SwitchParameter</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
+        <dev:defaultValue>Full</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableContextMenu</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enable the PowerShell context menu in Windows Explorer.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1310,9 +1301,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableRemoting</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Enable PowerShell Remoting over WSMan.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1322,9 +1313,33 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>EnableRunContext</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Add 'Run with PowerShell 7' context menu for PowerShell files.</maml:para>
-        </maml:Description>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1399,9 +1414,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
         <maml:name>Open-PSIssue</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
           <maml:name>Url</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>You can optionally specify the issue URL</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1414,9 +1429,9 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
         <maml:name>Url</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>You can optionally specify the issue URL</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1460,17 +1475,17 @@ Bump .NET to version &lt;code&gt;5.0.100-rtm.20526.5&lt;/code&gt; (#13920)
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $a = Get-PSIssue -since "8/1/2020"
+        <dev:code>PS C:\&gt; $a = Get-PSIssue -since "1/1/2021"
 PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         <dev:remarks>
-          <maml:para>The first command gets all issues since 8/1/2020. The second command opens the issue in your web browser. The objects from Get-PSIssue also have a Show() method which will achieve the same result.</maml:para>
+          <maml:para>The first command gets all issues since 1/1/2021. The second command opens the issue in your web browser. The objects from Get-PSIssue also have a Show() method which will achieve the same result.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Open-PSIssue.md</maml:uri>
+        <maml:uri>https://bit.ly/3Aw48h0</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSIssue</maml:linkText>
@@ -1495,9 +1510,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         <maml:name>Save-PSReleaseAsset</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The destination folder for all downloads.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1507,42 +1522,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>All</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Download all files to the destination path. This is the default behavior.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Passthru</maml:name>
-          <maml:Description>
-            <maml:para></maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:Description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:Description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1551,9 +1533,42 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:description>
+            <maml:para></maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1565,9 +1580,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         <maml:name>Save-PSReleaseAsset</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The destination folder for all downloads.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1575,44 +1590,11 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
           </dev:type>
           <dev:defaultValue>.</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Passthru</maml:name>
-          <maml:Description>
-            <maml:para></maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:Description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:Description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>Asset</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>An asset object piped from Get-PSReleaseAsset.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
             <maml:name>Object</maml:name>
@@ -1622,9 +1604,42 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:description>
+            <maml:para></maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1636,9 +1651,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         <maml:name>Save-PSReleaseAsset</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Path</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The destination folder for all downloads.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -1646,44 +1661,11 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
           </dev:type>
           <dev:defaultValue>.</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Passthru</maml:name>
-          <maml:Description>
-            <maml:para></maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:Description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:Description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Family</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>The platform you wish to download.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Rhel</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">Raspbian</command:parameterValue>
@@ -1705,9 +1687,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Format</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Limit results to a given format. The default is all formats.</maml:para>
-          </maml:Description>
+          </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
@@ -1717,9 +1699,42 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Preview</maml:name>
-          <maml:Description>
+          <maml:description>
             <maml:para>Get the latest preview release.</maml:para>
-          </maml:Description>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:description>
+            <maml:para></maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
             <maml:uri />
@@ -1731,9 +1746,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Path</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The destination folder for all downloads.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
@@ -1743,45 +1758,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>All</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Download all files to the destination path. This is the default behavior.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Passthru</maml:name>
-        <maml:Description>
-          <maml:para></maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:Description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
-        <maml:Description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>
@@ -1791,9 +1770,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>Asset</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>An asset object piped from Get-PSReleaseAsset.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
           <maml:name>Object</maml:name>
@@ -1803,9 +1782,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Family</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>The platform you wish to download.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
@@ -1815,9 +1794,9 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Format</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Limit results to a given format. The default is all formats.</maml:para>
-        </maml:Description>
+        </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
@@ -1827,9 +1806,45 @@ PS C:\&gt; $a[1] | Open-PSSIssue</dev:code>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Preview</maml:name>
-        <maml:Description>
+        <maml:description>
           <maml:para>Get the latest preview release.</maml:para>
-        </maml:Description>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Passthru</maml:name>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
           <maml:name>SwitchParameter</maml:name>

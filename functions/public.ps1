@@ -162,7 +162,7 @@ Function Get-PSIssueLabel {
 }
 function Get-PSReleaseCurrent {
     [CmdletBinding()]
-    [OutputType("PSCustomObject")]
+    [OutputType("PSReleaseStatus")]
     param(
         [Parameter(HelpMessage = "Get the latest preview release")]
         [switch]$Preview
@@ -186,12 +186,17 @@ function Get-PSReleaseCurrent {
         }
 
         if ($data.tag_name) {
+            #create a custom object. This object has a custom format file.
             [pscustomobject]@{
+                PSTypeName   = "PSReleaseStatus"
                 Name         = $data.name
                 Version      = $data.tag_name
                 Released     = $($data.published_at -as [datetime])
                 LocalVersion = $local
-            }
+                URL          = $data.html_url
+                Draft        = If ($data.draft -eq 'True') {$True} else {$false}
+                Prerelease   = If ($data.prerelease -eq 'True') { $True } else { $false }
+             }
         }
     } #process
 

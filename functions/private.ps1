@@ -46,7 +46,7 @@ function InstallMsi {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory, HelpMessage = "The full path to the MSI file")]
-        [ValidateScript( { Test-Path $_ })]
+        [ValidateScript({ Test-Path $_ })]
         [string]$Path,
         [Parameter(HelpMessage = "Specify what kind of installation you want. The default if a full interactive install.")]
         [ValidateSet("Full", "Quiet", "Passive")]

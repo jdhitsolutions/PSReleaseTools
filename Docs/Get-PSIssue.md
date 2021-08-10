@@ -1,7 +1,7 @@
----
+﻿---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version: https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Get-PSIssue.md
+online version: https://bit.ly/3jITkVR
 schema: 2.0.0
 ---
 
@@ -130,7 +130,7 @@ Accept wildcard characters: False
 
 ### -Label
 
-Specify a comma separated list of labels to filter with.
+Specify a comma-separated list of labels to filter with.
 If you select multiple labels, the issue must have all of them. When the PSReleaseTools module loads, it should define a global variable called PSIssueLabel. This parameter has an auto-completer that uses this variable. If the variable isn't defined, if will be created by running Get-PSIssueLabel.
 
 ```yaml

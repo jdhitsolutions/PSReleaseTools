@@ -10,12 +10,18 @@ These commands utilize the GitHub API, which is subject to rate limits. It is re
 
 This module should work cross-platform on both Windows PowerShell 5.1 and PowerShell 7.x, but is primarily intended for Windows platforms.
 
-## Notes
+You can install this module from the PowerShell Gallery.
+
+```powershell
+Install-Module PSReleaseTools
+```
+
+## The Module
 
 The module currently has 9 commands:
 
-- [Get-PSReleaseSummary](Docs/Get-PSReleaseSummary.md)
 - [Get-PSReleaseCurrent](Docs/Get-PSReleaseCurrent.md)
+- [Get-PSReleaseSummary](Docs/Get-PSReleaseSummary.md)
 - [Get-PSReleaseAsset](Docs/Get-PSReleaseAsset.md)
 - [Save-PSReleaseAsset](Docs/Save-PSReleaseAsset.md)
 - [Install-PowerShell](Docs/Install-PowerShell.md)
@@ -24,9 +30,37 @@ The module currently has 9 commands:
 - [Get-PSIssueLabel](Docs/Get-PSIssueLabel.md)
 - [Open-PSIssue](Docs/Open-PSIssue.md)
 
-All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either [Invoke-RestMethod](http://go.microsoft.com/fwlink/?LinkID=217034) or [Invoke-WebRequest](http://go.microsoft.com/fwlink/?LinkID=217035), allow you to programmatically interact with GitHub.
+All of the functions take advantage of the [GitHub API](https://developer.github.com/v3/ "learn more about the API") which in combination with either [Invoke-RestMethod](http://go.microsoft.com/fwlink/?LinkID=217034 "read online help for the cmdlet") or [Invoke-WebRequest](http://go.microsoft.com/fwlink/?LinkID=217035  "read online help for the cmdlet"), allow you to programmatically interact with GitHub.
 
-The first command, `Get-PSReleaseSummary`, queries the PowerShell repository release page and constructs a text summary. You can also have the command write the report text as markdown.
+### Get Current Release
+
+The first command, `Get-PSReleaseCurrent` can provide a quick summary view of the latest stable or preview release.
+
+```powershell
+PS C:\> Get-PSReleaseCurrent
+
+Name                                   OnlineVersion       Released                    LocalVersion
+----                                   -------------       --------                    ------------
+v7.1.0 Release of PowerShell           7.1.0               11/11/2020 4:23:08 PM              7.1.0
+```
+
+The command writes a custom object to the pipeline which has additional properties.
+
+```powershell
+PS C:\> Get-PSReleaseCurrent -preview | Select-Object *
+
+Name         : v7.2.0-preview.2 Release of PowerShell
+Version      : v7.2.0-preview.2
+Released     : 12/15/2020 9:31:39 PM
+LocalVersion : 7.1.0
+URL          : https://github.com/PowerShell/PowerShell/releases/tag/v7.2.0-preview.2
+Draft        : False
+Prerelease   : True
+```
+
+### Summary Information
+
+`Get-PSReleaseSummary` queries the PowerShell repository release page and constructs a text summary. You can also have the command write the report text as markdown.
 
 ![get-psreleasesummary.png](/images/get-psreleasesummary.png)
 
@@ -47,7 +81,7 @@ DownloadCount : 10509
 ...
 ```
 
-By default,the command will display assets for all platforms, but I added a `-Family` parameter if you want to limit yourself to a single entry like MacOS.
+By default, the command will display assets for all platforms, but I added a `-Family` parameter if you want to limit yourself to a single entry like MacOS.
 
 ```powershell
 PS C:\> Get-PSReleaseAsset -Family MacOS
@@ -99,18 +133,15 @@ Mode                 LastWriteTime         Length Name
 -a----         1/13/2021  11:13 AM       67752949 powershell-7.1.0-1.rhel.7.x86_64.rpm
 ```
 
-The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls `Get-FileHash` to get the current file hash and compares them.
+The current version of this module uses regular expression named captures to pull out the file name and corresponding SHA256 hashes. The save command then calls [Get-FileHash](https://docs.microsoft.com/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1&WT.mc_id=ps-gethelp "read online help for the cmdlet") to get the current file hash and compares them.
 
-## Preview Builds
+### Installing a Build
 
-Beginning with v0.8.0 of this module, command functions have a `-Preview` parameter, which will get the latest preview build. Otherwise, the commands will use the latest stable release.
-
-## Installing a Build
-
-On Windows, it is pretty easy to install a new build with a one-line command like this:
+On Windows, it is pretty easy to install a new build with a one-line command:
 
 ```powershell
- Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi | Save-PSReleaseAsset -Path d:\temp -Passthru | Invoke-Item
+Get-PSReleaseAsset -Family Windows -Only64Bit -Format msi |
+Save-PSReleaseAsset -Path d:\temp -Passthru | Invoke-Item
 ```
 
 Or you can use one of two newer functions to install the latest 64bit release. You can specify the interaction level.
@@ -124,18 +155,22 @@ Install-PSPreview -Mode Passive
  [Install-PowerShell](/Docs/Install-PowerShell.md) will do the same thing but for the latest stable release. The command retains `Install-PSCore` as an alias.
 
 ```powershell
-PS C:\> Install-PowerShell -Mode Quiet -EnableRemoting -EnableContextMenu -EnableRunContext
+Install-PowerShell -Mode Quiet -EnableRemoting -EnableContextMenu -EnableRunContext
 ```
 
 The functionality of these commands could have been combined, but I decided to leave them as separate commands, so there is no confusion about what you are installing. In both cases, an installation log file will be created at `$env:TEMP\PS7Install.log`.
 
 Non-Windows platforms have existing command-line installation tools that don't need to be replaced. Plus, I don't have the resources to develop and test installation techniques for all of the non-Windows options. That is why install-related commands in this module are limited to Windows.
 
-## PowerShell Issues
+### Preview Builds
 
-A new set of commands have been introduced in v1.8.0. These commands are intended to make it easier for you to look at [issues from the PowerShell GitHub repository](https://github.com/PowerShell/PowerShell/issues). The idea is that you can take a peek at open issues from your PowerShell session and then open the issue in your browser to learn more or contribute.
+Beginning with v0.8.0 of this module, command functions have a `-Preview` parameter, which will get the latest preview build. Otherwise, the commands will use the latest stable release.
 
-### Get-PSIssue
+### PowerShell Repository Issues
+
+A new set of commands have been introduced in [v1.8.0](https://github.com/jdhitsolutions/PSReleaseTools/releases/tag/v1.8.0 "see release 1.8.0"). These commands are intended to make it easier for you to look at [issues from the PowerShell GitHub repository](https://github.com/PowerShell/PowerShell/issues). The idea is that you can take a peek at open issues from your PowerShell session and then open the issue in your browser to learn more or contribute.
+
+#### Get-PSIssue
 
 `Get-PSIssue` is intended to get open PowerShell issues from Github. With no parameters, you can get the 25 most recent issues. Use the `-Count` parameter to increase that value using one of the possible values. The actual number of issues returned may vary depending on the rest of your command and how GitHub pages results.
 
@@ -143,15 +178,15 @@ You can also fine-tune your search to get issues that have been updated since a 
 
 ![Get-PSIssue](images/get-psissue.png)
 
-The function writes a custom object to the pipeline and includes a default formatted view. If you are running PowerShell 7, the issue body will be rendered as formatted markdown.
+The function writes a custom object to the pipeline and includes a default formatted view. If you are running PowerShell 7, the issue body will be rendered as markdown.
 
 Here is another way you might use the command.
 
 ![Get-PSIssue Summary](images/get-psissue-summary.png)
 
-__Note:__ The _PSIssue_ commands use the GitHub API and anonymous connections. The API has rate limits. If you run one of these commands excessively in a short period of time, you might see an error about exceeding the rate limit. If this happens, all you can do is wait an hour and try again. You can read more about GitHub rate limiting [here](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting).
+__Note:__ The _PSIssue_ commands use the GitHub API and anonymous connections. The API has rate limits. If you run one of these commands excessively in a short period of time, you might see an error about exceeding the rate limit. If this happens, all you can do is wait an hour and try again. You can read more about GitHub rate-limiting [here](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting "read the Github documentation on rate limiting").
 
-### Get-PSIssueLabel
+#### Get-PSIssueLabel
 
 To make it easier to search for issues based on a label run `Get-PSIssueLabel`. This command will list available labels from the PowerShell repository. However, you most likely won't need to run this command often. When you import the `PSReleaseTools` module, it will create a global variable called `$PSIssueLabel`.
 
@@ -174,7 +209,7 @@ Area-DSC
 
 This variable is used as part of an argument completer for the `Labels` parameter on `Get-PSIssue`.
 
-### Open-PSIssue
+#### Open-PSIssue
 
 Finally, you may want to respond to an issue. If you run `Open-PSIssue` without any parameters, it should open the Issues section of the PowerShell repository in your browser. Or you can pipe an issue object to the command, as long as you include the `Url` property.
 
@@ -184,22 +219,10 @@ Get-PSIssue | Select-Object Updated,Labels,Title,Url | Out-GridView -PassThru | 
 
 There are no plans to add a command to open a new issue from a PowerShell session. You can use `Open-PSIssue` to get to GitHub and then use your browser to submit a new issue.
 
-## PowerShell Gallery
-
-You can find this module in the PowerShell Gallery. You should be able to run these commands to find and install it.
-
-```powershell
-Install-Module PSReleaseTools
-```
-
-On PowerShell you might need to run:
-
-```powershell
-Install-Module PSReleaseTools [-Scope CurrentUser]
-```
-
 ## Support
 
-If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, or any of my work, please consider a small support donation.[<kbd>:heart:Sponsor</kbd>](https://paypal.me/jdhitsolutions?locale.x=en_US)
+If you have suggestions or encounter problems, please post an issue in this GitHub repository. If you find this project useful, or any of my work, please consider a small support donation.
 
-Last Updated *2021-01-13 17:04:35Z*
+[<kbd>:heart:Sponsor</kbd>](https://paypal.me/jdhitsolutions?locale.x=en_US)
+
+Last Updated 2021-08-10 23:37:46Z

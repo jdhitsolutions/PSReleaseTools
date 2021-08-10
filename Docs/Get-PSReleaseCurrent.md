@@ -26,23 +26,39 @@ This command will query the GitHub repository for the latest stable PowerShell r
 ### Example 1
 
 ```powershell
-PS C:\> PS C:\> Get-PSReleaseCurrent
+PS C:\> Get-PSReleaseCurrent
 
-Name                         Version Released               LocalVersion
-----                         ------- --------               ------------
-v7.1.0 Release of PowerShell v7.1.0  11/11/2020 11:23:08 AM 5.1.19041.610
+Name                            OnlineVersion  Released                  LocalVersion
+----                            -------        --------                  ------------
+v7.1.0 Release of PowerShell    7.1.0          11/11/2020 11:23:08 AM   5.1.19041.610
 ```
 
-This gets the current release from a Windows platform.
+This gets the current release from a Windows platform running Windows PowerShell.
 
 ### Example 2
 
 ```powershell
+PS C:\> Get-PSReleaseCurrent -preview | Select-Object *
+
+Name         : v7.2.0-preview.2 Release of PowerShell
+Version      : v7.2.0-preview.2
+Released     : 12/15/2020 9:31:39 PM
+LocalVersion : 7.1.0
+URL          : https://github.com/PowerShell/PowerShell/releases/tag/v7.2.0-preview.2
+Draft        : False
+Prerelease   : True
+```
+
+View all properties for the latest preview release.
+
+### Example 3
+
+```powershell
 PS /home/me> Get-PSReleaseCurrent -preview
 
-Name                                   Version          Released            LocalVersion
-----                                   -------          --------            ------------
-v7.2.0-preview.2 Release of PowerShell v7.2.0-preview.2 12/15/2020 21:31:39 7.1.0
+Name                                    OnelineVersion     Released            LocalVersion
+----                                    -------            --------            ------------
+v7.2.0-preview.2 Release of PowerShell  7.2.0-preview.2    12/15/2020 21:31:39        7.1.0
 ```
 
 This gets the current preview release from an Ubuntu platform.
@@ -75,7 +91,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### PSReleaseStatus
 
 ## NOTES
 

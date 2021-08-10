@@ -1,7 +1,7 @@
----
+﻿---
 external help file: PSReleaseTools-help.xml
 Module Name: PSReleaseTools
-online version: https://github.com/jdhitsolutions/PSReleaseTools/blob/master/Docs/Open-PSIssue.md
+online version: https://bit.ly/3lMpNgK
 schema: 2.0.0
 ---
 
@@ -19,7 +19,7 @@ Get-PSIssueLabel [[-Name] <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-The GitHub issues for the PowerShell repository have a number of labels defined. You can run this command to get a list of these labels.
+The GitHub issues for the PowerShell repository have numerous labels defined. You can run this command to get a list of these labels.
 
 ## EXAMPLES
 

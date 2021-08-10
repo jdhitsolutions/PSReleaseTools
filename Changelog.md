@@ -1,5 +1,13 @@
 # Change Log for PSReleaseTools
 
+## v1.10.0
+
++ Help file cleanup.
++ Modified `images/PowerShell_avatar.png` to use a transparent background.
++ Modified `Get-PSReleaseCurrent` to write a `PSReleaseStatus` type of object to the pipeline.
++ Added a custom format file, `psreleasestatus.format.ps1xml` for the `PSReleaseStatus` type.
++ Updated `README.md`.
+
 ## v1.9.0
 
 + Added `-EnableRunContext` parameter to `Install-PowerShell`, `Install-PSPreview`, and the internal `installMSI` functions to reflect a new MSI installation option.
@@ -65,7 +73,7 @@
 + Changed online help links to `bit.ly` links.
 + Added `msix` as an asset format.
 + Updated `Get-PSReleaseAsset` to be stricter on format matching.
-+ Fixed bug with `Install-PSPreview` erroring on path (Issue #15).
++ Fixed bug with `Install-PSPreview` erroring on the path (Issue #15).
 
 ## v1.3.2
 

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Format type data generated 01/14/2021 09:36:57 by PROSPERO\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 01/14/2021 09:36:57 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>PSReleaseStatus</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>38</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>OnlineVersion</Label>
+            <Width>19</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Released</Label>
+            <Width>24</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LocalVersion</Label>
+            <Width>15</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Version -replace "^v",""</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Released</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LocalVersion</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
