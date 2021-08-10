@@ -6,6 +6,7 @@
 + Modified `images/PowerShell_avatar.png` to use a transparent background.
 + Modified `Get-PSReleaseCurrent` to write a `PSReleaseStatus` type of object to the pipeline.
 + Added a custom format file, `psreleasestatus.format.ps1xml` for the `PSReleaseStatus` type.
++ Fixed broken online help links. ([Issue #25](https://github.com/jdhitsolutions/PSReleaseTools/issues/112)).
 + Updated `README.md`.
 
 ## v1.9.0
