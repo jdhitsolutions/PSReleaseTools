@@ -34,11 +34,11 @@ function GetData {
 
     if ($Preview) {
         Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Getting latest preview"
-        ($get).where( { $_.prerelease }) | Select-Object -First 1
+        ($get).where( { $_.prerelease }) | Sort-Object -property Published_At -descending | Select-Object -First 1
     }
     else {
         Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Getting latest stable release"
-        ($get).where( { -NOT $_.prerelease }) | Select-Object -First 1
+        ($get).where( { -NOT $_.prerelease }) | Sort-Object -property Published_At -descending | Select-Object -First 1
     }
 }
 

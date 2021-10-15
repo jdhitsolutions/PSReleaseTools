@@ -1,5 +1,9 @@
 # Change Log for PSReleaseTools
 
+## v1.11.0
+
++ Modified private function `getCode` to get latest release sorting on the published date.
+
 ## v1.10.0
 
 + Help file cleanup.
