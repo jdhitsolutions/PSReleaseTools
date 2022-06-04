@@ -1,7 +1,7 @@
 #these are internal functions for the PSReleaseTools module
 
 #define an internal function to download the file
-function DL {
+function _DownloadAsset {
     [CmdletBinding(SupportsShouldProcess)]
     param([string]$Source, [string]$Destination, [string]$Hash, [switch]$Passthru)
 
@@ -19,7 +19,7 @@ function DL {
             Get-Item $Destination
         }
     } #should process
-} #DL
+} #_DownloadAsset
 
 function GetData {
     [CmdletBinding()]
@@ -34,11 +34,11 @@ function GetData {
 
     if ($Preview) {
         Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Getting latest preview"
-        ($get).where( { $_.prerelease }) | Sort-Object -property Published_At -descending | Select-Object -First 1
+        ($get).where( { $_.prerelease }) | Sort-Object -Property Published_At -Descending | Select-Object -First 1
     }
     else {
         Write-Verbose "[$((Get-Date).TimeofDay) $($MyInvocation.MyCommand)] Getting latest stable release"
-        ($get).where( { -NOT $_.prerelease }) | Sort-Object -property Published_At -descending | Select-Object -First 1
+        ($get).where( { -NOT $_.prerelease }) | Sort-Object -Property Published_At -Descending | Select-Object -First 1
     }
 }
 

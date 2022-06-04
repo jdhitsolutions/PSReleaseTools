@@ -1,5 +1,10 @@
 # Change Log for PSReleaseTools
 
+## v1.12.0
+
++ Exported public functions to individual files.
++ Fixed `A parameter cannot be found that matches parameter name 'source'` bug in `Save-PSReleaseAsset`. Renamed the `DL` private function to `_DownloadAsset`.
+
 ## v1.11.0
 
 + Modified private function `getCode` to get latest release sorting on the published date.
