@@ -4,6 +4,8 @@ ForEach-Object {
     . $_.fullname
 }
 
+# trivial change here
+
 #configure TLS settings for GitHub
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
