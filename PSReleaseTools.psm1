@@ -29,3 +29,4 @@ Register-ArgumentCompleter -CommandName Get-PSIssue -ParameterName Label -Script
         [System.Management.Automation.CompletionResult]::new($_.name, $_.name, 'ParameterValue', $_.description)
     }
 }
+# trivial change
